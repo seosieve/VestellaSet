@@ -10,7 +10,6 @@ import MinewBeaconAdmin
 import Combine
 
 class BeaconManager: NSObject, ObservableObject {
-    
     @Published var beacons: [MinewBeacon] = []
     @Published var connectionState: ConnectionState = .disconnected
     
@@ -65,7 +64,7 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
         DispatchQueue.main.async {
             self.connectionState = state
             
-            if state == .connected, let setting = connection.setting {
+            if state == .connected, let _ = connection.setting {
                 print("Connected to Device")
             }
         }

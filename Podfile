@@ -7,4 +7,5 @@ target 'BeaconSet' do
 
   # Pods for BeaconSet
   pod 'MinewBeaconAdmin'
+  pod 'SwiftLint'
 end

@@ -4,16 +4,29 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MinewBeaconAdmin.xcscheme_^#shared#^_</key>
+		<key>MinewBeaconAdmin.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>0</integer>
 		</dict>
-		<key>Pods-BeaconSet.xcscheme_^#shared#^_</key>
+		<key>Pods-BeaconSet.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>SwiftLint.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict/>
 </dict>
 </plist>

@@ -1,16 +1,20 @@
 PODS:
   - MinewBeaconAdmin (1.0.0)
+  - SwiftLint (0.57.1)
 
 DEPENDENCIES:
   - MinewBeaconAdmin
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
     - MinewBeaconAdmin
+    - SwiftLint
 
 SPEC CHECKSUMS:
   MinewBeaconAdmin: ddfa82609f3e30cc160b2f34a1fb6528e91207f7
+  SwiftLint: 92196976e597b9afec5dbe374810103e6c1d9d7c
 
-PODFILE CHECKSUM: 0eb303e8778db097f2d951820c24a24307de4b95
+PODFILE CHECKSUM: 8ace94e3ba08bd1dba0c50167770bb0df1ffc599
 
 COCOAPODS: 1.16.2

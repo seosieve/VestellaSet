@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		52B60EC2A583F24ACBB69C113F5488B9 /* SwiftLint */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = AE7B4FB01588B9E6DF09CB79FC7CE7BD /* Build configuration list for PBXAggregateTarget "SwiftLint" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = SwiftLint;
+		};
 		9E0D24401DC339BF862013F4C8549302 /* MinewBeaconAdmin */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 01F23A255A00BC1697F16A648272CC29 /* Build configuration list for PBXAggregateTarget "MinewBeaconAdmin" */;
@@ -19,13 +28,20 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		3187826F8FAACB20C9CEA5AE5B657D89 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
-		68737A7BC99424A2BEF8B626273E7240 /* Pods-BeaconSet-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EE21EDC35D2E3143618B04B0DB4BCE /* Pods-BeaconSet-dummy.m */; };
-		9D6F3FDCB0CE0F80581AE2E7685AAB5E /* Pods-BeaconSet-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E824D30DDB568587DD5409464DBDC13B /* Pods-BeaconSet-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		664FE4BB875ED83DD594CF91F96B9110 /* Pods-BeaconSet-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E824D30DDB568587DD5409464DBDC13B /* Pods-BeaconSet-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8B1023F6E620C7520B6A7EECDC6E8071 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		B1A79C8ADC2850A19AA396D160A52C14 /* Pods-BeaconSet-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EE21EDC35D2E3143618B04B0DB4BCE /* Pods-BeaconSet-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C88F80CF9FD3236327437D1EB21AB7C9 /* PBXContainerItemProxy */ = {
+		0D8432F59ABCE0AAA1B62DB12D6D61B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52B60EC2A583F24ACBB69C113F5488B9;
+			remoteInfo = SwiftLint;
+		};
+		A651E01B561AACFF45C03362C7ABF5AA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -36,32 +52,34 @@
 
 /* Begin PBXFileReference section */
 		0022F725CC4FA3BCC96573C49D686443 /* Pods-BeaconSet */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-BeaconSet"; path = Pods_BeaconSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		02BBA10A2FF43764E98208362E51D636 /* MinewBeaconConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeaconConnection.h; path = MinewBeaconAdmin/Classes/MinewBeaconConnection.h; sourceTree = "<group>"; };
-		17FC2AA516FADB6543D2461E3BAE8A5D /* MinewBeaconAdmin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeaconAdmin.h; path = MinewBeaconAdmin/Classes/MinewBeaconAdmin.h; sourceTree = "<group>"; };
+		04E6EAD75CA07D43B21C0359F6CB0787 /* MinewBeaconAdmin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeaconAdmin.h; path = MinewBeaconAdmin/Classes/MinewBeaconAdmin.h; sourceTree = "<group>"; };
+		1B74A39EE45CE466D0398D710D55628D /* SwiftLint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftLint.release.xcconfig; sourceTree = "<group>"; };
+		272225A58D53BF1B4CDE834FA42F027F /* MinewBeaconConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeaconConnection.h; path = MinewBeaconAdmin/Classes/MinewBeaconConnection.h; sourceTree = "<group>"; };
+		2DA0D1E4443F4498A0AE2143DD3BBE31 /* MinewBeaconAdmin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MinewBeaconAdmin.release.xcconfig; sourceTree = "<group>"; };
 		3669726C8AC1131325C704D3CCA0BC9A /* Pods-BeaconSet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BeaconSet.release.xcconfig"; sourceTree = "<group>"; };
 		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		43FD4887D0217CD279CAE1C3B285F1A4 /* Pods-BeaconSet-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BeaconSet-acknowledgements.markdown"; sourceTree = "<group>"; };
-		4BA36E26B9BB8A4A8B1C582C67120805 /* MinewBeaconAdmin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MinewBeaconAdmin.framework; path = MinewBeaconAdmin/Frameworks/MinewBeaconAdmin.framework; sourceTree = "<group>"; };
 		53EE21EDC35D2E3143618B04B0DB4BCE /* Pods-BeaconSet-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BeaconSet-dummy.m"; sourceTree = "<group>"; };
-		68005FEE1783AD4E845569E496FBD353 /* MinewBeacon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeacon.h; path = MinewBeaconAdmin/Classes/MinewBeacon.h; sourceTree = "<group>"; };
 		6CEEACF07F8ED1C328F0A93278F59D87 /* Pods-BeaconSet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BeaconSet.modulemap"; sourceTree = "<group>"; };
 		6D3F8B933E1DEAED15791059F8054371 /* Pods-BeaconSet-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BeaconSet-Info.plist"; sourceTree = "<group>"; };
+		766B1E0DDBDA7C8FFDA96C63586D4A05 /* MinewBeaconAdmin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MinewBeaconAdmin.framework; path = MinewBeaconAdmin/Frameworks/MinewBeaconAdmin.framework; sourceTree = "<group>"; };
+		7E7E017F41BB40820F90E0C6F8F80B46 /* SwiftLint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftLint.debug.xcconfig; sourceTree = "<group>"; };
+		8A01837D70293867FA4F90C578E3ADB9 /* MinewBeaconAdmin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MinewBeaconAdmin.debug.xcconfig; sourceTree = "<group>"; };
+		9B6D7008210307F05B8C42ACDDACBE51 /* MinewBeaconSetting.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeaconSetting.h; path = MinewBeaconAdmin/Classes/MinewBeaconSetting.h; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		C9E6466E8565837B6D3D0FC93A0FE9F2 /* MinewBeaconManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeaconManager.h; path = MinewBeaconAdmin/Classes/MinewBeaconManager.h; sourceTree = "<group>"; };
-		CAD157E0E11E7ABE0331FC6EFDFC1409 /* MinewBeaconAdmin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MinewBeaconAdmin.debug.xcconfig; sourceTree = "<group>"; };
-		DEF8260E3EC7702D5EF20BEC7F264545 /* MinewBeaconSetting.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeaconSetting.h; path = MinewBeaconAdmin/Classes/MinewBeaconSetting.h; sourceTree = "<group>"; };
+		A45879BF2A42794DC55D60A9D4992026 /* MinewBeacon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeacon.h; path = MinewBeaconAdmin/Classes/MinewBeacon.h; sourceTree = "<group>"; };
+		B605CEC74FC145CF87A4935C19C967D8 /* MinewBeaconManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeaconManager.h; path = MinewBeaconAdmin/Classes/MinewBeaconManager.h; sourceTree = "<group>"; };
 		E824D30DDB568587DD5409464DBDC13B /* Pods-BeaconSet-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BeaconSet-umbrella.h"; sourceTree = "<group>"; };
-		F38FCB1FAA94E23E5AA8D41D13E2C088 /* MinewBeaconAdmin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MinewBeaconAdmin.release.xcconfig; sourceTree = "<group>"; };
 		F5B6DF8D754F7435FCA1B5A63086AA81 /* Pods-BeaconSet-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BeaconSet-acknowledgements.plist"; sourceTree = "<group>"; };
 		F6E715ABC495DB685BF90C0426709318 /* Pods-BeaconSet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BeaconSet.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1DFE8441425B5966CC7698D4FDDC5AA0 /* Frameworks */ = {
+		B6886B343E172F119A343DB658AA5A58 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3187826F8FAACB20C9CEA5AE5B657D89 /* Foundation.framework in Frameworks */,
+				8B1023F6E620C7520B6A7EECDC6E8071 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +102,14 @@
 			path = "Target Support Files/Pods-BeaconSet";
 			sourceTree = "<group>";
 		};
+		1899D5B4F2B53B453B157523A2923846 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				766B1E0DDBDA7C8FFDA96C63586D4A05 /* MinewBeaconAdmin.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1C38DA1885FCB9EC9F98F26EE806AF62 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -92,30 +118,57 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2549D8C4931C4B605AA8F15A831C0F59 /* Support Files */ = {
+		1EE02AB438D6162EA93D9FD3E9B30F53 /* MinewBeaconAdmin */ = {
 			isa = PBXGroup;
 			children = (
-				CAD157E0E11E7ABE0331FC6EFDFC1409 /* MinewBeaconAdmin.debug.xcconfig */,
-				F38FCB1FAA94E23E5AA8D41D13E2C088 /* MinewBeaconAdmin.release.xcconfig */,
+				A45879BF2A42794DC55D60A9D4992026 /* MinewBeacon.h */,
+				04E6EAD75CA07D43B21C0359F6CB0787 /* MinewBeaconAdmin.h */,
+				272225A58D53BF1B4CDE834FA42F027F /* MinewBeaconConnection.h */,
+				B605CEC74FC145CF87A4935C19C967D8 /* MinewBeaconManager.h */,
+				9B6D7008210307F05B8C42ACDDACBE51 /* MinewBeaconSetting.h */,
+				1899D5B4F2B53B453B157523A2923846 /* Frameworks */,
+				408A3199F4578254398E9D2B1E3B2467 /* Support Files */,
+			);
+			name = MinewBeaconAdmin;
+			path = MinewBeaconAdmin;
+			sourceTree = "<group>";
+		};
+		408A3199F4578254398E9D2B1E3B2467 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				8A01837D70293867FA4F90C578E3ADB9 /* MinewBeaconAdmin.debug.xcconfig */,
+				2DA0D1E4443F4498A0AE2143DD3BBE31 /* MinewBeaconAdmin.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/MinewBeaconAdmin";
 			sourceTree = "<group>";
 		};
-		702049A06385FF6F29CCC02DC7C35094 /* Frameworks */ = {
+		416F14AB9D537A5E75DD38B0177249AB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4BA36E26B9BB8A4A8B1C582C67120805 /* MinewBeaconAdmin.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9A7214B374ACAEFEF44090B32A2BF96F /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E46C8857BE7B29C116C4BAEAD7A2FDAA /* MinewBeaconAdmin */,
+				1EE02AB438D6162EA93D9FD3E9B30F53 /* MinewBeaconAdmin */,
+				5E353858626642DCF86D4F392890CC31 /* SwiftLint */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		4A3749F4F9170EB5BE99F8034FC8CD35 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7E7E017F41BB40820F90E0C6F8F80B46 /* SwiftLint.debug.xcconfig */,
+				1B74A39EE45CE466D0398D710D55628D /* SwiftLint.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftLint";
+			sourceTree = "<group>";
+		};
+		5E353858626642DCF86D4F392890CC31 /* SwiftLint */ = {
+			isa = PBXGroup;
+			children = (
+				4A3749F4F9170EB5BE99F8034FC8CD35 /* Support Files */,
+			);
+			name = SwiftLint;
+			path = SwiftLint;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
@@ -123,7 +176,7 @@
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				9A7214B374ACAEFEF44090B32A2BF96F /* Pods */,
+				416F14AB9D537A5E75DD38B0177249AB /* Pods */,
 				1C38DA1885FCB9EC9F98F26EE806AF62 /* Products */,
 				FABB0DE0AA0004CD5E7CAEF1BFD448A4 /* Targets Support Files */,
 			);
@@ -135,21 +188,6 @@
 				E4801F62A6B08CD9B5410329F1A18FDE /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E46C8857BE7B29C116C4BAEAD7A2FDAA /* MinewBeaconAdmin */ = {
-			isa = PBXGroup;
-			children = (
-				68005FEE1783AD4E845569E496FBD353 /* MinewBeacon.h */,
-				17FC2AA516FADB6543D2461E3BAE8A5D /* MinewBeaconAdmin.h */,
-				02BBA10A2FF43764E98208362E51D636 /* MinewBeaconConnection.h */,
-				C9E6466E8565837B6D3D0FC93A0FE9F2 /* MinewBeaconManager.h */,
-				DEF8260E3EC7702D5EF20BEC7F264545 /* MinewBeaconSetting.h */,
-				702049A06385FF6F29CCC02DC7C35094 /* Frameworks */,
-				2549D8C4931C4B605AA8F15A831C0F59 /* Support Files */,
-			);
-			name = MinewBeaconAdmin;
-			path = MinewBeaconAdmin;
 			sourceTree = "<group>";
 		};
 		E4801F62A6B08CD9B5410329F1A18FDE /* iOS */ = {
@@ -171,11 +209,11 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		BAB819EA6DF356D57F2557494D544A73 /* Headers */ = {
+		95491544A47EFB4A858013C6230A7ED1 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D6F3FDCB0CE0F80581AE2E7685AAB5E /* Pods-BeaconSet-umbrella.h in Headers */,
+				664FE4BB875ED83DD594CF91F96B9110 /* Pods-BeaconSet-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,17 +222,18 @@
 /* Begin PBXNativeTarget section */
 		F80DECEE6335DA66DCB730A848A4FC33 /* Pods-BeaconSet */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 59C17189A7884831A2EE61ADEE2043D9 /* Build configuration list for PBXNativeTarget "Pods-BeaconSet" */;
+			buildConfigurationList = 84DB627037D885FFEAF68C08498AE485 /* Build configuration list for PBXNativeTarget "Pods-BeaconSet" */;
 			buildPhases = (
-				BAB819EA6DF356D57F2557494D544A73 /* Headers */,
-				E4435CC3C9A649C1EB30046FC55EFD40 /* Sources */,
-				1DFE8441425B5966CC7698D4FDDC5AA0 /* Frameworks */,
-				421F853DE61B8B75F689D32E91FDF387 /* Resources */,
+				95491544A47EFB4A858013C6230A7ED1 /* Headers */,
+				75561D57C094AFEF7FE8E70414D87D4B /* Sources */,
+				B6886B343E172F119A343DB658AA5A58 /* Frameworks */,
+				34EE860C53A04440B6D7C44BA0ABA5DA /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				343F83EF683CD66A17F270A0AE124F76 /* PBXTargetDependency */,
+				DD3F683AEC842CACAA10715B202F9D0F /* PBXTargetDependency */,
+				8D621692B08EFD422B0DB6D2ABC2713C /* PBXTargetDependency */,
 			);
 			name = "Pods-BeaconSet";
 			productName = Pods_BeaconSet;
@@ -227,12 +266,13 @@
 			targets = (
 				9E0D24401DC339BF862013F4C8549302 /* MinewBeaconAdmin */,
 				F80DECEE6335DA66DCB730A848A4FC33 /* Pods-BeaconSet */,
+				52B60EC2A583F24ACBB69C113F5488B9 /* SwiftLint */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		421F853DE61B8B75F689D32E91FDF387 /* Resources */ = {
+		34EE860C53A04440B6D7C44BA0ABA5DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -242,29 +282,92 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E4435CC3C9A649C1EB30046FC55EFD40 /* Sources */ = {
+		75561D57C094AFEF7FE8E70414D87D4B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68737A7BC99424A2BEF8B626273E7240 /* Pods-BeaconSet-dummy.m in Sources */,
+				B1A79C8ADC2850A19AA396D160A52C14 /* Pods-BeaconSet-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		343F83EF683CD66A17F270A0AE124F76 /* PBXTargetDependency */ = {
+		8D621692B08EFD422B0DB6D2ABC2713C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftLint;
+			target = 52B60EC2A583F24ACBB69C113F5488B9 /* SwiftLint */;
+			targetProxy = 0D8432F59ABCE0AAA1B62DB12D6D61B5 /* PBXContainerItemProxy */;
+		};
+		DD3F683AEC842CACAA10715B202F9D0F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MinewBeaconAdmin;
 			target = 9E0D24401DC339BF862013F4C8549302 /* MinewBeaconAdmin */;
-			targetProxy = C88F80CF9FD3236327437D1EB21AB7C9 /* PBXContainerItemProxy */;
+			targetProxy = A651E01B561AACFF45C03362C7ABF5AA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		564D6FCD6601620F029EDF166F9FA954 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6E715ABC495DB685BF90C0426709318 /* Pods-BeaconSet.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		59619FF05234376C3EAC921AE49A2A96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E7E017F41BB40820F90E0C6F8F80B46 /* SwiftLint.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		631216F889899DBF03B8786B97E2976B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F38FCB1FAA94E23E5AA8D41D13E2C088 /* MinewBeaconAdmin.release.xcconfig */;
+			baseConfigurationReference = 2DA0D1E4443F4498A0AE2143DD3BBE31 /* MinewBeaconAdmin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -283,7 +386,7 @@
 		};
 		68E7F95211DEC943AC10D3F8E8E5A41F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CAD157E0E11E7ABE0331FC6EFDFC1409 /* MinewBeaconAdmin.debug.xcconfig */;
+			baseConfigurationReference = 8A01837D70293867FA4F90C578E3ADB9 /* MinewBeaconAdmin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -298,6 +401,46 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
+		};
+		6BBDC90E4E7E3D79E965C60FC2BF6B95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3669726C8AC1131325C704D3CCA0BC9A /* Pods-BeaconSet.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		903A0004D3E6651EFD5D2E16214D101B /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -427,84 +570,24 @@
 			};
 			name = Debug;
 		};
-		B90CD1194E0D62CCC880A672D76E0E88 /* Release */ = {
+		D834AEAA334DEA04A1BF19DFA0DD207F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3669726C8AC1131325C704D3CCA0BC9A /* Pods-BeaconSet.release.xcconfig */;
+			baseConfigurationReference = 1B74A39EE45CE466D0398D710D55628D /* SwiftLint.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		F8B181DCEEDE6B61A5546A79FE18A53C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6E715ABC495DB685BF90C0426709318 /* Pods-BeaconSet.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -527,11 +610,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		59C17189A7884831A2EE61ADEE2043D9 /* Build configuration list for PBXNativeTarget "Pods-BeaconSet" */ = {
+		84DB627037D885FFEAF68C08498AE485 /* Build configuration list for PBXNativeTarget "Pods-BeaconSet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F8B181DCEEDE6B61A5546A79FE18A53C /* Debug */,
-				B90CD1194E0D62CCC880A672D76E0E88 /* Release */,
+				564D6FCD6601620F029EDF166F9FA954 /* Debug */,
+				6BBDC90E4E7E3D79E965C60FC2BF6B95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE7B4FB01588B9E6DF09CB79FC7CE7BD /* Build configuration list for PBXAggregateTarget "SwiftLint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59619FF05234376C3EAC921AE49A2A96 /* Debug */,
+				D834AEAA334DEA04A1BF19DFA0DD207F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
