@@ -1,0 +1,16 @@
+PODS:
+  - MinewBeaconAdmin (1.0.0)
+
+DEPENDENCIES:
+  - MinewBeaconAdmin
+
+SPEC REPOS:
+  trunk:
+    - MinewBeaconAdmin
+
+SPEC CHECKSUMS:
+  MinewBeaconAdmin: ddfa82609f3e30cc160b2f34a1fb6528e91207f7
+
+PODFILE CHECKSUM: 0eb303e8778db097f2d951820c24a24307de4b95
+
+COCOAPODS: 1.16.2

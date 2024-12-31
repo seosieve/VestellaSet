@@ -1,0 +1,1 @@
+../../../MinewBeaconAdmin/MinewBeaconAdmin/Classes/MinewBeaconAdmin.h

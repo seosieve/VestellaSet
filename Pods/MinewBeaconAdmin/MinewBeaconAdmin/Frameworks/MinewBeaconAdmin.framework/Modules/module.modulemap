@@ -1,0 +1,6 @@
+framework module MinewBeaconAdmin {
+  umbrella header "MinewBeaconAdmin.h"
+
+  export *
+  module * { export * }
+}
