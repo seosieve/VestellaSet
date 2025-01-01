@@ -7,11 +7,11 @@
 
 import Foundation
 import MinewBeaconAdmin
-import Combine
 
 class BeaconManager: NSObject, ObservableObject {
     @Published var beacons: [MinewBeacon] = []
     @Published var connectionState: ConnectionState = .disconnected
+    @Published var uuid: String?
     
     private var minewBeaconManager: MinewBeaconManager!
     private var currentConnection: MinewBeaconConnection?
@@ -28,10 +28,13 @@ class BeaconManager: NSObject, ObservableObject {
     
     func startScanning() {
         minewBeaconManager.startScan()
+        print("Beacon Start Scanning")
     }
     
     func stopScanning() {
         minewBeaconManager.stopScan()
+        beacons.removeAll()
+        print("Beacon Stop Scanning")
     }
     
     func connect(to beacon: MinewBeacon) {
@@ -46,6 +49,17 @@ class BeaconManager: NSObject, ObservableObject {
     func disconnect() {
         currentConnection?.disconnect()
         currentConnection = nil
+        uuid = nil
+    }
+    
+    func write() {
+        guard let connection = currentConnection, connectionState == .connected else {
+            print("Cannot write: No active connection")
+            return
+        }
+        
+        connection.setting.uuid = "0400e709-2801-4d62-b462-b6aeaf9be556"
+        connection.writeSetting("minew123")
     }
 }
 
@@ -64,8 +78,22 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
         DispatchQueue.main.async {
             self.connectionState = state
             
-            if state == .connected, let _ = connection.setting {
-                print("Connected to Device")
+            if state == .connected {
+                self.uuid = connection.setting.uuid ?? ""
+                print("Connected to Device and Reading Setting")
+            }
+        }
+    }
+    
+    func beaconConnection(_ connection: MinewBeaconConnection!, didReadSetting setting: MinewBeaconSetting!) {
+        DispatchQueue.main.async {
+            if setting != nil {
+                print("Successfully read device settings")
+                // Now you can safely access and modify settings
+            } else {
+                print("Failed to read device settings")
+                self.connectionState = .disconnected
+                self.currentConnection = nil
             }
         }
     }
