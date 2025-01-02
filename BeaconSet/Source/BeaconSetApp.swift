@@ -11,7 +11,7 @@ import SwiftUI
 struct BeaconSetApp: App {
     var body: some Scene {
         WindowGroup {
-            BeaconListView()
+            DefaultBeaconListView()
         }
     }
 }

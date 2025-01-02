@@ -9,3 +9,6 @@ disabled_rules: # 기본 활성화된 룰 중에 비활성화할 룰을 지정
     
 excluded: # swiftlint를 적용하지 않게 설정할 파일 경로, `included`보다 우선순위 높음
 - Pods
+
+line_length:
+  warning: 160
