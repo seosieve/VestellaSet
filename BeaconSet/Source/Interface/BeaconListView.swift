@@ -13,13 +13,21 @@ struct BeaconListView: View {
     
     var body: some View {
         NavigationStack {
-            List(beaconManager.beacons, id: \.mac) { beacon in
+            List(beaconManager.beacons, id: \.id) { beacon in
                 NavigationLink(destination: DetailView(beaconManager: beaconManager, beacon: beacon)) {
                     VStack(alignment: .leading) {
-                        Text("MAC: \(beacon.mac ?? "Unknown")")
-                            .font(.headline)
+                        Text("MAC: \(beacon.mac)")
+                            .font(.subheadline)
+                        Text("\(beacon.uuid ?? "Unknown")")
+                            .font(.subheadline)
                         HStack {
                             Text("RSSI: \(beacon.rssi)")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            Text("Major: \(beacon.major)")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            Text("Minor: \(beacon.minor)")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }

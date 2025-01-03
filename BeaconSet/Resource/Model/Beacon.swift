@@ -10,23 +10,25 @@ import CoreLocation
 
 struct Beacon: Identifiable {
     let id: UUID
-    let uuid: UUID
-    let major: NSNumber
-    let minor: NSNumber
-    let proximity: CLProximity
-    let accuracy: CLLocationAccuracy
+    var uuid: String?
+    let mac: String
+    let major: Int
+    let minor: Int
+    let proximity: CLProximity?
+    let accuracy: CLLocationAccuracy?
     let rssi: Int
 }
 
-// CLBeacon을 Beacon으로 변환
+// MinewBeacon을 Beacon으로 변환
 extension Beacon {
-    init(from clBeacon: CLBeacon) {
+    init(from minewBeacon: MinewBeacon) {
         self.id = UUID()
-        self.uuid = clBeacon.uuid
-        self.major = clBeacon.major
-        self.minor = clBeacon.minor
-        self.proximity = clBeacon.proximity
-        self.accuracy = clBeacon.accuracy
-        self.rssi = clBeacon.rssi
+        self.uuid = nil
+        self.mac = minewBeacon.mac
+        self.major = minewBeacon.major
+        self.minor = minewBeacon.minor
+        self.proximity = nil
+        self.accuracy = nil
+        self.rssi = minewBeacon.rssi
     }
 }

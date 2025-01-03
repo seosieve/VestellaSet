@@ -6,35 +6,47 @@
 //
 
 import Foundation
+import CoreLocation
 import MinewBeaconAdmin
 
 class BeaconManager: NSObject, ObservableObject {
-    @Published var beacons: [MinewBeacon] = []
-    @Published var connectionState: ConnectionState = .disconnected
-    @Published var uuid: String?
-    
-    private var minewBeaconManager: MinewBeaconManager!
+    private var locationManager: CLLocationManager?
+    private var minewBeaconManager: MinewBeaconManager?
     private var currentConnection: MinewBeaconConnection?
+    
+    @Published var beacons: [Beacon] = []
+    @Published var connectionState: ConnectionState = .disconnected
     
     override init() {
         super.init()
-        setupBeaconManager()
+        setupMinewBeaconManager()
+        setupLocationManager()
     }
     
-    private func setupBeaconManager() {
-        minewBeaconManager = MinewBeaconManager.sharedInstance()
-        minewBeaconManager.delegate = self
+    private func setupMinewBeaconManager() {
+        self.minewBeaconManager = MinewBeaconManager.sharedInstance()
+        self.minewBeaconManager?.delegate = self
+    }
+    
+    private func setupLocationManager() {
+        self.locationManager = CLLocationManager()
+        self.locationManager?.delegate = self
+        self.locationManager?.requestWhenInUseAuthorization()
     }
     
     func startScanning() {
+        guard let minewBeaconManager, let locationManager else { return }
         minewBeaconManager.startScan()
-        print("Beacon Start Scanning")
+        locationManager.startRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
+        print("▶️ Beacon Start Scanning")
     }
     
     func stopScanning() {
+        guard let minewBeaconManager, let locationManager else { return }
         minewBeaconManager.stopScan()
+        locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
         beacons.removeAll()
-        print("Beacon Stop Scanning")
+        print("⏯️ Beacon Stop Scanning")
     }
     
     func connect(to beacon: MinewBeacon) {
@@ -49,7 +61,6 @@ class BeaconManager: NSObject, ObservableObject {
     func disconnect() {
         currentConnection?.disconnect()
         currentConnection = nil
-        uuid = nil
     }
     
     func write() {
@@ -67,8 +78,29 @@ class BeaconManager: NSObject, ObservableObject {
 extension BeaconManager: MinewBeaconManagerDelegate {
     func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
         DispatchQueue.main.async {
-            self.beacons = beacons
+            self.beacons = beacons.map { Beacon(from: $0) }
+            print("🌱 MinewBeaconScan")
         }
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+extension BeaconManager: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
+        DispatchQueue.main.async {
+            beacons.forEach { clBeacon in
+                if let index = self.beacons.firstIndex(where: { $0.major == clBeacon.major.intValue && $0.minor == clBeacon.minor.intValue }) {
+                    self.beacons[index].uuid = clBeacon.uuid.uuidString
+                }
+                
+            }
+            
+            print("🐈 DefaultBeaconScan")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+        print("Failed to range beacons: \(error.localizedDescription)")
     }
 }
 
@@ -79,7 +111,6 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
             self.connectionState = state
             
             if state == .connected {
-                self.uuid = connection.setting.uuid ?? ""
                 print("Connected to Device and Reading Setting")
             }
         }
@@ -89,7 +120,6 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
         DispatchQueue.main.async {
             if setting != nil {
                 print("Successfully read device settings")
-                // Now you can safely access and modify settings
             } else {
                 print("Failed to read device settings")
                 self.connectionState = .disconnected
