@@ -15,11 +15,11 @@ struct BeaconListView: View {
         NavigationStack {
             List(beaconManager.beacons, id: \.id) { beacon in
                 NavigationLink(destination: DetailView(beaconManager: beaconManager, beacon: beacon)) {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text("MAC: \(beacon.mac)")
-                            .font(.subheadline)
-                        Text("\(beacon.uuid ?? "Unknown")")
-                            .font(.subheadline)
+                            .font(.system(size: 12))
+                        Text("UUID: \(beacon.uuid ?? "Unknown")")
+                            .font(.system(size: 12))
                         HStack {
                             Text("RSSI: \(beacon.rssi)")
                                 .font(.subheadline)

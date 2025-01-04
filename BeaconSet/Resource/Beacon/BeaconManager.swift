@@ -14,6 +14,7 @@ class BeaconManager: NSObject, ObservableObject {
     private var minewBeaconManager: MinewBeaconManager?
     private var currentConnection: MinewBeaconConnection?
     
+    private var minewBeacons: [Beacon] = []
     @Published var beacons: [Beacon] = []
     @Published var connectionState: ConnectionState = .disconnected
     
@@ -48,7 +49,10 @@ class BeaconManager: NSObject, ObservableObject {
         beacons.removeAll()
         print("⏯️ Beacon Stop Scanning")
     }
-    
+}
+
+// MARK: - Connecting
+extension BeaconManager {
     func connect(to beacon: MinewBeacon) {
         // Disconnect existing connection
         disconnect()
@@ -62,7 +66,10 @@ class BeaconManager: NSObject, ObservableObject {
         currentConnection?.disconnect()
         currentConnection = nil
     }
-    
+}
+
+// MARK: - Writing
+extension BeaconManager {
     func write() {
         guard let connection = currentConnection, connectionState == .connected else {
             print("Cannot write: No active connection")
@@ -77,10 +84,8 @@ class BeaconManager: NSObject, ObservableObject {
 // MARK: - MinewBeaconManagerDelegate
 extension BeaconManager: MinewBeaconManagerDelegate {
     func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
-        DispatchQueue.main.async {
-            self.beacons = beacons.map { Beacon(from: $0) }
-            print("🌱 MinewBeaconScan")
-        }
+        self.minewBeacons = beacons.map { Beacon(from: $0) }
+        print("🌱 MinewBeaconScan")
     }
 }
 
@@ -89,12 +94,11 @@ extension BeaconManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
         DispatchQueue.main.async {
             beacons.forEach { clBeacon in
-                if let index = self.beacons.firstIndex(where: { $0.major == clBeacon.major.intValue && $0.minor == clBeacon.minor.intValue }) {
-                    self.beacons[index].uuid = clBeacon.uuid.uuidString
+                if let index = self.minewBeacons.firstIndex(where: { $0.major == clBeacon.major.intValue && $0.minor == clBeacon.minor.intValue }) {
+                    self.minewBeacons[index].uuid = clBeacon.uuid.uuidString
+                    self.beacons = self.minewBeacons
                 }
-                
             }
-            
             print("🐈 DefaultBeaconScan")
         }
     }
