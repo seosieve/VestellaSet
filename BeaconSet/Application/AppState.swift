@@ -13,7 +13,8 @@ final class AppState {
     private init() { }
     
     private static let notification = NotificationCenter.default
-    
+
     let didEnterBackground = notification.publisher(for: UIApplication.didEnterBackgroundNotification)
+    
     let willEnterForeground = notification.publisher(for: UIApplication.willEnterForegroundNotification)
 }

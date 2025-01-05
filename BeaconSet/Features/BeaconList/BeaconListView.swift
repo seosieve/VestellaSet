@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import MinewBeaconAdmin
 
 struct BeaconListView: View {
     @StateObject private var beaconManager = BeaconManager()
@@ -14,7 +13,7 @@ struct BeaconListView: View {
     var body: some View {
         NavigationStack {
             List(beaconManager.beacons, id: \.id) { beacon in
-                NavigationLink(destination: BeaconDetailView(beaconManager: beaconManager, beacon: beacon)) {
+                NavigationLink(value: beacon) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("MAC: \(beacon.mac)")
                             .font(.system(size: 12))
@@ -34,6 +33,15 @@ struct BeaconListView: View {
                     }
                 }
             }
+            .navigationDestination(for: Beacon.self) { beacon in
+                BeaconDetailView(beaconManager: beaconManager, beacon: beacon)
+                    .onAppear {
+                        beaconManager.stopScanning()
+                    }
+                    .onDisappear {
+                        beaconManager.startScanning()
+                    }
+            }
             .navigationTitle("Beacons")
             .toolbar {
                 Button(action: {
@@ -50,9 +58,7 @@ struct BeaconListView: View {
         }
         .onAppear {
             beaconManager.startScanning()
-        }
-        .onDisappear {
-            beaconManager.stopScanning()
+            print("💜 OnAppear")
         }
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-struct Beacon: Identifiable {
+struct Beacon: Hashable, Identifiable {
     let id: UUID
     var uuid: String?
     let mac: String

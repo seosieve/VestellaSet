@@ -13,6 +13,7 @@ struct BeaconDetailView: View {
     let beacon: Beacon
     
     var body: some View {
+        Text(beacon.mac)
         List {
 //            Section("Beacon Information") {
 //                HStack {
@@ -36,8 +37,5 @@ struct BeaconDetailView: View {
 //            }
         }
         .navigationTitle("Beacon Details")
-        .onAppear {
-//            beaconManager.connect(to: beacon)
-        }
     }
 }

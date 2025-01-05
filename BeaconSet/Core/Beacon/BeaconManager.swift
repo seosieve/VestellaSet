@@ -8,8 +8,9 @@
 import Foundation
 import CoreLocation
 import MinewBeaconAdmin
+import Combine
 
-class BeaconManager: NSObject, ObservableObject {
+final class BeaconManager: NSObject, ObservableObject {
     private var locationManager: CLLocationManager?
     private var minewBeaconManager: MinewBeaconManager?
     private var currentConnection: MinewBeaconConnection?
@@ -18,10 +19,13 @@ class BeaconManager: NSObject, ObservableObject {
     @Published var beacons: [Beacon] = []
     @Published var connectionState: ConnectionState = .disconnected
     
+    private var cancelables = Set<AnyCancellable>()
+    
     override init() {
         super.init()
         setupMinewBeaconManager()
         setupLocationManager()
+        setupSceneMonitoring()
     }
     
     private func setupMinewBeaconManager() {
@@ -48,6 +52,24 @@ class BeaconManager: NSObject, ObservableObject {
         locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
         beacons.removeAll()
         print("⏯️ Beacon Stop Scanning")
+    }
+
+    private func setupSceneMonitoring() {
+        // Scene이 Background에 들어갔을 때 동작
+        AppState.shared.didEnterBackground
+            .sink { [weak self] _ in
+                print("Scene Entered Background")
+                self?.stopScanning()
+            }
+            .store(in: &cancelables)
+        
+        // Scene이 다시 Foreground에 돌아왔을 때 동작
+        AppState.shared.willEnterForeground
+            .sink { [weak self] _ in
+                print("Scene Entered Foreground")
+                self?.startScanning()
+            }
+            .store(in: &cancelables)
     }
 }
 
