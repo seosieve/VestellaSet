@@ -1,5 +1,5 @@
 //
-//  DetailView.swift
+//  BeaconDetailView.swift
 //  BeaconSet
 //
 //  Created by 서충원 on 12/31/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailView: View {
+struct BeaconDetailView: View {
     @ObservedObject var beaconManager: BeaconManager
     
     let beacon: Beacon
