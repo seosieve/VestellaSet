@@ -10,11 +10,40 @@ import UIKit
 final class AppState {
     static let shared = AppState()
     
-    private init() { }
+    private init() {
+        setupNotifications()
+    }
     
-    private static let notification = NotificationCenter.default
-
-    let didEnterBackground = notification.publisher(for: UIApplication.didEnterBackgroundNotification)
+    private let notification = NotificationCenter.default
     
-    let willEnterForeground = notification.publisher(for: UIApplication.willEnterForegroundNotification)
+    private var didEnterBackgroundContinuation: AsyncStream<Void>.Continuation?
+    private var willEnterForegroundContinuation: AsyncStream<Void>.Continuation?
+    
+    lazy var didEnterBackground: AsyncStream<Void> = {
+        AsyncStream { continuation in
+            self.didEnterBackgroundContinuation = continuation
+        }
+    }()
+    
+    lazy var willEnterForeground: AsyncStream<Void> = {
+        AsyncStream { continuation in
+            self.willEnterForegroundContinuation = continuation
+        }
+    }()
+    
+    private func setupNotifications() {
+        let backgroundNotificationName = UIApplication.didEnterBackgroundNotification
+        notification.addObserver(self, selector: #selector(handleDidEnterBackground), name: backgroundNotificationName, object: nil)
+        
+        let foregroundNotificationName = UIApplication.willEnterForegroundNotification
+        notification.addObserver(self, selector: #selector(handleWillEnterForeground), name: foregroundNotificationName, object: nil)
+    }
+    
+    @objc private func handleDidEnterBackground() {
+        didEnterBackgroundContinuation?.yield()
+    }
+    
+    @objc private func handleWillEnterForeground() {
+        willEnterForegroundContinuation?.yield()
+    }
 }
