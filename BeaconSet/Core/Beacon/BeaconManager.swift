@@ -15,7 +15,7 @@ final class BeaconManager: NSObject, ObservableObject {
     private var currentConnection: MinewBeaconConnection?
     
     private var minewBeaconStorage: [MinewBeacon]?
-    private var CLBeaconStorage: [CLBeacon]?
+    private var CLBeaconStorage: [UUID: [CLBeacon]] = [:]
     
     @Published var beacons: [Beacon] = []
     @Published var connectionState: ConnectionState = .disconnected
@@ -47,6 +47,7 @@ extension BeaconManager {
         guard let minewBeaconManager, let locationManager else { return }
         minewBeaconManager.startScan()
         locationManager.startRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
+        locationManager.startRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Minew.uuid))
         print("▶️ Beacon Start Scanning")
     }
     
@@ -54,6 +55,7 @@ extension BeaconManager {
         guard let minewBeaconManager, let locationManager else { return }
         minewBeaconManager.stopScan()
         locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
+        locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Minew.uuid))
         print("⏹️ Beacon Stop Scanning")
         // Beacon 배열 제거
         beacons.removeAll()
@@ -93,13 +95,15 @@ extension BeaconManager {
             beaconDictionary[identifier, default: []].append(beacon)
         }
         // CLBeacon 통합 및 UUID 업데이트
-        CLBeaconStorage?.forEach { CLBeacon in
-            let identifier = BeaconIdentifier(major: CLBeacon.major.intValue, minor: CLBeacon.minor.intValue)
-            if var beacons = beaconDictionary[identifier] {
-                for index in beacons.indices {
-                    beacons[index].uuid = beacons.count > 1 ? "duplicated" : CLBeacon.uuid.uuidString
+        for (uuid, beacons) in CLBeaconStorage {
+            beacons.forEach { beacon in
+                let identifier = BeaconIdentifier(major: beacon.major.intValue, minor: beacon.minor.intValue)
+                if var existingBeacons = beaconDictionary[identifier] {
+                    for index in existingBeacons.indices {
+                        existingBeacons[index].uuid = existingBeacons.count > 1 ? "duplicated" : uuid.uuidString
+                    }
+                    beaconDictionary[identifier] = existingBeacons
                 }
-                beaconDictionary[identifier] = beacons
             }
         }
         
@@ -116,7 +120,7 @@ extension BeaconManager: MinewBeaconManagerDelegate {
 
 extension BeaconManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
-        CLBeaconStorage = beacons
+        CLBeaconStorage[beaconConstraint.uuid] = beacons
         combiningBeacons()
         print("2️⃣ CLBeaconScan")
     }
