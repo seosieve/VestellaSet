@@ -9,28 +9,35 @@ import SwiftUI
 
 struct BeaconListView: View {
     @StateObject private var beaconManager = BeaconManager()
+    @State private var isLoading = true
     
     var body: some View {
         NavigationStack {
-            List(beaconManager.beacons, id: \.id) { beacon in
-                NavigationLink(value: beacon) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("MAC: \(beacon.mac)")
-                            .font(.system(size: 12))
-                        Text("UUID: \(beacon.uuid ?? "Unknown")")
-                            .font(.system(size: 12))
-                        HStack {
-                            Text("RSSI: \(beacon.rssi)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            Text("Major: \(beacon.major)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            Text("Minor: \(beacon.minor)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+            ZStack {
+                List(beaconManager.beacons, id: \.id) { beacon in
+                    NavigationLink(value: beacon) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("MAC: \(beacon.mac)")
+                                .font(.system(size: 12))
+                            Text("UUID: \(beacon.uuid ?? "Unknown")")
+                                .font(.system(size: 12))
+                            HStack {
+                                Text("RSSI: \(beacon.rssi)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                                Text("Major: \(beacon.major)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                                Text("Minor: \(beacon.minor)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
                         }
                     }
+                }
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
                 }
             }
             .navigationDestination(for: Beacon.self) { beacon in
@@ -43,22 +50,13 @@ struct BeaconListView: View {
                     }
             }
             .navigationTitle("Beacons")
-            .toolbar {
-                Button(action: {
-                    beaconManager.startScanning()
-                }, label: {
-                    Text("Start Scan")
-                })
-                Button(action: {
-                    beaconManager.stopScanning()
-                }, label: {
-                    Text("Stop Scan")
-                })
-            }
         }
         .onAppear {
             beaconManager.startScanning()
             print("💜 OnAppear")
+        }
+        .onChange(of: beaconManager.beacons) { _, newBeacons in
+            isLoading = newBeacons.isEmpty
         }
     }
 }

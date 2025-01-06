@@ -13,29 +13,25 @@ struct BeaconDetailView: View {
     let beacon: Beacon
     
     var body: some View {
-        Text(beacon.mac)
         List {
-//            Section("Beacon Information") {
-//                HStack {
-//                    Text("MAC")
-//                    Spacer()
-//                    Text(beacon.mac)
-//                }
-//                HStack {
-//                    Text("UUID")
-//                    Spacer()
-//                    Text(beaconManager.uuid ?? "")
-//                }
-//                HStack {
-//                    Text("RSSI")
-//                    Spacer()
-//                    Text("\(beacon.rssi)")
-//                }
-//                Button("write") {
-//                    beaconManager.write()
-//                }
-//            }
+            HStack {
+                Text("MAC")
+                Spacer()
+                Text(beacon.mac)
+                    .font(.system(size: 12))
+            }
+            HStack {
+                Text("UUID")
+                Spacer()
+                Text(beacon.uuid ?? "")
+                    .font(.system(size: 12))
+            }
+            HStack {
+                Text("RSSI")
+                Spacer()
+                Text("\(beacon.rssi)")
+                    .font(.system(size: 12))
+            }
         }
-        .navigationTitle("Beacon Details")
     }
 }
