@@ -17,7 +17,7 @@ struct BeaconListView: View {
                 List(beaconManager.beacons, id: \.id) { beacon in
                     NavigationLink(value: beacon) {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("MAC: \(beacon.mac)")
+                            Text("MAC: \(beacon.mac ?? "Unknown")")
                                 .font(.system(size: 12))
                             Text("UUID: \(beacon.uuid ?? "Unknown")")
                                 .font(.system(size: 12))
@@ -29,6 +29,11 @@ struct BeaconListView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                                 Text("Minor: \(beacon.minor)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                            HStack {
+                                Text("BATTERTY: \(beacon.battery)")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }

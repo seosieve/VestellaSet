@@ -11,12 +11,13 @@ import CoreLocation
 struct Beacon: Hashable, Identifiable {
     let id = UUID()
     var uuid: String?
-    let mac: String
+    let mac: String?
     let major: Int
     let minor: Int
     var proximity: CLProximity?
     var accuracy: CLLocationAccuracy?
     let rssi: Int
+    let battery: Int
     var status: BeaconStatus
 }
 
@@ -33,6 +34,8 @@ extension Beacon {
         self.major = minewBeacon.major
         self.minor = minewBeacon.minor
         self.rssi = minewBeacon.rssi
+        self.battery = minewBeacon.battery
         self.status = status
+        
     }
 }

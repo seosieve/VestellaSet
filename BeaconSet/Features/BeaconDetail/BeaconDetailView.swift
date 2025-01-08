@@ -17,7 +17,7 @@ struct BeaconDetailView: View {
             HStack {
                 Text("MAC")
                 Spacer()
-                Text(beacon.mac)
+                Text(beacon.mac ?? "")
                     .font(.system(size: 12))
             }
             HStack {
