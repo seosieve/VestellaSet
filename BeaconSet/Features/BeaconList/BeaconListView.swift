@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MinewBeaconAdmin
 
 struct BeaconListView: View {
     @StateObject private var beaconManager = BeaconManager()
@@ -14,26 +15,17 @@ struct BeaconListView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                List(beaconManager.beacons, id: \.id) { beacon in
+                List(beaconManager.beacons, id: \.beaconIdentifier) { beacon in
                     NavigationLink(value: beacon) {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("MAC: \(beacon.mac ?? "Unknown")")
-                                .font(.system(size: 12))
-                            Text("UUID: \(beacon.uuid ?? "Unknown")")
-                                .font(.system(size: 12))
                             HStack {
-                                Text("RSSI: \(beacon.rssi)")
+                                Text("RSSI: \(beacon.beaconRssi)")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
-                                Text("Major: \(beacon.major)")
+                                Text("Major: \(beacon.beaconMajor)")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
-                                Text("Minor: \(beacon.minor)")
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                            }
-                            HStack {
-                                Text("BATTERTY: \(beacon.battery)")
+                                Text("Minor: \(beacon.beaconMinor)")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
@@ -45,7 +37,7 @@ struct BeaconListView: View {
                         .progressViewStyle(CircularProgressViewStyle())
                 }
             }
-            .navigationDestination(for: Beacon.self) { beacon in
+            .navigationDestination(for: MinewBeacon.self) { beacon in
                 BeaconDetailView(beaconManager: beaconManager, beacon: beacon)
                     .onAppear {
                         beaconManager.stopScanning()
@@ -60,8 +52,8 @@ struct BeaconListView: View {
             beaconManager.startScanning()
             print("💜 OnAppear")
         }
-        .onChange(of: beaconManager.beacons) { _, newBeacons in
-            isLoading = newBeacons.isEmpty
+        .onChange(of: beaconManager.beacons.count) { _, newCount in
+            isLoading = newCount < 0
         }
     }
 }

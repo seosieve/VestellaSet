@@ -15,14 +15,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch_Logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="TPA-ku-e9O">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch Logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="TPA-ku-e9O">
                                 <rect key="frame" x="165.66666666666666" y="352.33333333333331" width="62" height="62"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="62" id="VUT-gk-KCv"/>
                                     <constraint firstAttribute="height" constant="62" id="nV1-zf-pBG"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch_Text.png" translatesAutoresizingMaskIntoConstraints="NO" id="8Ug-hd-WFU">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch Text.png" translatesAutoresizingMaskIntoConstraints="NO" id="8Ug-hd-WFU">
                                 <rect key="frame" x="136.66666666666666" y="768" width="119.99999999999997" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="avV-qP-fpC"/>
@@ -46,7 +46,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Launch_Logo.png" width="56" height="56"/>
-        <image name="Launch_Text.png" width="120" height="24"/>
+        <image name="Launch Logo.png" width="56" height="56"/>
+        <image name="Launch Text.png" width="120" height="24"/>
     </resources>
 </document>

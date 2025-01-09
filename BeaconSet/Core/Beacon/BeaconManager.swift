@@ -14,10 +14,7 @@ final class BeaconManager: NSObject, ObservableObject {
     private var minewBeaconManager: MinewBeaconManager?
     private var currentConnection: MinewBeaconConnection?
     
-    private var minewBeaconStorage: [MinewBeacon]?
-    private var CLBeaconStorage: [UUID: [CLBeacon]] = [:]
-    
-    @Published var beacons: [Beacon] = []
+    @Published var beacons: [any BeaconType] = []
     @Published var connectionState: ConnectionState = .disconnected
     
     override init() {
@@ -87,41 +84,20 @@ extension BeaconManager {
 // MARK: - Beacon Combining
 extension BeaconManager {
     private func combiningBeacons() {
-        var beaconDictionary: [BeaconIdentifier: [Beacon]] = [:]
-        // MinewBeacon 통합
-        minewBeaconStorage?.forEach { minewBeacon in
-            let identifier = BeaconIdentifier(major: minewBeacon.major, minor: minewBeacon.minor)
-            let beacon = Beacon(from: minewBeacon)
-            beaconDictionary[identifier, default: []].append(beacon)
-        }
-        // CLBeacon 통합 및 UUID 업데이트
-        for (uuid, beacons) in CLBeaconStorage {
-            beacons.forEach { beacon in
-                let identifier = BeaconIdentifier(major: beacon.major.intValue, minor: beacon.minor.intValue)
-                if var existingBeacons = beaconDictionary[identifier] {
-                    for index in existingBeacons.indices {
-                        existingBeacons[index].uuid = existingBeacons.count > 1 ? "duplicated" : uuid.uuidString
-                    }
-                    beaconDictionary[identifier] = existingBeacons
-                }
-            }
-        }
         
-        self.beacons = Array(beaconDictionary.values).flatMap { $0 }.sorted { $0.major < $1.major }
     }
 }
 
 extension BeaconManager: MinewBeaconManagerDelegate {
     func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
-        minewBeaconStorage = beacons
+        self.beacons = beacons
         print("1️⃣ MinewBeaconScan")
     }
 }
 
 extension BeaconManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
-        CLBeaconStorage[beaconConstraint.uuid] = beacons
-        combiningBeacons()
+//        self.beacons[1] = beacons
         print("2️⃣ CLBeaconScan")
     }
     
@@ -131,7 +107,7 @@ extension BeaconManager: CLLocationManagerDelegate {
 }
 
 // MARK: - Beacon Connecting
-extension BeaconManager {
+extension BeaconManager: MinewBeaconConnectionDelegate {
     func connect(to beacon: MinewBeacon) {
         // Disconnect existing connection
         disconnect()
@@ -145,10 +121,7 @@ extension BeaconManager {
         currentConnection?.disconnect()
         currentConnection = nil
     }
-}
-
-// MARK: - MinewBeaconConnectionDelegate
-extension BeaconManager: MinewBeaconConnectionDelegate {
+    
     func beaconConnection(_ connection: MinewBeaconConnection!, didChange state: ConnectionState) {
         DispatchQueue.main.async {
             self.connectionState = state
@@ -170,6 +143,19 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
             }
         }
     }
+}
+
+// MARK: - Beacon Writing
+extension BeaconManager {
+    func write() {
+        guard let connection = currentConnection, connectionState == .connected else {
+            print("Cannot write: No active connection")
+            return
+        }
+        
+        connection.setting.txPower = -8
+        connection.writeSetting("minew123")
+    }
     
     func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {
         DispatchQueue.main.async {
@@ -181,18 +167,5 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
                 self.currentConnection = nil
             }
         }
-    }
-}
-
-// MARK: - Beacon Writing
-extension BeaconManager {
-    func write() {
-        guard let connection = currentConnection, connectionState == .connected else {
-            print("Cannot write: No active connection")
-            return
-        }
-        
-        connection.setting.uuid = "0400e709-2801-4d62-b462-b6aeaf9be556"
-        connection.writeSetting("minew123")
     }
 }

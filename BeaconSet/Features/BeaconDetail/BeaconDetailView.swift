@@ -10,14 +10,14 @@ import SwiftUI
 struct BeaconDetailView: View {
     @ObservedObject var beaconManager: BeaconManager
     
-    let beacon: Beacon
+    let beacon: MinewBeacon
     
     var body: some View {
         List {
             HStack {
-                Text("MAC")
+                Text("TX")
                 Spacer()
-                Text(beacon.mac ?? "")
+                Text("\(beacon.txPower)")
                     .font(.system(size: 12))
             }
             HStack {

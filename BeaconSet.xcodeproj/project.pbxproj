@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		4E1C956C2D2406C90069037F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4E1C956B2D2406C90069037F /* .swiftlint.yml */; };
-		9F0C68FF8C15747C4D425E95 /* Pods_BeaconSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C527C2EBF49248C12307F60 /* Pods_BeaconSet.framework */; };
+		C1ED612685D94066B42807D5 /* Pods_BeaconSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A75DCB91867B03E4241FAAC /* Pods_BeaconSet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		130540F0A40FA006E3FD771A /* Pods-BeaconSet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconSet.debug.xcconfig"; path = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.debug.xcconfig"; sourceTree = "<group>"; };
+		15633CF38E9F3FFA373392D7 /* Pods-BeaconSet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconSet.debug.xcconfig"; path = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.debug.xcconfig"; sourceTree = "<group>"; };
 		4E1C956B2D2406C90069037F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		8061C7D11B3FA58E36487535 /* Pods-BeaconSet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconSet.release.xcconfig"; path = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.release.xcconfig"; sourceTree = "<group>"; };
-		9C527C2EBF49248C12307F60 /* Pods_BeaconSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeaconSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		69888AB76CB2C9DF3FADB79D /* Pods-BeaconSet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconSet.release.xcconfig"; path = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.release.xcconfig"; sourceTree = "<group>"; };
+		7A75DCB91867B03E4241FAAC /* Pods_BeaconSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeaconSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFD28A7C2D14145900859D49 /* BeaconSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -45,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F0C68FF8C15747C4D425E95 /* Pods_BeaconSet.framework in Frameworks */,
+				C1ED612685D94066B42807D5 /* Pods_BeaconSet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,10 +55,18 @@
 		5435FB7213D2043F47959462 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				130540F0A40FA006E3FD771A /* Pods-BeaconSet.debug.xcconfig */,
-				8061C7D11B3FA58E36487535 /* Pods-BeaconSet.release.xcconfig */,
+				15633CF38E9F3FFA373392D7 /* Pods-BeaconSet.debug.xcconfig */,
+				69888AB76CB2C9DF3FADB79D /* Pods-BeaconSet.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		635FA7BB362A0DF250DD84B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A75DCB91867B03E4241FAAC /* Pods_BeaconSet.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		CFD28A732D14145900859D49 = {
@@ -68,7 +76,7 @@
 				CFD28A7E2D14145900859D49 /* BeaconSet */,
 				CFD28A7D2D14145900859D49 /* Products */,
 				5435FB7213D2043F47959462 /* Pods */,
-				D13CC60648B18A1EC10B6077 /* Frameworks */,
+				635FA7BB362A0DF250DD84B7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,14 +88,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D13CC60648B18A1EC10B6077 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9C527C2EBF49248C12307F60 /* Pods_BeaconSet.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -95,7 +95,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CFD28A8A2D14145B00859D49 /* Build configuration list for PBXNativeTarget "BeaconSet" */;
 			buildPhases = (
-				AB37E09A4E42E6B886C1B6A6 /* [CP] Check Pods Manifest.lock */,
+				E76FD74DA15B4C7B57B37E76 /* [CP] Check Pods Manifest.lock */,
 				CFD28A782D14145900859D49 /* Sources */,
 				CFD28A792D14145900859D49 /* Frameworks */,
 				CFD28A7A2D14145900859D49 /* Resources */,
@@ -161,6 +161,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		4EE399522D23E9650000F19A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -177,7 +178,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
-		AB37E09A4E42E6B886C1B6A6 /* [CP] Check Pods Manifest.lock */ = {
+		E76FD74DA15B4C7B57B37E76 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -335,7 +336,7 @@
 		};
 		CFD28A8B2D14145B00859D49 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 130540F0A40FA006E3FD771A /* Pods-BeaconSet.debug.xcconfig */;
+			baseConfigurationReference = 15633CF38E9F3FFA373392D7 /* Pods-BeaconSet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -358,8 +359,8 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -381,7 +382,7 @@
 		};
 		CFD28A8C2D14145B00859D49 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8061C7D11B3FA58E36487535 /* Pods-BeaconSet.release.xcconfig */;
+			baseConfigurationReference = 69888AB76CB2C9DF3FADB79D /* Pods-BeaconSet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -404,8 +405,8 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
