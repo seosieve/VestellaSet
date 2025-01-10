@@ -15,17 +15,21 @@ struct BeaconListView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                List(beaconManager.beacons, id: \.beaconIdentifier) { beacon in
+                List(beaconManager.beacons, id: \.id) { beacon in
                     NavigationLink(value: beacon) {
                         VStack(alignment: .leading, spacing: 4) {
+                            Text("MAC: \(beacon.mac)")
+                                .font(.system(size: 12))
+                            Text("UUID: \(beacon.uuid ?? "Unknown")")
+                                .font(.system(size: 12))
                             HStack {
-                                Text("RSSI: \(beacon.beaconRssi)")
+                                Text("RSSI: \(beacon.rssi)")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
-                                Text("Major: \(beacon.beaconMajor)")
+                                Text("Major: \(beacon.major)")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
-                                Text("Minor: \(beacon.beaconMinor)")
+                                Text("Minor: \(beacon.minor)")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }

@@ -14,7 +14,10 @@ final class BeaconManager: NSObject, ObservableObject {
     private var minewBeaconManager: MinewBeaconManager?
     private var currentConnection: MinewBeaconConnection?
     
-    @Published var beacons: [any BeaconType] = []
+    private var minewBeaconStorage: [MinewBeacon] = []
+    private var CLBeaconStorage: [UUID: [CLBeacon]] = [:]
+    
+    @Published var beacons: [Beacon] = []
     @Published var connectionState: ConnectionState = .disconnected
     
     override init() {
@@ -84,20 +87,41 @@ extension BeaconManager {
 // MARK: - Beacon Combining
 extension BeaconManager {
     private func combiningBeacons() {
+        var beaconDictionary: [BeaconIdentifier: [Beacon]] = [:]
+        // MinewBeacon 통합
+        minewBeaconStorage.forEach { minewBeacon in
+            let identifier = BeaconIdentifier(major: minewBeacon.major, minor: minewBeacon.minor)
+            let beacon = Beacon(from: minewBeacon)
+            beaconDictionary[identifier, default: []].append(beacon)
+        }
+        // CLBeacon 통합 및 UUID 업데이트
+        for (uuid, beacons) in CLBeaconStorage {
+            beacons.forEach { beacon in
+                let identifier = BeaconIdentifier(major: beacon.major.intValue, minor: beacon.minor.intValue)
+                if var existingBeacons = beaconDictionary[identifier] {
+                    for index in existingBeacons.indices {
+                        existingBeacons[index].uuid = existingBeacons.count > 1 ? "duplicated" : uuid.uuidString
+                    }
+                    beaconDictionary[identifier] = existingBeacons
+                }
+            }
+        }
         
+        self.beacons = beaconDictionary.flatMap { $0.value }
     }
 }
 
 extension BeaconManager: MinewBeaconManagerDelegate {
     func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
-        self.beacons = beacons
+        minewBeaconStorage = beacons
         print("1️⃣ MinewBeaconScan")
     }
 }
 
 extension BeaconManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
-//        self.beacons[1] = beacons
+        CLBeaconStorage[beaconConstraint.uuid] = beacons
+        combiningBeacons()
         print("2️⃣ CLBeaconScan")
     }
     
