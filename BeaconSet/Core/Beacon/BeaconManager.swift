@@ -121,7 +121,7 @@ extension BeaconManager: MinewBeaconManagerDelegate {
 extension BeaconManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
         CLBeaconStorage[beaconConstraint.uuid] = beacons
-        combiningBeacons()
+        if beaconConstraint.uuid == Vestella.uuid { combiningBeacons() }
         print("2️⃣ CLBeaconScan")
     }
     

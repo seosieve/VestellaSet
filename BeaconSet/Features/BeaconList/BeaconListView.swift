@@ -59,5 +59,8 @@ struct BeaconListView: View {
         .onChange(of: beaconManager.beacons.count) { _, newCount in
             isLoading = newCount < 0
         }
+        .onChange(of: beaconManager.beacons) {
+            print("🖥️ Scene Updated")
+        }
     }
 }
