@@ -18,6 +18,7 @@ final class BeaconManager: NSObject, ObservableObject {
     private var CLBeaconStorage: [UUID: [CLBeacon]] = [:]
     
     @Published var beacons: [Beacon] = []
+    @Published var minewBeacons: [MinewBeacon] = []
     @Published var connectionState: ConnectionState = .disconnected
     
     override init() {
@@ -114,6 +115,7 @@ extension BeaconManager {
 extension BeaconManager: MinewBeaconManagerDelegate {
     func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
         minewBeaconStorage = beacons
+        minewBeacons = beacons
         print("1️⃣ MinewBeaconScan")
     }
 }
@@ -138,20 +140,43 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
         // Create new connection
         currentConnection = MinewBeaconConnection(beacon: beacon)
         currentConnection?.delegate = self
+        connectionState = .connecting
+        // Set connection timeout
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
+            guard let self else { return }
+            if self.connectionState == .connecting {
+                print("Connect Timeout")
+                self.disconnect()
+            }
+            
+        }
+        
         currentConnection?.connect()
+        print("Connecting to beacon...")
     }
     
     func disconnect() {
         currentConnection?.disconnect()
         currentConnection = nil
+        connectionState = .disconnected
+        print("Disconnected")
     }
     
     func beaconConnection(_ connection: MinewBeaconConnection!, didChange state: ConnectionState) {
         DispatchQueue.main.async {
             self.connectionState = state
             
-            if state == .connected {
+            switch state {
+            case .connected:
                 print("Connected to Device and Reading Setting")
+            case .disconnected:
+                print("Device Disconnected")
+            case .connecting:
+                print("Connecting to Device")
+            case .connectFailed:
+                print("Connecting failed")
+            @unknown default:
+                break
             }
         }
     }
@@ -172,13 +197,9 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
 // MARK: - Beacon Writing
 extension BeaconManager {
     func write() {
-        guard let connection = currentConnection, connectionState == .connected else {
-            print("Cannot write: No active connection")
-            return
-        }
-        
-        connection.setting.txPower = -8
-        connection.writeSetting("minew123")
+        currentConnection?.setting.major = 999
+        currentConnection?.writeSetting("minew123")
+        print("Write Complete")
     }
     
     func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {

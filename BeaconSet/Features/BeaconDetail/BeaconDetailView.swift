@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BeaconDetailView: View {
     @ObservedObject var beaconManager: BeaconManager
+    @StateObject var newBeaconManager = BeaconManager()
     
     let beacon: MinewBeacon
     
@@ -31,6 +32,12 @@ struct BeaconDetailView: View {
                 Spacer()
                 Text("\(beacon.rssi)")
                     .font(.system(size: 12))
+            }
+            Button("Connect") {
+                newBeaconManager.connect(to: beacon)
+            }
+            Button("Connect") {
+                beaconManager.write()
             }
         }
     }

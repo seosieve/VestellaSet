@@ -13,14 +13,50 @@ struct BeaconListView: View {
     @State private var isLoading = true
     
     var body: some View {
+//        NavigationStack {
+//            ZStack {
+//                List(beaconManager.beacons, id: \.id) { beacon in
+//                    NavigationLink(value: beacon) {
+//                        VStack(alignment: .leading, spacing: 4) {
+//                            Text("MAC: \(beacon.mac)")
+//                                .font(.system(size: 12))
+//                            Text("UUID: \(beacon.uuid ?? "Unknown")")
+//                                .font(.system(size: 12))
+//                            HStack {
+//                                Text("RSSI: \(beacon.rssi)")
+//                                    .font(.subheadline)
+//                                    .foregroundColor(.secondary)
+//                                Text("Major: \(beacon.major)")
+//                                    .font(.subheadline)
+//                                    .foregroundColor(.secondary)
+//                                Text("Minor: \(beacon.minor)")
+//                                    .font(.subheadline)
+//                                    .foregroundColor(.secondary)
+//                            }
+//                        }
+//                    }
+//                }
+//                if isLoading {
+//                    ProgressView()
+//                        .progressViewStyle(CircularProgressViewStyle())
+//                }
+//            }
+//            .navigationTitle("Beacons")
+//        }
+//        .onAppear {
+//            beaconManager.startScanning()
+//            print("💜 OnAppear")
+//        }
+//        .onChange(of: beaconManager.beacons.count) { _, newCount in
+//            isLoading = newCount < 0
+//        }
+        
         NavigationStack {
             ZStack {
-                List(beaconManager.beacons, id: \.id) { beacon in
+                List(beaconManager.minewBeacons, id: \.deviceId) { beacon in
                     NavigationLink(value: beacon) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("MAC: \(beacon.mac)")
-                                .font(.system(size: 12))
-                            Text("UUID: \(beacon.uuid ?? "Unknown")")
                                 .font(.system(size: 12))
                             HStack {
                                 Text("RSSI: \(beacon.rssi)")
@@ -36,10 +72,6 @@ struct BeaconListView: View {
                         }
                     }
                 }
-                if isLoading {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                }
             }
             .navigationDestination(for: MinewBeacon.self) { beacon in
                 BeaconDetailView(beaconManager: beaconManager, beacon: beacon)
@@ -50,17 +82,14 @@ struct BeaconListView: View {
                         beaconManager.startScanning()
                     }
             }
-            .navigationTitle("Beacons")
-        }
-        .onAppear {
-            beaconManager.startScanning()
-            print("💜 OnAppear")
-        }
-        .onChange(of: beaconManager.beacons.count) { _, newCount in
-            isLoading = newCount < 0
-        }
-        .onChange(of: beaconManager.beacons) {
-            print("🖥️ Scene Updated")
+            .navigationTitle("MinewBeacons")
+            .onAppear {
+                beaconManager.startScanning()
+                print("💜 OnAppear")
+            }
+            .onChange(of: beaconManager.beacons.count) { _, newCount in
+                isLoading = newCount < 0
+            }
         }
     }
 }
