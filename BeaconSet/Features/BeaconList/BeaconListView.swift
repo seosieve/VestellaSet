@@ -69,6 +69,9 @@ struct BeaconListView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
+                            Button("Connect") {
+                                beaconManager.connect(to: beacon)
+                            }
                         }
                     }
                 }
@@ -85,7 +88,6 @@ struct BeaconListView: View {
             .navigationTitle("MinewBeacons")
             .onAppear {
                 beaconManager.startScanning()
-                print("💜 OnAppear")
             }
             .onChange(of: beaconManager.beacons.count) { _, newCount in
                 isLoading = newCount < 0

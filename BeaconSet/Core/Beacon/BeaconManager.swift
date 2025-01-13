@@ -27,7 +27,10 @@ final class BeaconManager: NSObject, ObservableObject {
         setupLocationManager()
         setupAppStateMonitoring()
     }
-    
+}
+
+// MARK: - Beacon Initializing
+extension BeaconManager {
     // MinewBeacon Init
     private func setupMinewBeaconManager() {
         self.minewBeaconManager = MinewBeaconManager.sharedInstance()
@@ -39,27 +42,6 @@ final class BeaconManager: NSObject, ObservableObject {
         self.locationManager = CLLocationManager()
         self.locationManager?.delegate = self
         self.locationManager?.requestWhenInUseAuthorization()
-    }
-}
-
-// MARK: - Beacon Scanning
-extension BeaconManager {
-    func startScanning() {
-        guard let minewBeaconManager, let locationManager else { return }
-        minewBeaconManager.startScan()
-        locationManager.startRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
-        locationManager.startRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Minew.uuid))
-        print("▶️ Beacon Start Scanning")
-    }
-    
-    func stopScanning() {
-        guard let minewBeaconManager, let locationManager else { return }
-        minewBeaconManager.stopScan()
-        locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
-        locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Minew.uuid))
-        print("⏹️ Beacon Stop Scanning")
-        // Beacon 배열 제거
-        beacons.removeAll()
     }
     
     private func setupAppStateMonitoring() {
@@ -85,8 +67,30 @@ extension BeaconManager {
     }
 }
 
-// MARK: - Beacon Combining
+// MARK: - Beacon Scanning
 extension BeaconManager {
+    func startScanning() {
+        guard let minewBeaconManager, let locationManager else { return }
+        minewBeaconManager.stopScan()
+        minewBeaconManager.startScan()
+        locationManager.startRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
+        locationManager.startRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Minew.uuid))
+        print("▶️ Beacon Start Scanning")
+    }
+    
+    func stopScanning() {
+        // MinewBeacon Connecting을 위해 LocationManager Ranging만 중단
+        guard let locationManager else { return }
+        locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
+        locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Minew.uuid))
+        print("⏹️ Beacon Stop Scanning")
+        // Beacon 배열 제거
+        beacons.removeAll()
+    }
+}
+
+// MARK: - Beacon Combining
+extension BeaconManager: MinewBeaconManagerDelegate, CLLocationManagerDelegate {
     private func combiningBeacons() {
         var beaconDictionary: [BeaconIdentifier: [Beacon]] = [:]
         // MinewBeacon 통합
@@ -110,24 +114,21 @@ extension BeaconManager {
         
         self.beacons = beaconDictionary.flatMap { $0.value }
     }
-}
-
-extension BeaconManager: MinewBeaconManagerDelegate {
-    func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
+    
+    internal func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
         minewBeaconStorage = beacons
         minewBeacons = beacons
         print("1️⃣ MinewBeaconScan")
     }
-}
-
-extension BeaconManager: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
+    
+    internal func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
         CLBeaconStorage[beaconConstraint.uuid] = beacons
+        // 중복 Update 방지를 위해 Vestella UUID일 때만 Combining
         if beaconConstraint.uuid == Vestella.uuid { combiningBeacons() }
         print("2️⃣ CLBeaconScan")
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+    internal func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
         print("Failed to range beacons: \(error.localizedDescription)")
     }
 }
@@ -135,21 +136,11 @@ extension BeaconManager: CLLocationManagerDelegate {
 // MARK: - Beacon Connecting
 extension BeaconManager: MinewBeaconConnectionDelegate {
     func connect(to beacon: MinewBeacon) {
-        // Disconnect existing connection
         disconnect()
         // Create new connection
         currentConnection = MinewBeaconConnection(beacon: beacon)
         currentConnection?.delegate = self
         connectionState = .connecting
-        // Set connection timeout
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
-            guard let self else { return }
-            if self.connectionState == .connecting {
-                print("Connect Timeout")
-                self.disconnect()
-            }
-            
-        }
         
         currentConnection?.connect()
         print("Connecting to beacon...")
@@ -197,7 +188,9 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
 // MARK: - Beacon Writing
 extension BeaconManager {
     func write() {
-        currentConnection?.setting.major = 999
+        guard let setting = currentConnection?.setting else { return }
+        setting.major = 20
+        setting.minor = 10
         currentConnection?.writeSetting("minew123")
         print("Write Complete")
     }

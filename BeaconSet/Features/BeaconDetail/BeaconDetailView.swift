@@ -9,7 +9,6 @@ import SwiftUI
 
 struct BeaconDetailView: View {
     @ObservedObject var beaconManager: BeaconManager
-    @StateObject var newBeaconManager = BeaconManager()
     
     let beacon: MinewBeacon
     
@@ -34,7 +33,7 @@ struct BeaconDetailView: View {
                     .font(.system(size: 12))
             }
             Button("Connect") {
-                newBeaconManager.connect(to: beacon)
+                beaconManager.connect(to: beacon)
             }
             Button("Connect") {
                 beaconManager.write()
