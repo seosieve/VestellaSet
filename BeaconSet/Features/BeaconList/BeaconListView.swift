@@ -11,6 +11,7 @@ import MinewBeaconAdmin
 struct BeaconListView: View {
     @StateObject private var beaconManager = BeaconManager()
     @State private var isLoading = true
+    @State private var 
     
     var body: some View {
 //        NavigationStack {
@@ -69,20 +70,21 @@ struct BeaconListView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
-                            Button("Connect") {
-                                beaconManager.connect(to: beacon)
-                            }
                         }
                     }
                 }
+                ToastView(message: "Loading...")
             }
             .navigationDestination(for: MinewBeacon.self) { beacon in
+                if
                 BeaconDetailView(beaconManager: beaconManager, beacon: beacon)
                     .onAppear {
                         beaconManager.stopScanning()
+                        beaconManager.connect(to: beacon)
                     }
                     .onDisappear {
                         beaconManager.startScanning()
+                        beaconManager.disconnect()
                     }
             }
             .navigationTitle("MinewBeacons")

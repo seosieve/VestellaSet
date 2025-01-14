@@ -33,11 +33,11 @@ struct BeaconDetailView: View {
                     .font(.system(size: 12))
             }
             Button("Connect") {
-                beaconManager.connect(to: beacon)
+                beaconManager.read()
             }
-            Button("Connect") {
-                beaconManager.write()
-            }
+        }
+        .onChange(of: beaconManager.connectionState) { oldValue, newValue in
+            print("🐃 \(newValue)")
         }
     }
 }

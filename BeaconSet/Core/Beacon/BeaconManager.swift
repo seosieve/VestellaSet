@@ -187,10 +187,17 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
 
 // MARK: - Beacon Writing
 extension BeaconManager {
+    func read() {
+        guard let setting = currentConnection?.setting else { return }
+        print(setting.broadcastInterval)
+    }
+    
     func write() {
         guard let setting = currentConnection?.setting else { return }
         setting.major = 20
         setting.minor = 10
+        setting.broadcastInterval = 3
+        print(setting.broadcastInterval)
         currentConnection?.writeSetting("minew123")
         print("Write Complete")
     }

@@ -11,7 +11,7 @@ import CoreLocation
 struct Beacon: Hashable, Identifiable {
     let id = UUID()
     var uuid: String?
-    let mac: String
+    let mac: String?
     let major: Int
     let minor: Int
     var proximity: CLProximity?
@@ -37,4 +37,3 @@ extension Beacon {
         self.status = status
     }
 }
-
