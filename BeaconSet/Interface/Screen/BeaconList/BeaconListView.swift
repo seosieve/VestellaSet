@@ -10,31 +10,38 @@ import MinewBeaconAdmin
 
 struct BeaconListView: View {
     @StateObject private var beaconManager = BeaconManager()
-    @State private var isLoading = true
-    @State private var isShowing = false
+    
+    @State private var selectedBeacon: MinewBeacon?
+    @State private var isLoading = false
+    @State private var isConnecting = false
     
     var body: some View {
         NavigationStack {
             ZStack {
                 List(beaconManager.minewBeacons, id: \.deviceId) { beacon in
-                    NavigationLink(value: beacon) {
-                        BeaconListItemView(beacon: beacon)
-                    }
+                        Button {
+                            selectedBeacon = beacon
+                            isLoading = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                isConnecting = true
+                            }
+                        } label: {
+                            BeaconListItemView(beacon: beacon)
+                        }
                 }
-                if isShowing {
+                if isLoading {
                     ToastView(message: "Loading...")
                 }
             }
-            .navigationDestination(for: MinewBeacon.self) { beacon in
-                BeaconDetailView(beaconManager: beaconManager, beacon: beacon)
-                    .onAppear {
-                        beaconManager.stopScanning()
-                        beaconManager.connect(to: beacon)
-                    }
-                    .onDisappear {
-                        beaconManager.startScanning()
-                        beaconManager.disconnect()
-                    }
+            .navigationDestination(isPresented: $isConnecting) {
+                if let beacon = selectedBeacon {
+                    BeaconDetailView(beaconManager: beaconManager, beacon: beacon)
+                        .onAppear {
+                            isLoading = false
+                            isConnecting = false
+                        }
+                }
+                
             }
             .navigationTitle("MinewBeacons")
             .onAppear {

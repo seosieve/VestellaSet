@@ -36,7 +36,7 @@ struct BeaconDetailView: View {
                 beaconManager.read()
             }
         }
-        .onChange(of: beaconManager.connectionState) { oldValue, newValue in
+        .onChange(of: beaconManager.connectionState) { _, newValue in
             print("🐃 \(newValue)")
         }
     }

@@ -19,11 +19,12 @@ struct TextStyle: ViewModifier {
         switch style {
         case .beaconTitle:
             content
+                .foregroundColor(.black)
                 .font(.system(size: 12))
         case .beaconSubtitle:
             content
-                .font(.subheadline)
                 .foregroundColor(.secondary)
+                .font(.subheadline)
         }
     }
 }
