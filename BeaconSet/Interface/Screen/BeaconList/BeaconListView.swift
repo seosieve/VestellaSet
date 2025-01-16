@@ -41,6 +41,9 @@ struct BeaconListView: View {
                 }
             }
             .navigationTitle("MinewBeacons")
+            .onAppear {
+                beaconManager.startScanning()
+            }
             .onChange(of: beaconManager.connectionState) { _, newState in
                 if newState == .connected {
                     isConnecting = true

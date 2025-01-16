@@ -10,15 +10,30 @@ import SwiftUI
 struct ToastView: View {
     var message: String
     
+    @State private var isVisible = false
+    
     var body: some View {
-        Text(message)
-            .padding()
-            .background(Color.black.opacity(0.7))
-            .foregroundColor(.white)
-            .cornerRadius(10)
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, 20)
-            .transition(.opacity)
-            .animation(.easeInOut, value: UUID())
+        ZStack {
+            Color.red.opacity(0.5)
+                .contentShape(Rectangle())
+                .allowsHitTesting(true)
+            
+            Text(message)
+                .padding()
+                .background(Color.black.opacity(0.7))
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 20)
+                .opacity(isVisible ? 1 : 0)
+                .offset(y: isVisible ? 0 : 20)
+            
+        }
+        .animation(.spring(response: 0.3), value: isVisible)
+        .onAppear {
+            withAnimation {
+                isVisible = true
+            }
+        }
     }
 }

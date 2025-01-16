@@ -82,7 +82,8 @@ extension BeaconManager {
     
     func stopScanning() {
         // MinewBeacon Connecting을 위해 CLBeacon Scan만 중단
-        guard let locationManager else { return }
+        guard let minewBeaconManager, let locationManager else { return }
+        minewBeaconManager.stopScan()
         locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
         locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Minew.uuid))
         print("⏹️ Beacon Stop Scanning")
@@ -120,14 +121,14 @@ extension BeaconManager: MinewBeaconManagerDelegate, CLLocationManagerDelegate {
     internal func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
         minewBeaconStorage = beacons
         minewBeacons = beacons
-//        print("1️⃣ MinewBeaconScan")
+        print("1️⃣ MinewBeaconScan")
     }
     
     internal func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
         CLBeaconStorage[beaconConstraint.uuid] = beacons
         // 중복 Update 방지를 위해 한 번만 Combining
         if beaconConstraint.uuid == Vestella.uuid { combiningBeacons() }
-//        print("2️⃣ CLBeaconScan")
+        print("2️⃣ CLBeaconScan")
     }
     
     internal func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
@@ -190,8 +191,8 @@ extension BeaconManager {
     
     func write() {
         guard let setting = currentConnection?.setting else { return }
-        setting.major = 20
-        setting.minor = 10
+        setting.major = 999
+        setting.minor = 999
         setting.broadcastInterval = 3
         print(setting.broadcastInterval)
         currentConnection?.writeSetting("minew123")
