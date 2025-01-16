@@ -33,6 +33,9 @@ struct BeaconDetailView: View {
                     .font(.system(size: 12))
             }
         }
+        .onAppear {
+            beaconManager.read()
+        }
         .onDisappear {
             beaconManager.disconnect()
         }

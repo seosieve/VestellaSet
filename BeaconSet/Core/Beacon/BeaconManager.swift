@@ -186,7 +186,16 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
 extension BeaconManager {
     func read() {
         guard let setting = currentConnection?.setting else { return }
-        print(setting.broadcastInterval)
+        
+        print("Battery: \(setting.battery)")
+        print("UUID: \(String(describing: setting.uuid))")
+        print("Major: \(setting.major)")
+        print("Minor: \(setting.minor)")
+        print("Measured Distance: \(String(describing: setting.calibratedTxPower))")
+        print("Transmission Power: \(setting.txPower)")
+        print("Broadcast Interval: \(setting.broadcastInterval)")
+        print("MAC Adress: \(setting.mac)")
+        print("iBeacon Name: \(setting.name)")
     }
     
     func write() {
