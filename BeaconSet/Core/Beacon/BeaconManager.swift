@@ -26,6 +26,8 @@ final class BeaconManager: NSObject, ObservableObject {
         setupMinewBeaconManager()
         setupLocationManager()
         setupAppStateMonitoring()
+        // Beacon Start Scan
+        startScanning()
     }
 }
 
@@ -79,7 +81,7 @@ extension BeaconManager {
     }
     
     func stopScanning() {
-        // MinewBeacon Connecting을 위해 LocationManager Ranging만 중단
+        // MinewBeacon Connecting을 위해 CLBeacon Scan만 중단
         guard let locationManager else { return }
         locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
         locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Minew.uuid))
@@ -118,14 +120,14 @@ extension BeaconManager: MinewBeaconManagerDelegate, CLLocationManagerDelegate {
     internal func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
         minewBeaconStorage = beacons
         minewBeacons = beacons
-        print("1️⃣ MinewBeaconScan")
+//        print("1️⃣ MinewBeaconScan")
     }
     
     internal func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
         CLBeaconStorage[beaconConstraint.uuid] = beacons
-        // 중복 Update 방지를 위해 Vestella UUID일 때만 Combining
+        // 중복 Update 방지를 위해 한 번만 Combining
         if beaconConstraint.uuid == Vestella.uuid { combiningBeacons() }
-        print("2️⃣ CLBeaconScan")
+//        print("2️⃣ CLBeaconScan")
     }
     
     internal func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
@@ -137,26 +139,20 @@ extension BeaconManager: MinewBeaconManagerDelegate, CLLocationManagerDelegate {
 extension BeaconManager: MinewBeaconConnectionDelegate {
     func connect(to beacon: MinewBeacon) {
         disconnect()
-        // Create new connection
+        // Create new Connection
         currentConnection = MinewBeaconConnection(beacon: beacon)
         currentConnection?.delegate = self
-        connectionState = .connecting
-        
         currentConnection?.connect()
-        print("Connecting to beacon...")
     }
     
     func disconnect() {
         currentConnection?.disconnect()
         currentConnection = nil
-        connectionState = .disconnected
-        print("Disconnected")
     }
     
     func beaconConnection(_ connection: MinewBeaconConnection!, didChange state: ConnectionState) {
         DispatchQueue.main.async {
             self.connectionState = state
-            
             switch state {
             case .connected:
                 print("Connected to Device and Reading Setting")

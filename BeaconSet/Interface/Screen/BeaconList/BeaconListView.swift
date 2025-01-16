@@ -19,15 +19,13 @@ struct BeaconListView: View {
         NavigationStack {
             ZStack {
                 List(beaconManager.minewBeacons, id: \.deviceId) { beacon in
-                        Button {
-                            selectedBeacon = beacon
-                            isLoading = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                isConnecting = true
-                            }
-                        } label: {
-                            BeaconListItemView(beacon: beacon)
-                        }
+                    Button {
+                        isLoading = true
+                        selectedBeacon = beacon
+                        beaconManager.connect(to: beacon)
+                    } label: {
+                        BeaconListItemView(beacon: beacon)
+                    }
                 }
                 if isLoading {
                     ToastView(message: "Loading...")
@@ -41,14 +39,12 @@ struct BeaconListView: View {
                             isConnecting = false
                         }
                 }
-                
             }
             .navigationTitle("MinewBeacons")
-            .onAppear {
-                beaconManager.startScanning()
-            }
-            .onChange(of: beaconManager.beacons.count) { _, newCount in
-                isLoading = newCount < 0
+            .onChange(of: beaconManager.connectionState) { _, newState in
+                if newState == .connected {
+                    isConnecting = true
+                }
             }
         }
     }

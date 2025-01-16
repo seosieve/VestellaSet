@@ -32,12 +32,9 @@ struct BeaconDetailView: View {
                 Text("\(beacon.rssi)")
                     .font(.system(size: 12))
             }
-            Button("Connect") {
-                beaconManager.read()
-            }
         }
-        .onChange(of: beaconManager.connectionState) { _, newValue in
-            print("🐃 \(newValue)")
+        .onDisappear {
+            beaconManager.disconnect()
         }
     }
 }
