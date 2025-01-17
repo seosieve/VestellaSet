@@ -15,21 +15,57 @@ struct BeaconDetailView: View {
     var body: some View {
         List {
             HStack {
-                Text("TX")
+                Text("Battery")
                 Spacer()
-                Text("\(beacon.txPower)")
+                Text("Battery")
                     .font(.system(size: 12))
             }
             HStack {
                 Text("UUID")
                 Spacer()
-                Text(beacon.uuid ?? "")
+                Text("UUID")
                     .font(.system(size: 12))
             }
             HStack {
-                Text("RSSI")
+                Text("Major")
                 Spacer()
-                Text("\(beacon.rssi)")
+                Text("Major")
+                    .font(.system(size: 12))
+            }
+            HStack {
+                Text("Minor")
+                Spacer()
+                Text("Minor")
+                    .font(.system(size: 12))
+            }
+            HStack {
+                Text("Measured Distance")
+                Spacer()
+                Text("Measured Distance")
+                    .font(.system(size: 12))
+            }
+            HStack {
+                Text("Transmission Power")
+                Spacer()
+                Text("Transmission Power")
+                    .font(.system(size: 12))
+            }
+            HStack {
+                Text("Broadcast Interval")
+                Spacer()
+                Text("Broadcast Interval")
+                    .font(.system(size: 12))
+            }
+            HStack {
+                Text("MAC Adress")
+                Spacer()
+                Text("MAC Adress")
+                    .font(.system(size: 12))
+            }
+            HStack {
+                Text("iBeacon Name")
+                Spacer()
+                Text("iBeacon Name")
                     .font(.system(size: 12))
             }
         }
