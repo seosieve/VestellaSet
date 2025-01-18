@@ -23,13 +23,37 @@ internal struct BeaconListItemView: View {
     }
 }
 
+// MARK: - Configure Views
 private struct BeaconInfoText: View {
+    internal enum Style {
+        case beaconTitle
+        case beaconSubtitle
+    }
+    
     let title: String
     let value: String
     let style: Style
     
     var body: some View {
         Text("\(title): \(value)")
-            .style(style)
+            .modifier(BeaconInfoTextStyle(style: style))
+    }
+}
+
+// MARK: - View Modifiers
+private struct BeaconInfoTextStyle: ViewModifier {
+    let style: BeaconInfoText.Style
+    
+    internal func body(content: Content) -> some View {
+        switch style {
+        case .beaconTitle:
+            content
+                .foregroundColor(.black)
+                .font(.system(size: 12))
+        case .beaconSubtitle:
+            content
+                .foregroundColor(.secondary)
+                .font(.subheadline)
+        }
     }
 }

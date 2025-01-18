@@ -10,7 +10,6 @@ import MinewBeaconAdmin
 
 internal struct BeaconListView: View {
     @StateObject internal var beaconManager = BeaconManager()
-    
     @State private var selectedBeacon: MinewBeacon?
     @State private var isLoading = false
     @State private var isConnecting = false

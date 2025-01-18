@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct ToastView: View {
-    var message: String
-    
+internal struct ToastView: View {
+    internal var message: String
     @State private var isVisible = false
     
-    var body: some View {
+    internal var body: some View {
         ZStack {
             Color.red.opacity(0.5)
+                .ignoresSafeArea()
                 .contentShape(Rectangle())
                 .allowsHitTesting(true)
             
@@ -31,9 +31,7 @@ struct ToastView: View {
         }
         .animation(.spring(response: 0.3), value: isVisible)
         .onAppear {
-            withAnimation {
-                isVisible = true
-            }
+            isVisible = true
         }
     }
 }

@@ -6,9 +6,9 @@
 //
 
 import Foundation
+import MinewBeaconAdmin
 import CoreLocation
 import CoreBluetooth
-import MinewBeaconAdmin
 
 final public class BeaconManager: NSObject, ObservableObject {
     private var bluetoothManager: CBCentralManager? // Bluetooth Manager
@@ -192,20 +192,6 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
 
 // MARK: - Beacon Writing
 extension BeaconManager {
-    public func read() {
-        guard let setting = currentConnection?.setting else { return }
-        
-        print("Battery: \(setting.battery)")
-        print("UUID: \(String(describing: setting.uuid))")
-        print("Major: \(setting.major)")
-        print("Minor: \(setting.minor)")
-        print("Measured Distance: \(String(describing: setting.calibratedTxPower))")
-        print("Transmission Power: \(setting.txPower)")
-        print("Broadcast Interval: \(setting.broadcastInterval)")
-        print("MAC Adress: \(setting.mac ?? "")")
-        print("iBeacon Name: \(setting.name ?? "")")
-    }
-    
     public func write() {
         guard let setting = currentConnection?.setting else { return }
         setting.major = 999
