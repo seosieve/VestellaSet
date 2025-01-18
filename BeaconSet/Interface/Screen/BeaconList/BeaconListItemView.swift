@@ -8,10 +8,10 @@
 import SwiftUI
 import MinewBeaconAdmin
 
-struct BeaconListItemView: View {
-    let beacon: MinewBeacon
+internal struct BeaconListItemView: View {
+    internal let beacon: MinewBeacon
     
-    var body: some View {
+    internal var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             BeaconInfoText(title: "MAC", value: beacon.mac, style: .beaconTitle)
             HStack {
@@ -23,7 +23,7 @@ struct BeaconListItemView: View {
     }
 }
 
-struct BeaconInfoText: View {
+private struct BeaconInfoText: View {
     let title: String
     let value: String
     let style: Style

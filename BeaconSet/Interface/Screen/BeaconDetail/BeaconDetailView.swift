@@ -17,7 +17,7 @@ struct BeaconDetailView: View {
             HStack {
                 Text("Battery")
                 Spacer()
-                Text("Battery")
+                Text("\(beaconManager.currentSetting?.battery)")
                     .font(.system(size: 12))
             }
             HStack {
@@ -74,6 +74,10 @@ struct BeaconDetailView: View {
         }
         .onDisappear {
             beaconManager.disconnect()
+        }
+        .onChange(of: beaconManager.currentSetting) { newValue in
+            print("🌱")
+            print(newValue)
         }
     }
 }

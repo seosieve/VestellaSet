@@ -7,27 +7,46 @@
 
 import Foundation
 import CoreLocation
+import CoreBluetooth
 import MinewBeaconAdmin
 
-final class BeaconManager: NSObject, ObservableObject {
-    private var locationManager: CLLocationManager?
-    private var minewBeaconManager: MinewBeaconManager?
-    private var currentConnection: MinewBeaconConnection?
+final public class BeaconManager: NSObject, ObservableObject {
+    private var bluetoothManager: CBCentralManager? // Bluetooth Manager
+    private var locationManager: CLLocationManager? // CLBeacon Manager
+    private var minewBeaconManager: MinewBeaconManager? // MinewBeacon Manager
     
     private var minewBeaconStorage: [MinewBeacon] = []
     private var CLBeaconStorage: [UUID: [CLBeacon]] = [:]
     
-    @Published var beacons: [Beacon] = []
-    @Published var minewBeacons: [MinewBeacon] = []
-    @Published var connectionState: ConnectionState = .disconnected
+    @Published internal var beacons: [Beacon] = []
+    @Published internal var minewBeacons: [MinewBeacon] = []
     
-    override init() {
+    @Published internal var currentConnection: MinewBeaconConnection? // Connection의 실제 객체
+    @Published internal var connectionState: ConnectionState = .disconnected // Connection 결과 저장
+    @Published internal var currentSetting: MinewBeaconSetting?
+    
+    override internal init() {
         super.init()
+        setupBluetoothManager()
         setupMinewBeaconManager()
         setupLocationManager()
         setupAppStateMonitoring()
-        // Beacon Start Scan
-        startScanning()
+    }
+}
+
+// MARK: - Bluetooth Central
+extension BeaconManager: CBCentralManagerDelegate {
+    // Bluetooth Central Init
+    private func setupBluetoothManager() {
+        self.bluetoothManager = CBCentralManager()
+        self.bluetoothManager?.delegate = self
+    }
+    
+    // Bluetooth setup이 끝난 후, Scanning 시작
+    public func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        if central.state == .poweredOn {
+            startScanning()
+        }
     }
 }
 
@@ -71,17 +90,15 @@ extension BeaconManager {
 
 // MARK: - Beacon Scanning
 extension BeaconManager {
-    func startScanning() {
+    internal func startScanning() {
         guard let minewBeaconManager, let locationManager else { return }
-        minewBeaconManager.stopScan()
         minewBeaconManager.startScan()
         locationManager.startRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
         locationManager.startRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Minew.uuid))
         print("▶️ Beacon Start Scanning")
     }
     
-    func stopScanning() {
-        // MinewBeacon Connecting을 위해 CLBeacon Scan만 중단
+    internal func stopScanning() {
         guard let minewBeaconManager, let locationManager else { return }
         minewBeaconManager.stopScan()
         locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
@@ -118,27 +135,26 @@ extension BeaconManager: MinewBeaconManagerDelegate, CLLocationManagerDelegate {
         self.beacons = beaconDictionary.flatMap { $0.value }
     }
     
-    internal func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
+    public func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
         minewBeaconStorage = beacons
         minewBeacons = beacons
-        print("1️⃣ MinewBeaconScan")
     }
     
-    internal func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
+    public func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
         CLBeaconStorage[beaconConstraint.uuid] = beacons
         // 중복 Update 방지를 위해 한 번만 Combining
         if beaconConstraint.uuid == Vestella.uuid { combiningBeacons() }
-        print("2️⃣ CLBeaconScan")
     }
     
-    internal func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
         print("Failed to range beacons: \(error.localizedDescription)")
     }
 }
 
 // MARK: - Beacon Connecting
 extension BeaconManager: MinewBeaconConnectionDelegate {
-    func connect(to beacon: MinewBeacon) {
+    internal func connect(to beacon: MinewBeacon) {
+        // Disconnect First
         disconnect()
         // Create new Connection
         currentConnection = MinewBeaconConnection(beacon: beacon)
@@ -146,45 +162,37 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
         currentConnection?.connect()
     }
     
-    func disconnect() {
+    internal func disconnect() {
         currentConnection?.disconnect()
         currentConnection = nil
     }
     
-    func beaconConnection(_ connection: MinewBeaconConnection!, didChange state: ConnectionState) {
-        DispatchQueue.main.async {
-            self.connectionState = state
-            switch state {
-            case .connected:
-                print("Connected to Device and Reading Setting")
-            case .disconnected:
-                print("Device Disconnected")
-            case .connecting:
-                print("Connecting to Device")
-            case .connectFailed:
-                print("Connecting failed")
-            @unknown default:
-                break
-            }
+    // Connecting 결과를 ConnectionState로 방출
+    public func beaconConnection(_ connection: MinewBeaconConnection!, didChange state: ConnectionState) {
+        self.connectionState = state
+        // 연결 되었을 때, Setting값 전달
+        if state == .connected {
+            self.currentSetting = connection.setting
         }
-    }
-    
-    func beaconConnection(_ connection: MinewBeaconConnection!, didReadSetting setting: MinewBeaconSetting!) {
-        DispatchQueue.main.async {
-            if setting != nil {
-                print("Successfully read device settings")
-            } else {
-                print("Failed to read device settings")
-                self.connectionState = .disconnected
-                self.currentConnection = nil
-            }
+        
+        switch state {
+        case .connected:
+            print("Connected to Device and Reading Setting")
+        case .disconnected:
+            print("Device Disconnected")
+        case .connecting:
+            print("Connecting to Device")
+        case .connectFailed:
+            print("Connecting failed")
+        @unknown default:
+            break
         }
     }
 }
 
 // MARK: - Beacon Writing
 extension BeaconManager {
-    func read() {
+    public func read() {
         guard let setting = currentConnection?.setting else { return }
         
         print("Battery: \(setting.battery)")
@@ -194,11 +202,11 @@ extension BeaconManager {
         print("Measured Distance: \(String(describing: setting.calibratedTxPower))")
         print("Transmission Power: \(setting.txPower)")
         print("Broadcast Interval: \(setting.broadcastInterval)")
-        print("MAC Adress: \(setting.mac)")
-        print("iBeacon Name: \(setting.name)")
+        print("MAC Adress: \(setting.mac ?? "")")
+        print("iBeacon Name: \(setting.name ?? "")")
     }
     
-    func write() {
+    public func write() {
         guard let setting = currentConnection?.setting else { return }
         setting.major = 999
         setting.minor = 999
@@ -208,7 +216,7 @@ extension BeaconManager {
         print("Write Complete")
     }
     
-    func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {
+    public func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {
         DispatchQueue.main.async {
             if success {
                 print("Successfully wrote beacon settings")

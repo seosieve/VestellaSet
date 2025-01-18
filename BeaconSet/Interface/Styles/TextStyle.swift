@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-enum Style {
+internal enum Style {
     case beaconTitle
     case beaconSubtitle
 }
 
-struct TextStyle: ViewModifier {
-    let style: Style
+internal struct TextStyle: ViewModifier {
+    internal let style: Style
     
-    func body(content: Content) -> some View {
+    internal func body(content: Content) -> some View {
         switch style {
         case .beaconTitle:
             content
@@ -30,7 +30,7 @@ struct TextStyle: ViewModifier {
 }
 
 extension View {
-    func style(_ style: Style) -> some View {
+    internal func style(_ style: Style) -> some View {
         modifier(TextStyle(style: style))
     }
 }

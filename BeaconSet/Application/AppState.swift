@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class AppState {
-    static let shared = AppState()
+final internal class AppState {
+    static internal let shared = AppState()
     
     private init() {
         setupNotifications()
@@ -19,13 +19,13 @@ final class AppState {
     private var didEnterBackgroundContinuation: AsyncStream<Void>.Continuation?
     private var willEnterForegroundContinuation: AsyncStream<Void>.Continuation?
     
-    lazy var didEnterBackground: AsyncStream<Void> = {
+    lazy internal var didEnterBackground: AsyncStream<Void> = {
         AsyncStream { continuation in
             self.didEnterBackgroundContinuation = continuation
         }
     }()
     
-    lazy var willEnterForeground: AsyncStream<Void> = {
+    lazy internal var willEnterForeground: AsyncStream<Void> = {
         AsyncStream { continuation in
             self.willEnterForegroundContinuation = continuation
         }

@@ -1,8 +1,8 @@
 disabled_rules: # 기본 활성화된 룰 중에 비활성화할 룰을 지정
 - trailing_whitespace
 
-#opt_in_rules: # 기본(default) 룰이 아닌 룰들을 활성화
-# - empty_count
+opt_in_rules: # 기본(default) 룰이 아닌 룰들을 활성화
+ - explicit_acl
     
 #included: # swiftlint 과정에 포함할 파일 경로
 # - Source
