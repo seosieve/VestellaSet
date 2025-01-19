@@ -30,9 +30,31 @@ internal struct BeaconListView: View {
 extension BeaconListView {
     private var mainListView: some View {
         ZStack {
-            beaconList
+            VStack(spacing: 0) {
+                filterList
+                beaconList
+            }
             loadingOverlay
         }
+    }
+    
+    private var filterList: some View {
+        HStack {
+            Spacer()
+            ForEach(0..<3) { _ in
+                Button {
+                    print("aa")
+                } label: {
+                    Text("필터버튼")
+                        .font(.system(size: 14))
+                        .foregroundStyle(.black)
+                        .padding(10)
+                        .background(Color(UIColor.systemGroupedBackground))
+                        .cornerRadius(8)
+                }
+            }
+        }
+        .padding()
     }
     
     private var beaconList: some View {
