@@ -37,35 +37,36 @@ extension BeaconListView {
     
     private var beaconList: some View {
         List(beaconManager.minewBeacons, id: \.deviceId) { beacon in
-            BeaconListItemView(beacon: beacon)
-                .onTapGesture {
-                    connectToBeacon(beacon)
-                }
+            Button {
+                connectToBeacon(beacon)
+            } label: {
+                BeaconListItemView(beacon: beacon)
+            }
         }
         .navigationDestination(isPresented: $isConnecting) {
-            detailView
+            beaconDetailView
         }
     }
     
     @ViewBuilder
     private var loadingOverlay: some View {
         if isLoading {
-            ToastView(message: "Loading...")
+            LoadingToastView()
         }
     }
     
     @ViewBuilder
-    private var detailView: some View {
+    private var beaconDetailView: some View {
         if let beacon = selectedBeacon {
             BeaconDetailView(beaconManager: beaconManager, beacon: beacon)
-                .onAppear {
-                    resetLoadingStates()
+                .onDisappear {
+                    isLoading = false
                 }
         }
     }
 }
 
-// MARK: - Helper Method
+// MARK: - Helper Methods
 extension BeaconListView {
     private func connectToBeacon(_ beacon: MinewBeacon) {
         isLoading = true
@@ -76,11 +77,10 @@ extension BeaconListView {
     private func handleConnecionState(_ newState: ConnectionState) {
         if newState == .connected {
             isConnecting = true
+            // Navigation Push Animation이 끝난 후 LoadingView 제거
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                isLoading = false
+            }
         }
-    }
-    
-    private func resetLoadingStates() {
-        isLoading = false
-        isConnecting = false
     }
 }

@@ -90,7 +90,12 @@ extension BeaconManager {
 
 // MARK: - Beacon Scanning
 extension BeaconManager {
-    internal func startScanning() {
+    internal func startScanningWithReset() {
+        stopScanning()
+        startScanning()
+    }
+    
+    private func startScanning() {
         guard let minewBeaconManager, let locationManager else { return }
         minewBeaconManager.startScan()
         locationManager.startRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
@@ -98,7 +103,7 @@ extension BeaconManager {
         print("▶️ Beacon Start Scanning")
     }
     
-    internal func stopScanning() {
+    private func stopScanning() {
         guard let minewBeaconManager, let locationManager else { return }
         minewBeaconManager.stopScan()
         locationManager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: Vestella.uuid))
@@ -106,6 +111,7 @@ extension BeaconManager {
         print("⏹️ Beacon Stop Scanning")
         // Beacon 배열 제거
         beacons.removeAll()
+        minewBeacons.removeAll()
     }
 }
 
@@ -154,8 +160,6 @@ extension BeaconManager: MinewBeaconManagerDelegate, CLLocationManagerDelegate {
 // MARK: - Beacon Connecting
 extension BeaconManager: MinewBeaconConnectionDelegate {
     internal func connect(to beacon: MinewBeacon) {
-        // Disconnect First
-        disconnect()
         // Create new Connection
         currentConnection = MinewBeaconConnection(beacon: beacon)
         currentConnection?.delegate = self
@@ -165,6 +169,8 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
     internal func disconnect() {
         currentConnection?.disconnect()
         currentConnection = nil
+        // Reset & Start
+        startScanningWithReset()
     }
     
     // Connecting 결과를 ConnectionState로 방출
@@ -203,14 +209,12 @@ extension BeaconManager {
     }
     
     public func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {
-        DispatchQueue.main.async {
-            if success {
-                print("Successfully wrote beacon settings")
-            } else {
-                print("Failed to write beacon settings")
-                self.connectionState = .disconnected
-                self.currentConnection = nil
-            }
+        if success {
+            print("Successfully wrote beacon settings")
+        } else {
+            print("Failed to write beacon settings")
+            self.connectionState = .disconnected
+            self.currentConnection = nil
         }
     }
 }

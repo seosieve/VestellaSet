@@ -7,18 +7,15 @@
 
 import SwiftUI
 
-internal struct ToastView: View {
-    internal var message: String
+internal struct LoadingToastView: View {
     @State private var isVisible = false
     
     internal var body: some View {
         ZStack {
-            Color.red.opacity(0.5)
+            Color.clear
                 .ignoresSafeArea()
-                .contentShape(Rectangle())
                 .allowsHitTesting(true)
-            
-            Text(message)
+            Text("Loading...")
                 .padding()
                 .background(Color.black.opacity(0.7))
                 .foregroundColor(.white)
@@ -29,7 +26,7 @@ internal struct ToastView: View {
                 .offset(y: isVisible ? 0 : 20)
             
         }
-        .animation(.spring(response: 0.3), value: isVisible)
+        .animation(.spring(response: 1.0), value: isVisible)
         .onAppear {
             isVisible = true
         }
