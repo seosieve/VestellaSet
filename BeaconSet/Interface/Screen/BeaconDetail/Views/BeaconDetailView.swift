@@ -11,12 +11,6 @@ internal struct BeaconDetailView: View {
     @ObservedObject internal var beaconManager: BeaconManager
     internal let beacon: MinewBeacon
     
-    private struct BeaconDetail: Identifiable {
-        let id = UUID()
-        let title: String
-        let value: String
-    }
-    
     private var beaconDetails: [BeaconDetail] {
         guard let setting = beaconManager.currentSetting else { return [BeaconDetail]() }
         
@@ -34,16 +28,20 @@ internal struct BeaconDetailView: View {
     }
     
     internal var body: some View {
-        List(beaconDetails) { detail in
-            HStack {
-                Text(detail.title)
-                Spacer()
-                Text(detail.value)
-                    .font(.system(size: 12))
+        NavigationStack {
+            List(beaconDetails) { detail in
+                NavigationLink(destination: BeaconSettingView()) {
+                    BeaconDetailListItemView(detail: detail)
+                }
             }
         }
         .onDisappear {
             beaconManager.disconnect()
         }
     }
+}
+
+// MARK: - Configure Views
+extension BeaconDetailView {
+    
 }
