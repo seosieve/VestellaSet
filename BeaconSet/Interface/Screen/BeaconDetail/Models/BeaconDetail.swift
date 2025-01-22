@@ -15,7 +15,7 @@ internal struct BeaconDetail: Identifiable {
 
 // MARK: - BeaconDetail Factory
 extension MinewBeaconSetting {
-    func toBeaconDetails() -> [BeaconDetail] {
+    internal func toBeaconDetails() -> [BeaconDetail] {
         let details: [(title: String, value: String)] = [
             ("Battery", String(battery)),
             ("UUID", uuid),
