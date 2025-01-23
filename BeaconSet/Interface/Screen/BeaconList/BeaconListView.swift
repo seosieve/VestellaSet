@@ -78,7 +78,7 @@ extension BeaconListView {
     @ViewBuilder
     private var beaconDetailView: some View {
         if let beacon = selectedBeacon {
-            BeaconDetailView(beaconManager: beaconManager, beacon: beacon)
+            BeaconDetailView(beaconManager: beaconManager, beacon: beacon, isPresented: $isConnecting)
                 .onDisappear {
                     isLoading = false
                 }

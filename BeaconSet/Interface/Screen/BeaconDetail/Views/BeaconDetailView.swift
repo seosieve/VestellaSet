@@ -11,6 +11,8 @@ internal struct BeaconDetailView: View {
     @ObservedObject internal var beaconManager: BeaconManager
     internal let beacon: MinewBeacon
     
+    @Binding internal var isPresented: Bool
+    
     private var beaconDetails: [BeaconDetail] {
         guard let setting = beaconManager.currentSetting else { return [BeaconDetail]() }
         
@@ -53,10 +55,9 @@ internal struct BeaconDetailView: View {
         .onDisappear {
             beaconManager.disconnect()
         }
+        .onChange(of: beaconManager.connectionState) { _, newState in
+            print("🧊 \(newState)")
+            isPresented = false
+        }
     }
-}
-
-// MARK: - Configure Views
-extension BeaconDetailView {
-    
 }

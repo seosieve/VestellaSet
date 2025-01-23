@@ -200,8 +200,8 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
 extension BeaconManager {
     public func write() {
         guard let setting = currentConnection?.setting else { return }
-        setting.major = 999
-        setting.minor = 999
+        setting.major = 888
+        setting.minor = 888
         setting.broadcastInterval = 3
         
         print(setting.broadcastInterval)
@@ -212,6 +212,7 @@ extension BeaconManager {
     public func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {
         if success {
             print("Successfully wrote beacon settings")
+            self.connectionState = .disconnected
         } else {
             print("Failed to write beacon settings")
             self.connectionState = .disconnected
