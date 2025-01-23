@@ -7,12 +7,16 @@
 
 import SwiftUI
 
-struct BeaconSettingView: View {
-    var body: some View {
+internal struct BeaconSettingView: View {
+    @State internal var text: String = ""
+    
+    internal var body: some View {
+        VStack {
+            TextField("Enter your text", text: $text)
+                .padding()
+                .background(Color(uiColor: .secondarySystemBackground))
+        }
+        
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
-}
-
-#Preview {
-    BeaconSettingView()
 }

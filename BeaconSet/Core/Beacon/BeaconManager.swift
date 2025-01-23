@@ -203,6 +203,7 @@ extension BeaconManager {
         setting.major = 999
         setting.minor = 999
         setting.broadcastInterval = 3
+        
         print(setting.broadcastInterval)
         currentConnection?.writeSetting("minew123")
         print("Write Complete")

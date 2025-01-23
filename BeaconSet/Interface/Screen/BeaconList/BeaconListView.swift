@@ -42,16 +42,14 @@ extension BeaconListView {
         HStack {
             Spacer()
             ForEach(0..<3) { _ in
-                Button {
+                Button("필터버튼") {
                     print("aa")
-                } label: {
-                    Text("필터버튼")
-                        .font(.system(size: 14))
-                        .foregroundStyle(.black)
-                        .padding(10)
-                        .background(Color(UIColor.systemGroupedBackground))
-                        .cornerRadius(8)
                 }
+                .font(.system(size: 14))
+                .foregroundStyle(.black)
+                .padding(10)
+                .background(Color(.systemGroupedBackground))
+                .cornerRadius(8)
             }
         }
         .padding()

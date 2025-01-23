@@ -8,8 +8,8 @@
 import SwiftUI
 
 @main
-struct BeaconSetApp: App {
-    var body: some Scene {
+internal struct BeaconSetApp: App {
+    internal var body: some Scene {
         WindowGroup {
             BeaconListView()
         }
