@@ -37,7 +37,7 @@ internal struct BeaconDetailView: View {
                     Spacer()
                     Button("Save") {
                         beaconManager.write()
-                    }
+                    } 
                     .font(.system(size: 12))
                     .foregroundStyle(.black)
                     .padding(10)
