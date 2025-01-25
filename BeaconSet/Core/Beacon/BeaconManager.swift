@@ -147,6 +147,14 @@ extension BeaconManager: MinewBeaconManagerDelegate, CLLocationManagerDelegate {
     }
     
     public func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
+        for beacon in beacons {
+            print("\(beacon.uuid.uuidString), \(beacon.major), \(beacon.minor)")
+            print("and")
+        }
+        print("\n")
+        print("----------")
+        print("\n")
+        
         CLBeaconStorage[beaconConstraint.uuid] = beacons
         // 중복 Update 방지를 위해 한 번만 Combining
         if beaconConstraint.uuid == Vestella.uuid { combiningBeacons() }
