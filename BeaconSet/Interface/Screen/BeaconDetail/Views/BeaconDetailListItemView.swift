@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct BeaconDetailListItemView: View {
+internal struct BeaconDetailListItemView: View {
     internal let detail: BeaconDetail
     
-    var body: some View {
+    internal var body: some View {
         HStack {
             Text(detail.title)
             Spacer()
@@ -18,4 +18,5 @@ struct BeaconDetailListItemView: View {
                 .font(.system(size: 12))
         }
     }
+
 }

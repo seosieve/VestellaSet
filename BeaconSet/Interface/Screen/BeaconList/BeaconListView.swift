@@ -17,11 +17,13 @@ internal struct BeaconListView: View {
     internal var body: some View {
         NavigationStack {
             mainListView
-            .navigationTitle("MinewBeacons")
-            .onChange(of: beaconManager.connectionState) { _, newState in
-                // Connected 완료 되었을 때 Navigating
-                handleConnecionState(newState)
-            }
+                .refreshable {
+                    await fetchData()
+                }
+                .onChange(of: beaconManager.connectionState) { _, newState in
+                    // Connected 완료 되었을 때 Navigating
+                    handleConnecionState(newState)
+                }
         }
     }
 }
@@ -31,7 +33,7 @@ extension BeaconListView {
     private var mainListView: some View {
         ZStack {
             VStack(spacing: 0) {
-                filterList
+//                filterList
                 beaconList
             }
             loadingOverlay
@@ -102,5 +104,18 @@ extension BeaconListView {
                 isLoading = false
             }
         }
+    }
+    
+    private func fetchData() async {
+        // Start Impact Interaction
+        let impactGenerator = UIImpactFeedbackGenerator(style: .medium)
+        impactGenerator.prepare()
+        impactGenerator.impactOccurred()
+        
+        try? await Task.sleep(nanoseconds: 2_000_000_000)
+        // Success Impact Interaction
+        let successGenerator = UINotificationFeedbackGenerator()
+        successGenerator.prepare()
+        successGenerator.notificationOccurred(.success)
     }
 }
