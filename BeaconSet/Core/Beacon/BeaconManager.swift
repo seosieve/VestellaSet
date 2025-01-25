@@ -117,47 +117,9 @@ extension BeaconManager {
 
 // MARK: - Beacon Combining
 extension BeaconManager: MinewBeaconManagerDelegate, CLLocationManagerDelegate {
-    private func combiningBeacons() {
-        var beaconDictionary: [BeaconIdentifier: [Beacon]] = [:]
-        // MinewBeacon 통합
-        minewBeaconStorage.forEach { minewBeacon in
-            let identifier = BeaconIdentifier(major: minewBeacon.major, minor: minewBeacon.minor)
-            let beacon = Beacon(from: minewBeacon)
-            beaconDictionary[identifier, default: []].append(beacon)
-        }
-        // CLBeacon 통합 및 UUID 업데이트
-        for (uuid, beacons) in CLBeaconStorage {
-            beacons.forEach { beacon in
-                let identifier = BeaconIdentifier(major: beacon.major.intValue, minor: beacon.minor.intValue)
-                if var existingBeacons = beaconDictionary[identifier] {
-                    for index in existingBeacons.indices {
-                        existingBeacons[index].uuid = existingBeacons.count > 1 ? "duplicated" : uuid.uuidString
-                    }
-                    beaconDictionary[identifier] = existingBeacons
-                }
-            }
-        }
-        
-        self.beacons = beaconDictionary.flatMap { $0.value }
-    }
-    
     public func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
         minewBeaconStorage = beacons
         minewBeacons = beacons
-    }
-    
-    public func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
-        for beacon in beacons {
-            print("\(beacon.uuid.uuidString), \(beacon.major), \(beacon.minor)")
-            print("and")
-        }
-        print("\n")
-        print("----------")
-        print("\n")
-        
-        CLBeaconStorage[beaconConstraint.uuid] = beacons
-        // 중복 Update 방지를 위해 한 번만 Combining
-        if beaconConstraint.uuid == Vestella.uuid { combiningBeacons() }
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
