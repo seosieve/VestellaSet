@@ -30,25 +30,23 @@ internal struct BeaconDetailView: View {
     }
     
     internal var body: some View {
-        NavigationStack {
-            VStack {
+        VStack {
+            Spacer()
+            HStack(alignment: .lastTextBaseline) {
                 Spacer()
-                HStack(alignment: .lastTextBaseline) {
-                    Spacer()
-                    Button("Save") {
-                        beaconManager.write()
-                    } 
-                    .font(.system(size: 12))
-                    .foregroundStyle(.black)
-                    .padding(10)
-                    .background(Color(.secondarySystemBackground))
+                Button("Save") {
+                    beaconManager.write()
                 }
-                .padding()
-                
-                List(beaconDetails) { detail in
-                    NavigationLink(destination: BeaconSettingView()) {
-                        BeaconDetailListItemView(detail: detail)
-                    }
+                .font(.system(size: 12))
+                .foregroundStyle(.black)
+                .padding(10)
+                .background(Color(.secondarySystemBackground))
+            }
+            .padding()
+            
+            List(beaconDetails) { detail in
+                NavigationLink(destination: BeaconSettingView()) {
+                    BeaconDetailListItemView(detail: detail)
                 }
             }
         }
