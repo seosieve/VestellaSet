@@ -10,40 +10,31 @@ import UIKit
 final internal class AppState {
     static internal let shared = AppState()
     
-    private init() {
-        setupNotifications()
+    private init() { }
+    
+    private let notification: NotificationCenter = NotificationCenter.default
+    
+    internal enum Event {
+        case didEnterBackground
+        case willEnterForeground
     }
     
-    private let notification = NotificationCenter.default
-    
-    private var didEnterBackgroundContinuation: AsyncStream<Void>.Continuation?
-    private var willEnterForegroundContinuation: AsyncStream<Void>.Continuation?
-    
-    lazy internal var didEnterBackground: AsyncStream<Void> = {
+    internal var appStateStream: AsyncStream<Event> {
         AsyncStream { continuation in
-            self.didEnterBackgroundContinuation = continuation
+            let foregroundNotificationName = UIApplication.willEnterForegroundNotification
+            let foregroundObserver = notification.addObserver(forName: foregroundNotificationName, object: nil, queue: nil) { _ in
+                continuation.yield(.willEnterForeground)
+            }
+            
+            let backgroundNotificationName = UIApplication.didEnterBackgroundNotification
+            let backgroundObserver = notification.addObserver(forName: backgroundNotificationName, object: nil, queue: nil) { _ in
+                continuation.yield(.didEnterBackground)
+            }
+            
+            continuation.onTermination = { _ in
+                self.notification.removeObserver(foregroundObserver)
+                self.notification.removeObserver(backgroundObserver)
+            }
         }
-    }()
-    
-    lazy internal var willEnterForeground: AsyncStream<Void> = {
-        AsyncStream { continuation in
-            self.willEnterForegroundContinuation = continuation
-        }
-    }()
-    
-    private func setupNotifications() {
-        let backgroundNotificationName = UIApplication.didEnterBackgroundNotification
-        notification.addObserver(self, selector: #selector(handleDidEnterBackground), name: backgroundNotificationName, object: nil)
-        
-        let foregroundNotificationName = UIApplication.willEnterForegroundNotification
-        notification.addObserver(self, selector: #selector(handleWillEnterForeground), name: foregroundNotificationName, object: nil)
-    }
-    
-    @objc private func handleDidEnterBackground() {
-        didEnterBackgroundContinuation?.yield()
-    }
-    
-    @objc private func handleWillEnterForeground() {
-        willEnterForegroundContinuation?.yield()
     }
 }
