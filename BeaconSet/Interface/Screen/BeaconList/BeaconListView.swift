@@ -33,7 +33,7 @@ extension BeaconListView {
     private var mainListView: some View {
         ZStack {
             VStack(spacing: 0) {
-//                filterList
+                filterList
                 beaconList
             }
             loadingOverlay

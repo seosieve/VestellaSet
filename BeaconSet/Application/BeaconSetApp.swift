@@ -11,7 +11,7 @@ import SwiftUI
 internal struct BeaconSetApp: App {
     internal var body: some Scene {
         WindowGroup {
-            BeaconListView()
+            SVGTestView()
         }
     }
 }
