@@ -18,6 +18,7 @@ internal struct BeaconListItemView: View {
                 BeaconInfoText(title: "RSSI", value: "\(beacon.rssi)", style: .beaconSubtitle)
                 BeaconInfoText(title: "Major", value: "\(beacon.major)", style: .beaconSubtitle)
                 BeaconInfoText(title: "Minor", value: "\(beacon.minor)", style: .beaconSubtitle)
+                BeaconInfoText(title: "Minor", value: "\(beacon.battery)", style: .beaconSubtitle)
             }
         }
     }
