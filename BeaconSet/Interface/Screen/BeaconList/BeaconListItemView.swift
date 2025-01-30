@@ -12,49 +12,45 @@ internal struct BeaconListItemView: View {
     internal let beacon: MinewBeacon
     
     internal var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            BeaconInfoText(title: "MAC", value: beacon.mac, style: .beaconTitle)
-            HStack {
-                BeaconInfoText(title: "RSSI", value: "\(beacon.rssi)", style: .beaconSubtitle)
-                BeaconInfoText(title: "Major", value: "\(beacon.major)", style: .beaconSubtitle)
-                BeaconInfoText(title: "Minor", value: "\(beacon.minor)", style: .beaconSubtitle)
-                BeaconInfoText(title: "Minor", value: "\(beacon.battery)", style: .beaconSubtitle)
-            }
+        ZStack {
+            backgroundRectangle
+            contentView
         }
     }
 }
 
 // MARK: - Configure Views
-private struct BeaconInfoText: View {
-    internal enum Style {
-        case beaconTitle
-        case beaconSubtitle
+extension BeaconListItemView {
+    private var backgroundRectangle: some View {
+        RoundedRectangle(cornerRadius: 12)
+            .fill(Color.white.opacity(0.1))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.white.opacity(0.1), lineWidth: 1)
+            )
     }
     
-    let title: String
-    let value: String
-    let style: Style
-    
-    var body: some View {
-        Text("\(title): \(value)")
-            .modifier(BeaconInfoTextStyle(style: style))
-    }
-}
-
-// MARK: - View Modifiers
-private struct BeaconInfoTextStyle: ViewModifier {
-    let style: BeaconInfoText.Style
-    
-    internal func body(content: Content) -> some View {
-        switch style {
-        case .beaconTitle:
-            content
-                .foregroundColor(.black)
-                .font(.system(size: 12))
-        case .beaconSubtitle:
-            content
-                .foregroundColor(.secondary)
-                .font(.subheadline)
+    private var contentView: some View {
+        ZStack(alignment: .bottomTrailing) {
+            VStack {
+                Text(beacon.mac)
+                    .font(.system(size: 16))
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                
+                Spacer().frame(height: 10)
+                
+                Text("Subtitle or additional content")
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
+            }
         }
+    }
+    
+    private var navigateCircle: some View {
+        Circle()
+            .fill(.white)
+            .frame(width: 20, height: 20)
+            .padding(8)
     }
 }

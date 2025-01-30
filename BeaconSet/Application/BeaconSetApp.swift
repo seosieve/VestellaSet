@@ -9,9 +9,20 @@ import SwiftUI
 
 @main
 internal struct BeaconSetApp: App {
+    internal init() {
+        customizeRefreshControlAppearance()
+    }
+    
     internal var body: some Scene {
         WindowGroup {
-            SVGTestView()
+            BeaconListView()
         }
+    }
+}
+
+// MARK: - Helper Methods
+extension BeaconSetApp {
+    private func customizeRefreshControlAppearance() {
+        UIRefreshControl.appearance().tintColor = UIColor.lightGray.withAlphaComponent(0.4)
     }
 }

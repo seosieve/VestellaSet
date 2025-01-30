@@ -32,41 +32,38 @@ internal struct BeaconListView: View {
 extension BeaconListView {
     private var mainListView: some View {
         ZStack {
-            VStack(spacing: 0) {
-                filterList
-                beaconList
-            }
+            gradientBackground
+            beaconScrollList
             loadingOverlay
         }
     }
     
-    private var filterList: some View {
-        HStack {
-            Spacer()
-            ForEach(0..<3) { _ in
-                Button("필터버튼") {
-                    print("aa")
-                }
-                .font(.system(size: 14))
-                .foregroundStyle(.black)
-                .padding(10)
-                .background(Color(.systemGroupedBackground))
-                .cornerRadius(8)
-            }
-        }
-        .padding()
+    private var gradientBackground: some View {
+        LinearGradient(
+            gradient: Gradient(colors: [.gray.opacity(0.4), .gray.opacity(0.5)]),
+            startPoint: .topLeading,
+            endPoint: .center
+        )
+        .ignoresSafeArea()
     }
     
-    private var beaconList: some View {
-        List(beaconManager.minewBeacons, id: \.deviceId) { beacon in
-            Button {
-                connectToBeacon(beacon)
-            } label: {
-                BeaconListItemView(beacon: beacon)
+    private var beaconScrollList: some View {
+        ScrollView {
+            VStack(spacing: 12) {
+                Spacer().frame(height: 30)
+                ForEach(beaconManager.minewBeacons, id: \.deviceId) { beacon in
+                    Button {
+                        connectToBeacon(beacon)
+                    } label: {
+                        BeaconListItemView(beacon: beacon)
+                    }
+                    .padding(.horizontal, 20)
+                    .frame(height: 100)
+                    .navigationDestination(isPresented: $isConnecting) {
+                        beaconDetailView
+                    }
+                }
             }
-        }
-        .navigationDestination(isPresented: $isConnecting) {
-            beaconDetailView
         }
     }
     
@@ -90,12 +87,6 @@ extension BeaconListView {
 
 // MARK: - Helper Methods
 extension BeaconListView {
-    private func connectToBeacon(_ beacon: MinewBeacon) {
-        isLoading = true
-        selectedBeacon = beacon
-        beaconManager.connect(to: beacon)
-    }
-    
     private func handleConnecionState(_ newState: ConnectionState) {
         if newState == .connected {
             isConnecting = true
@@ -104,6 +95,12 @@ extension BeaconListView {
                 isLoading = false
             }
         }
+    }
+    
+    private func connectToBeacon(_ beacon: MinewBeacon) {
+        isLoading = true
+        selectedBeacon = beacon
+        beaconManager.connect(to: beacon)
     }
     
     private func fetchData() async {

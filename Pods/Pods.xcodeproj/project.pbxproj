@@ -31,7 +31,6 @@
 
 /* Begin PBXBuildFile section */
 		664FE4BB875ED83DD594CF91F96B9110 /* Pods-BeaconSet-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E824D30DDB568587DD5409464DBDC13B /* Pods-BeaconSet-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8B1023F6E620C7520B6A7EECDC6E8071 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
 		B1A79C8ADC2850A19AA396D160A52C14 /* Pods-BeaconSet-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EE21EDC35D2E3143618B04B0DB4BCE /* Pods-BeaconSet-dummy.m */; };
 /* End PBXBuildFile section */
 
@@ -59,21 +58,18 @@
 		272225A58D53BF1B4CDE834FA42F027F /* MinewBeaconConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeaconConnection.h; path = MinewBeaconAdmin/Classes/MinewBeaconConnection.h; sourceTree = "<group>"; };
 		2DA0D1E4443F4498A0AE2143DD3BBE31 /* MinewBeaconAdmin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MinewBeaconAdmin.release.xcconfig; sourceTree = "<group>"; };
 		3669726C8AC1131325C704D3CCA0BC9A /* Pods-BeaconSet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BeaconSet.release.xcconfig"; sourceTree = "<group>"; };
-		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		43FD4887D0217CD279CAE1C3B285F1A4 /* Pods-BeaconSet-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BeaconSet-acknowledgements.markdown"; sourceTree = "<group>"; };
 		53EE21EDC35D2E3143618B04B0DB4BCE /* Pods-BeaconSet-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BeaconSet-dummy.m"; sourceTree = "<group>"; };
 		6CEEACF07F8ED1C328F0A93278F59D87 /* Pods-BeaconSet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BeaconSet.modulemap"; sourceTree = "<group>"; };
 		6D3F8B933E1DEAED15791059F8054371 /* Pods-BeaconSet-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BeaconSet-Info.plist"; sourceTree = "<group>"; };
 		766B1E0DDBDA7C8FFDA96C63586D4A05 /* MinewBeaconAdmin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MinewBeaconAdmin.framework; path = MinewBeaconAdmin/Frameworks/MinewBeaconAdmin.framework; sourceTree = "<group>"; };
 		7E7E017F41BB40820F90E0C6F8F80B46 /* SwiftLint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftLint.debug.xcconfig; sourceTree = "<group>"; };
-		8A01837D70293867FA4F90C578E3ADB9 /* MinewBeaconAdmin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MinewBeaconAdmin.debug.xcconfig; sourceTree = "<group>"; };
 		9B6D7008210307F05B8C42ACDDACBE51 /* MinewBeaconSetting.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeaconSetting.h; path = MinewBeaconAdmin/Classes/MinewBeaconSetting.h; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A45879BF2A42794DC55D60A9D4992026 /* MinewBeacon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeacon.h; path = MinewBeaconAdmin/Classes/MinewBeacon.h; sourceTree = "<group>"; };
 		B605CEC74FC145CF87A4935C19C967D8 /* MinewBeaconManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MinewBeaconManager.h; path = MinewBeaconAdmin/Classes/MinewBeaconManager.h; sourceTree = "<group>"; };
 		E824D30DDB568587DD5409464DBDC13B /* Pods-BeaconSet-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BeaconSet-umbrella.h"; sourceTree = "<group>"; };
 		F5B6DF8D754F7435FCA1B5A63086AA81 /* Pods-BeaconSet-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BeaconSet-acknowledgements.plist"; sourceTree = "<group>"; };
-		F6E715ABC495DB685BF90C0426709318 /* Pods-BeaconSet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BeaconSet.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +77,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B1023F6E620C7520B6A7EECDC6E8071 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +92,6 @@
 				53EE21EDC35D2E3143618B04B0DB4BCE /* Pods-BeaconSet-dummy.m */,
 				6D3F8B933E1DEAED15791059F8054371 /* Pods-BeaconSet-Info.plist */,
 				E824D30DDB568587DD5409464DBDC13B /* Pods-BeaconSet-umbrella.h */,
-				F6E715ABC495DB685BF90C0426709318 /* Pods-BeaconSet.debug.xcconfig */,
 				3669726C8AC1131325C704D3CCA0BC9A /* Pods-BeaconSet.release.xcconfig */,
 			);
 			name = "Pods-BeaconSet";
@@ -137,7 +131,6 @@
 		408A3199F4578254398E9D2B1E3B2467 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				8A01837D70293867FA4F90C578E3ADB9 /* MinewBeaconAdmin.debug.xcconfig */,
 				2DA0D1E4443F4498A0AE2143DD3BBE31 /* MinewBeaconAdmin.release.xcconfig */,
 			);
 			name = "Support Files";
@@ -193,7 +186,6 @@
 		E4801F62A6B08CD9B5410329F1A18FDE /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -308,7 +300,6 @@
 /* Begin XCBuildConfiguration section */
 		564D6FCD6601620F029EDF166F9FA954 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6E715ABC495DB685BF90C0426709318 /* Pods-BeaconSet.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -384,7 +375,6 @@
 		};
 		68E7F95211DEC943AC10D3F8E8E5A41F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A01837D70293867FA4F90C578E3ADB9 /* MinewBeaconAdmin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
