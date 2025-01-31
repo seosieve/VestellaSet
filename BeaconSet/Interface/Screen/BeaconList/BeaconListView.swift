@@ -50,32 +50,39 @@ extension BeaconListView {
     }
     
     private var beaconScrollView: some View {
-//        ScrollView {
-//            VStack(spacing: 12) {
-//                Spacer().frame(height: 30)
-//                ForEach(beaconManager.minewBeacons, id: \.deviceId) { beacon in
-//                    Button(action: { connectToBeacon(beacon) }) {
-//                        BeaconCardView(beacon: beacon)
-//                    }
-//                    .padding(.horizontal, 20)
-//                    .frame(height: 100)
-//                }
+        ScrollView {
+            VStack(spacing: 12) {
+                Spacer().frame(height: 30)
+                ForEach(beaconManager.minewBeacons, id: \.deviceId) { beacon in
+                    let _ = print("🐨", beacon.rssi)
+                    Button {
+                        connectToBeacon(beacon)
+                    } label: {
+                        BeaconCardView(beacon: beacon)
+                    }
+                    .id(beacon.rssi)
+                    .padding(.horizontal, 20)
+                    .frame(height: 100)
+                }
+            }
+        }
+        
+//        List(beaconManager.minewBeacons, id: \.deviceId) { beacon in
+//            Button {
+//                connectToBeacon(beacon)
+//            } label: {
+//                BeaconCardView(beacon: beacon)
 //            }
 //        }
-        
-        List(beaconManager.minewBeacons, id: \.deviceId) { beacon in
-            let _ = print("🐨", beacon.rssi)
+    }
+    
+    private func beaconCardButton(_ beacon: MinewBeacon) -> some View {
+        Button(action: { connectToBeacon(beacon) }) {
             BeaconCardView(beacon: beacon)
         }
+        .padding(.horizontal, 20)
+        .frame(height: 100)
     }
-//    
-//    private func beaconCardButton(_ beacon: MinewBeacon) -> some View {
-//        Button(action: { connectToBeacon(beacon) }) {
-//            BeaconCardView(beacon: beacon)
-//        }
-//        .padding(.horizontal, 20)
-//        .frame(height: 100)
-//    }
     
     @ViewBuilder
     private var loadingOverlay: some View {
