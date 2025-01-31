@@ -1,6 +1,7 @@
 disabled_rules: # 기본 활성화된 룰 중에 비활성화할 룰을 지정
-- trailing_whitespace
 - identifier_name
+- trailing_whitespace
+- multiple_closures_with_trailing_closure
 
 opt_in_rules: # 기본(default) 룰이 아닌 룰들을 활성화
  - explicit_acl

@@ -20,8 +20,10 @@ internal struct BeaconListView: View {
                 .refreshable {
                     await fetchData()
                 }
+                .navigationDestination(isPresented: $isConnecting) {
+                    beaconDetailView
+                }
                 .onChange(of: beaconManager.connectionState) { _, newState in
-                    // Connected 완료 되었을 때 Navigating
                     handleConnecionState(newState)
                 }
         }
@@ -33,7 +35,7 @@ extension BeaconListView {
     private var mainListView: some View {
         ZStack {
             gradientBackground
-            beaconScrollList
+            beaconScrollView
             loadingOverlay
         }
     }
@@ -47,25 +49,33 @@ extension BeaconListView {
         .ignoresSafeArea()
     }
     
-    private var beaconScrollList: some View {
-        ScrollView {
-            VStack(spacing: 12) {
-                Spacer().frame(height: 30)
-                ForEach(beaconManager.minewBeacons, id: \.deviceId) { beacon in
-                    Button {
-                        connectToBeacon(beacon)
-                    } label: {
-                        BeaconListItemView(beacon: beacon)
-                    }
-                    .padding(.horizontal, 20)
-                    .frame(height: 100)
-                    .navigationDestination(isPresented: $isConnecting) {
-                        beaconDetailView
-                    }
-                }
-            }
+    private var beaconScrollView: some View {
+//        ScrollView {
+//            VStack(spacing: 12) {
+//                Spacer().frame(height: 30)
+//                ForEach(beaconManager.minewBeacons, id: \.deviceId) { beacon in
+//                    Button(action: { connectToBeacon(beacon) }) {
+//                        BeaconCardView(beacon: beacon)
+//                    }
+//                    .padding(.horizontal, 20)
+//                    .frame(height: 100)
+//                }
+//            }
+//        }
+        
+        List(beaconManager.minewBeacons, id: \.deviceId) { beacon in
+            let _ = print("🐨", beacon.rssi)
+            BeaconCardView(beacon: beacon)
         }
     }
+//    
+//    private func beaconCardButton(_ beacon: MinewBeacon) -> some View {
+//        Button(action: { connectToBeacon(beacon) }) {
+//            BeaconCardView(beacon: beacon)
+//        }
+//        .padding(.horizontal, 20)
+//        .frame(height: 100)
+//    }
     
     @ViewBuilder
     private var loadingOverlay: some View {
