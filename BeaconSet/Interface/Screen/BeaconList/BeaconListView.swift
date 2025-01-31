@@ -54,7 +54,6 @@ extension BeaconListView {
             VStack(spacing: 12) {
                 Spacer().frame(height: 30)
                 ForEach(beaconManager.minewBeacons, id: \.deviceId) { beacon in
-                    let _ = print("🐨", beacon.rssi)
                     Button {
                         connectToBeacon(beacon)
                     } label: {
@@ -66,14 +65,6 @@ extension BeaconListView {
                 }
             }
         }
-        
-//        List(beaconManager.minewBeacons, id: \.deviceId) { beacon in
-//            Button {
-//                connectToBeacon(beacon)
-//            } label: {
-//                BeaconCardView(beacon: beacon)
-//            }
-//        }
     }
     
     private func beaconCardButton(_ beacon: MinewBeacon) -> some View {

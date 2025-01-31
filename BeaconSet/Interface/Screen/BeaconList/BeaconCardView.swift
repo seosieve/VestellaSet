@@ -76,9 +76,12 @@ extension BeaconCardView {
             // 진행 원
             Circle()
                 .trim(from: 0, to: CGFloat(beacon.rssi) * -1 / 100) // progress에 따라 원의 일부만 그려짐
-                .stroke(.red, style: StrokeStyle(lineWidth: 4, lineCap: .butt))
+            
+                .stroke(AngularGradient(gradient: Gradient(colors: [.gray.opacity(0), .red]),
+                                        center: .center,
+                                        startAngle: .degrees(0),
+                                        endAngle: .degrees(CGFloat(CGFloat(CGFloat(beacon.rssi) * -1 / 100) * 360))),style: StrokeStyle(lineWidth: 4, lineCap: .round))
                 .rotationEffect(.degrees(-90)) // 시작점 조정 (윗부분부터 시작)
-                .animation(.easeInOut(duration: 10), value: CGFloat(beacon.rssi) * -1 / 100) // 애니메이션
 
             // 진행률 텍스트
             Text("\(Int(CGFloat(beacon.rssi) * -1 / 100 * 100))%")
