@@ -34,16 +34,17 @@ extension BeaconCardView {
     private var contentView: some View {
         HStack {
             VStack {
-                placeText
-                Spacer()
+                macText
+                majorText
+                minorText
             }
             Spacer()
             lingChart
         }
     }
     
-    private var placeText: some View {
-        return Text("안산상공회의소뒤\(beacon.rssi)")
+    private var macText: some View {
+        return Text("\(beacon.mac ?? "N/A")")
             .font(.system(size: 12))
             .foregroundStyle(.red)
             .padding(5)
@@ -53,7 +54,32 @@ extension BeaconCardView {
                 RoundedRectangle(cornerRadius: 8)
                     .strokeBorder(Color.white.opacity(0.4), lineWidth: 1)
             )
-            .padding(10)
+    }
+    
+    private var majorText: some View {
+        return Text("\(beacon.major)")
+            .font(.system(size: 12))
+            .foregroundStyle(.red)
+            .padding(5)
+            .background(.white.opacity(0.2))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(Color.white.opacity(0.4), lineWidth: 1)
+            )
+    }
+    
+    private var minorText: some View {
+        return Text("\(beacon.minor)")
+            .font(.system(size: 12))
+            .foregroundStyle(.red)
+            .padding(5)
+            .background(.white.opacity(0.2))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(Color.white.opacity(0.4), lineWidth: 1)
+            )
     }
     
     private var navigateCircle: some View {
@@ -68,6 +94,12 @@ extension BeaconCardView {
     }
     
     private var lingChart: some View {
+        
+        
+        
+        
+        
+        
         ZStack {
             // 배경 원
             Circle()
