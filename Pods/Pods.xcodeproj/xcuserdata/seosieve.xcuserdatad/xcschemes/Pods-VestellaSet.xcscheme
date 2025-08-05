@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F80DECEE6335DA66DCB730A848A4FC33"
-               BuildableName = "Pods_BeaconSet.framework"
-               BlueprintName = "Pods-BeaconSet"
+               BlueprintIdentifier = "39A7F3E9057D176280C1367047344A1F"
+               BuildableName = "Pods_VestellaSet.framework"
+               BlueprintName = "Pods-VestellaSet"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

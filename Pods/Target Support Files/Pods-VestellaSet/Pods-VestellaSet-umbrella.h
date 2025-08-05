@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_BeaconSetVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_BeaconSetVersionString[];
+FOUNDATION_EXPORT double Pods_VestellaSetVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_VestellaSetVersionString[];
 

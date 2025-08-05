@@ -8,34 +8,36 @@
 
 /* Begin PBXBuildFile section */
 		4E1C956C2D2406C90069037F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4E1C956B2D2406C90069037F /* .swiftlint.yml */; };
-		C1ED612685D94066B42807D5 /* Pods_BeaconSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A75DCB91867B03E4241FAAC /* Pods_BeaconSet.framework */; };
+		C54776F2BF5440907B8025D5 /* Pods_VestellaSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA02E7A7BA51294005294ED /* Pods_VestellaSet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0AAEE1FACC6B1B1F3DC2ED93 /* Pods-VestellaSet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VestellaSet.release.xcconfig"; path = "Target Support Files/Pods-VestellaSet/Pods-VestellaSet.release.xcconfig"; sourceTree = "<group>"; };
+		0FA02E7A7BA51294005294ED /* Pods_VestellaSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VestellaSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		15633CF38E9F3FFA373392D7 /* Pods-BeaconSet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconSet.debug.xcconfig"; path = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.debug.xcconfig"; sourceTree = "<group>"; };
 		4E1C956B2D2406C90069037F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		55A7731C3A2C9874128EC9D9 /* Pods-VestellaSet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VestellaSet.debug.xcconfig"; path = "Target Support Files/Pods-VestellaSet/Pods-VestellaSet.debug.xcconfig"; sourceTree = "<group>"; };
 		69888AB76CB2C9DF3FADB79D /* Pods-BeaconSet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconSet.release.xcconfig"; path = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.release.xcconfig"; sourceTree = "<group>"; };
-		7A75DCB91867B03E4241FAAC /* Pods_BeaconSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeaconSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CFD28A7C2D14145900859D49 /* BeaconSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFD28A7C2D14145900859D49 /* VestellaSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VestellaSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		4E4CF6142D2D5F78006C33BA /* Exceptions for "BeaconSet" folder in "BeaconSet" target */ = {
+		4EF161232E4221B300600482 /* Exceptions for "VestellaSet" folder in "VestellaSet" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = CFD28A7B2D14145900859D49 /* BeaconSet */;
+			target = CFD28A7B2D14145900859D49 /* VestellaSet */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		CFD28A7E2D14145900859D49 /* BeaconSet */ = {
+		CFD28A7E2D14145900859D49 /* VestellaSet */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				4E4CF6142D2D5F78006C33BA /* Exceptions for "BeaconSet" folder in "BeaconSet" target */,
+				4EF161232E4221B300600482 /* Exceptions for "VestellaSet" folder in "VestellaSet" target */,
 			);
-			path = BeaconSet;
+			path = VestellaSet;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -45,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1ED612685D94066B42807D5 /* Pods_BeaconSet.framework in Frameworks */,
+				C54776F2BF5440907B8025D5 /* Pods_VestellaSet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +59,8 @@
 			children = (
 				15633CF38E9F3FFA373392D7 /* Pods-BeaconSet.debug.xcconfig */,
 				69888AB76CB2C9DF3FADB79D /* Pods-BeaconSet.release.xcconfig */,
+				55A7731C3A2C9874128EC9D9 /* Pods-VestellaSet.debug.xcconfig */,
+				0AAEE1FACC6B1B1F3DC2ED93 /* Pods-VestellaSet.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -64,7 +68,7 @@
 		635FA7BB362A0DF250DD84B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7A75DCB91867B03E4241FAAC /* Pods_BeaconSet.framework */,
+				0FA02E7A7BA51294005294ED /* Pods_VestellaSet.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -73,7 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				4E1C956B2D2406C90069037F /* .swiftlint.yml */,
-				CFD28A7E2D14145900859D49 /* BeaconSet */,
+				CFD28A7E2D14145900859D49 /* VestellaSet */,
 				CFD28A7D2D14145900859D49 /* Products */,
 				5435FB7213D2043F47959462 /* Pods */,
 				635FA7BB362A0DF250DD84B7 /* Frameworks */,
@@ -83,7 +87,7 @@
 		CFD28A7D2D14145900859D49 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CFD28A7C2D14145900859D49 /* BeaconSet.app */,
+				CFD28A7C2D14145900859D49 /* VestellaSet.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CFD28A7B2D14145900859D49 /* BeaconSet */ = {
+		CFD28A7B2D14145900859D49 /* VestellaSet */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CFD28A8A2D14145B00859D49 /* Build configuration list for PBXNativeTarget "BeaconSet" */;
+			buildConfigurationList = CFD28A8A2D14145B00859D49 /* Build configuration list for PBXNativeTarget "VestellaSet" */;
 			buildPhases = (
 				E76FD74DA15B4C7B57B37E76 /* [CP] Check Pods Manifest.lock */,
 				CFD28A782D14145900859D49 /* Sources */,
@@ -106,11 +110,11 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				CFD28A7E2D14145900859D49 /* BeaconSet */,
+				CFD28A7E2D14145900859D49 /* VestellaSet */,
 			);
-			name = BeaconSet;
+			name = VestellaSet;
 			productName = BeaconSet;
-			productReference = CFD28A7C2D14145900859D49 /* BeaconSet.app */;
+			productReference = CFD28A7C2D14145900859D49 /* VestellaSet.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -128,7 +132,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CFD28A772D14145900859D49 /* Build configuration list for PBXProject "BeaconSet" */;
+			buildConfigurationList = CFD28A772D14145900859D49 /* Build configuration list for PBXProject "VestellaSet" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -142,7 +146,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CFD28A7B2D14145900859D49 /* BeaconSet */,
+				CFD28A7B2D14145900859D49 /* VestellaSet */,
 			);
 		};
 /* End PBXProject section */
@@ -193,7 +197,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BeaconSet-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-VestellaSet-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -336,7 +340,7 @@
 		};
 		CFD28A8B2D14145B00859D49 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15633CF38E9F3FFA373392D7 /* Pods-BeaconSet.debug.xcconfig */;
+			baseConfigurationReference = 55A7731C3A2C9874128EC9D9 /* Pods-VestellaSet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -344,12 +348,12 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"BeaconSet/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"VestellaSet/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = B44YL23J9X;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BeaconSet/Info.plist;
+				INFOPLIST_FILE = VestellaSet/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "앱 사용시 블루투스 권한";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "주변 블루투스 기기 권한";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "백그라운드 사용자 위치 권한";
@@ -374,7 +378,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = BeaconSet/Application/Header/BeaconSet_Bridging_Header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = VestellaSet/Application/Header/BeaconSet_Bridging_Header.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -382,7 +386,7 @@
 		};
 		CFD28A8C2D14145B00859D49 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69888AB76CB2C9DF3FADB79D /* Pods-BeaconSet.release.xcconfig */;
+			baseConfigurationReference = 0AAEE1FACC6B1B1F3DC2ED93 /* Pods-VestellaSet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -390,12 +394,12 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"BeaconSet/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"VestellaSet/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = B44YL23J9X;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BeaconSet/Info.plist;
+				INFOPLIST_FILE = VestellaSet/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "앱 사용시 블루투스 권한";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "주변 블루투스 기기 권한";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "백그라운드 사용자 위치 권한";
@@ -420,7 +424,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = BeaconSet/Application/Header/BeaconSet_Bridging_Header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = VestellaSet/Application/Header/BeaconSet_Bridging_Header.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -429,7 +433,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CFD28A772D14145900859D49 /* Build configuration list for PBXProject "BeaconSet" */ = {
+		CFD28A772D14145900859D49 /* Build configuration list for PBXProject "VestellaSet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CFD28A882D14145B00859D49 /* Debug */,
@@ -438,7 +442,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CFD28A8A2D14145B00859D49 /* Build configuration list for PBXNativeTarget "BeaconSet" */ = {
+		CFD28A8A2D14145B00859D49 /* Build configuration list for PBXNativeTarget "VestellaSet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CFD28A8B2D14145B00859D49 /* Debug */,
