@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct MacReaderView: View {
+    @ObservedObject var model: BeaconDataViewModel
     @State private var recognizedText: String = "텍스트 없음"
+    let item: String
     
     var body: some View {
         VStack(spacing: 20) {
@@ -30,7 +32,7 @@ struct MacReaderView: View {
 // MARK: - UI Components
 extension MacReaderView {
     private var setButton: some View {
-        NavigationLink(destination: BeaconListView(macAddress: getMacAddress())) {
+        NavigationLink(destination: BeaconListView(model: model, macAddress: getMacAddress(), item: item)) {
             Text("Set")
                 .foregroundColor(.blue)
                 .padding(8)

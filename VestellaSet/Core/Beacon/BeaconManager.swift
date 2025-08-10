@@ -140,17 +140,35 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
 
 // MARK: - Beacon Writing
 extension BeaconManager {
-    public func write() {
-        guard let setting = currentConnection?.setting else { return }
-        setting.uuid = "c0fabefc-b1f5-4836-8328-7c5412fff9c4"
-        setting.major = 1
-        setting.minor = 100
-        setting.broadcastInterval = 1
-        setting.txPower = 1
+    public func write(item: String, macAddress: String) -> [String] {
+        guard let setting = currentConnection?.setting else { return [] }
+        let parts = item.split(separator: " ").map { Int(String($0))! }
+        let major = parts[0]
+        let minor = parts[1]
+        setting.uuid = UserDefaults.standard.string(forKey: "myApp_UUID")
+        setting.major = major
+        setting.minor = minor
+        setting.broadcastInterval = UserDefaults.standard.integer(forKey: "myApp_broadcastInterval")
+        setting.txPower = UserDefaults.standard.integer(forKey: "myApp_txPower")
         
         print(setting.broadcastInterval)
         currentConnection?.writeSetting("minew123")
         print("Write Complete")
+        return appendMacAddress(to: item, macAddress: macAddress)
+    }
+    
+    private func appendMacAddress(to item: String, macAddress: String) -> [String] {
+        let defaults = UserDefaults.standard
+        
+        // 1. 기존 배열 불러오기
+        var beaconList = defaults.stringArray(forKey: "myApp_beaconList") ?? []
+        
+        // 2. 특정 item과 일치하는 경우만 뒤에 macAddress 추가
+        if let index = beaconList.firstIndex(of: item) {
+            beaconList[index] = "\(beaconList[index]) \(macAddress)"
+        }
+        
+        return beaconList
     }
     
     public func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {

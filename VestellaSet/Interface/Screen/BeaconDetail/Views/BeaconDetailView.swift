@@ -8,8 +8,11 @@
 import SwiftUI
 
 internal struct BeaconDetailView: View {
+    @ObservedObject var model: BeaconDataViewModel
     @ObservedObject internal var beaconManager: BeaconManager
     internal let beacon: MinewBeacon
+    let item: String
+    let macAddress: String
     
     @Binding internal var isPresented: Bool
     
@@ -35,7 +38,8 @@ internal struct BeaconDetailView: View {
             HStack(alignment: .lastTextBaseline) {
                 Spacer()
                 Button("Save") {
-                    beaconManager.write()
+                    let newData = beaconManager.write(item: item, macAddress: macAddress)
+                    model.save(newData)
                 }
                 .font(.system(size: 12))
                 .foregroundStyle(.black)

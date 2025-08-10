@@ -18,7 +18,7 @@ struct BeaconMainView: View {
                     settingButton
                 }
                 Spacer()
-                beacoList
+                beaconList
                 Spacer()
             }
             .navigationBarHidden(true)
@@ -43,9 +43,9 @@ extension BeaconMainView {
         .padding()
     }
     
-    private var beacoList: some View {
+    private var beaconList: some View {
         List(model.data, id: \.self) { item in
-            NavigationLink(destination: MacReaderView()) {
+            NavigationLink(destination: MacReaderView(model: model, item: item)) {
                 Text(item)
                     .padding()
             }
@@ -56,6 +56,7 @@ extension BeaconMainView {
 // MARK: - Methods
 extension BeaconMainView {    
     func setMyAppUserDefaults() {
+        UserDefaults.standard.set("a0fabefc-b1f5-4836-8328-7c5412fff9c4", forKey: "myApp_UUID")
         UserDefaults.standard.set(4, forKey: "myApp_broadcastInterval")
         UserDefaults.standard.set(3, forKey: "myApp_txPower")
     }
