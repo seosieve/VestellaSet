@@ -45,9 +45,7 @@ internal struct BeaconDetailView: View {
             .padding()
             
             List(beaconDetails) { detail in
-                NavigationLink(destination: BeaconSettingView()) {
-                    BeaconDetailListItemView(detail: detail)
-                }
+                
             }
         }
         .onDisappear {

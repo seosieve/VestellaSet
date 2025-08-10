@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BeaconSettingView: View {
+    @ObservedObject var model: BeaconDataViewModel
+    
     @State private var scannedCode = "아직 스캔 안됨"
     
     var body: some View {
@@ -31,13 +33,8 @@ extension BeaconSettingView {
     private var saveButton: some View {
         Button {
             let array = decodedScannedCodes()
-            print(array)
             UserDefaults.standard.set(array, forKey: "myApp_beaconList")
-            if let savedArray = UserDefaults.standard.stringArray(forKey: "myApp_beaconList") {
-                print("저장된 배열: \(savedArray)")
-            } else {
-                print("저장된 데이터가 없습니다.")
-            }
+            model.save(array)
         } label: {
             Text("Save")
                 .foregroundColor(.blue)

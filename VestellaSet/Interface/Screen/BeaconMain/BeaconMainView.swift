@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BeaconMainView: View {
-    let data = ["첫 번째", "두 번째", "세 번째", "네 번째"]
+    @StateObject private var model = BeaconDataViewModel()
     
     var body: some View {
         NavigationView {
@@ -33,7 +33,7 @@ struct BeaconMainView: View {
 // MARK: - UI Components
 extension BeaconMainView {
     private var settingButton: some View {
-        NavigationLink(destination: BeaconSettingView()) {
+        NavigationLink(destination: BeaconSettingView(model: model)) {
             Text("Setting")
                 .foregroundColor(.blue)
                 .padding(8)
@@ -44,7 +44,7 @@ extension BeaconMainView {
     }
     
     private var beacoList: some View {
-        List(data, id: \.self) { item in
+        List(model.data, id: \.self) { item in
             NavigationLink(destination: BeaconReaderView()) {
                 Text(item)
                     .padding()
@@ -54,7 +54,7 @@ extension BeaconMainView {
 }
 
 // MARK: - Methods
-extension BeaconMainView {
+extension BeaconMainView {    
     func setMyAppUserDefaults() {
         UserDefaults.standard.set(4, forKey: "myApp_broadcastInterval")
         UserDefaults.standard.set(3, forKey: "myApp_txPower")
