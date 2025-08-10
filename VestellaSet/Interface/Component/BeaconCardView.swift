@@ -44,7 +44,7 @@ extension BeaconCardView {
     }
     
     private var macText: some View {
-        return Text("\(beacon.mac ?? "N/A")")
+        return Text("MAC: \(beacon.mac ?? "N/A")")
             .font(.system(size: 12))
             .foregroundStyle(.red)
             .padding(5)
@@ -57,7 +57,7 @@ extension BeaconCardView {
     }
     
     private var majorText: some View {
-        return Text("\(beacon.major)")
+        return Text("MAJOR: \(beacon.major)")
             .font(.system(size: 12))
             .foregroundStyle(.red)
             .padding(5)
@@ -70,7 +70,7 @@ extension BeaconCardView {
     }
     
     private var minorText: some View {
-        return Text("\(beacon.minor)")
+        return Text("MINOR: \(beacon.minor)")
             .font(.system(size: 12))
             .foregroundStyle(.red)
             .padding(5)
@@ -94,12 +94,6 @@ extension BeaconCardView {
     }
     
     private var lingChart: some View {
-        
-        
-        
-        
-        
-        
         ZStack {
             // 배경 원
             Circle()

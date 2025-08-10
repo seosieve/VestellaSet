@@ -31,7 +31,7 @@ struct QRScannerView: UIViewRepresentable {
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.videoGravity = .resizeAspectFill
-        previewLayer.frame = view.layer.bounds
+        previewLayer.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
         view.layer.addSublayer(previewLayer)
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -42,7 +42,9 @@ struct QRScannerView: UIViewRepresentable {
         return view
     }
     
-    func updateUIView(_ uiView: UIView, context: Context) {}
+    func updateUIView(_ uiView: UIView, context: Context) {
+        
+    }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -56,9 +58,7 @@ struct QRScannerView: UIViewRepresentable {
             self.parent = parent
         }
         
-        func metadataOutput(_ output: AVCaptureMetadataOutput,
-                            didOutput metadataObjects: [AVMetadataObject],
-                            from connection: AVCaptureConnection) {
+        func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
             if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
                let stringValue = metadataObject.stringValue {
                 parent.scannedCode = stringValue

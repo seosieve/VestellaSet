@@ -67,14 +67,6 @@ extension BeaconListView {
         }
     }
     
-    private func beaconCardButton(_ beacon: MinewBeacon) -> some View {
-        Button(action: { connectToBeacon(beacon) }) {
-            BeaconCardView(beacon: beacon)
-        }
-        .padding(.horizontal, 20)
-        .frame(height: 100)
-    }
-    
     @ViewBuilder
     private var loadingOverlay: some View {
         if isLoading {

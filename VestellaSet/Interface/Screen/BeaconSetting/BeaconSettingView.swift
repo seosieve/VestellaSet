@@ -7,16 +7,59 @@
 
 import SwiftUI
 
-internal struct BeaconSettingView: View {
-    @State internal var text: String = ""
+struct BeaconSettingView: View {
+    @State private var scannedCode = "아직 스캔 안됨"
     
-    internal var body: some View {
-        VStack {
-            TextField("Enter your text", text: $text)
+    var body: some View {
+        VStack(alignment: .center) {
+            saveButton
+            Text("스캔된 코드:")
+                .font(.headline)
+            Text(scannedCode)
+                .foregroundColor(.blue)
                 .padding()
-                .background(Color(uiColor: .secondarySystemBackground))
+            
+            QRScannerView(scannedCode: $scannedCode)
+                .frame(width: 200, height: 200)
+        }
+        .padding()
+    }
+}
+
+// MARK: - UI Components
+extension BeaconSettingView {
+    private var saveButton: some View {
+        Button {
+            let array = decodedScannedCodes()
+            print(array)
+            UserDefaults.standard.set(array, forKey: "myApp_beaconList")
+            if let savedArray = UserDefaults.standard.stringArray(forKey: "myApp_beaconList") {
+                print("저장된 배열: \(savedArray)")
+            } else {
+                print("저장된 데이터가 없습니다.")
+            }
+        } label: {
+            Text("Save")
+                .foregroundColor(.blue)
+                .padding(8)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(8)
+        }
+    }
+}
+
+extension BeaconSettingView {
+    func decodedScannedCodes() -> [String] {
+        guard let data = scannedCode.data(using: .utf8) else {
+            print("scannedCode 문자열을 UTF-8 데이터로 변환 실패")
+            return []
         }
         
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        do {
+            return try JSONDecoder().decode([String].self, from: data)
+        } catch {
+            print("scannedCode 디코딩 실패: \(error.localizedDescription)")
+            return []
+        }
     }
 }

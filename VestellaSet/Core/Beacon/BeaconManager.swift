@@ -142,9 +142,11 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
 extension BeaconManager {
     public func write() {
         guard let setting = currentConnection?.setting else { return }
-        setting.major = 112
-        setting.minor = 888
-        setting.broadcastInterval = 3
+        setting.uuid = "c0fabefc-b1f5-4836-8328-7c5412fff9c4"
+        setting.major = 1
+        setting.minor = 100
+        setting.broadcastInterval = 1
+        setting.txPower = 1
         
         print(setting.broadcastInterval)
         currentConnection?.writeSetting("minew123")
