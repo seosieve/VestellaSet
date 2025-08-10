@@ -45,7 +45,7 @@ extension BeaconMainView {
     
     private var beacoList: some View {
         List(model.data, id: \.self) { item in
-            NavigationLink(destination: BeaconReaderView()) {
+            NavigationLink(destination: MacReaderView()) {
                 Text(item)
                     .padding()
             }

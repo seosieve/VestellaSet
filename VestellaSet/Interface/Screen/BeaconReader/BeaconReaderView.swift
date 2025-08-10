@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-internal struct BeaconReaderView: View {
+internal struct MacReaderView: View {
     @State private var recognizedText: String = "텍스트 없음"
     @State private var showScanner = false
 
@@ -20,20 +20,12 @@ internal struct BeaconReaderView: View {
             Text("🔍 인식된 텍스트:")
                 .font(.headline)
             
-            ScrollView {
-                Text(recognizedText)
-                    .padding()
-            }
-        }
-        .sheet(isPresented: $showScanner) {
-            BeaconScannerView { result in
-                switch result {
-                case .success(let text):
-                    recognizedText = text
-                case .failure(let error):
-                    recognizedText = "오류: \(error.localizedDescription)"
-                }
-            }
+            Text(recognizedText)
+                .padding()
+            
+            MacScannerView(recognizedText: $recognizedText)
+                .frame(width: 200, height: 200)
+            
         }
         .padding()
     }
