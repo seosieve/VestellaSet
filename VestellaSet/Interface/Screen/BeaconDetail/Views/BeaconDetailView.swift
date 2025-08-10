@@ -43,10 +43,6 @@ internal struct BeaconDetailView: View {
                 .background(Color(.secondarySystemBackground))
             }
             .padding()
-            
-            List(beaconDetails) { detail in
-                
-            }
         }
         .onDisappear {
             beaconManager.disconnect()

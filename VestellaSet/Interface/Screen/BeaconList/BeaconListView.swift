@@ -14,19 +14,19 @@ internal struct BeaconListView: View {
     @State private var isLoading = false
     @State private var isConnecting = false
     
+    @State var macAddress: String
+    
     internal var body: some View {
-        NavigationStack {
-            mainListView
-                .refreshable {
-                    await fetchData()
-                }
-                .navigationDestination(isPresented: $isConnecting) {
-                    beaconDetailView
-                }
-                .onChange(of: beaconManager.connectionState) { _, newState in
-                    handleConnecionState(newState)
-                }
-        }
+        mainListView
+            .navigationDestination(isPresented: $isConnecting) {
+                beaconDetailView
+            }
+            .onChange(of: beaconManager.connectionState) { _, newState in
+                handleConnecionState(newState)
+            }
+            .onAppear {
+                print(macAddress)
+            }
     }
 }
 
@@ -53,7 +53,7 @@ extension BeaconListView {
         ScrollView {
             VStack(spacing: 12) {
                 Spacer().frame(height: 30)
-                ForEach(beaconManager.minewBeacons, id: \.deviceId) { beacon in
+                ForEach(beaconManager.minewBeacons.filter { $0.mac == macAddress }, id: \.deviceId) { beacon in
                     Button {
                         connectToBeacon(beacon)
                     } label: {
@@ -101,18 +101,5 @@ extension BeaconListView {
         isLoading = true
         selectedBeacon = beacon
         beaconManager.connect(to: beacon)
-    }
-    
-    private func fetchData() async {
-        // Start Impact Interaction
-        let impactGenerator = UIImpactFeedbackGenerator(style: .medium)
-        impactGenerator.prepare()
-        impactGenerator.impactOccurred()
-        
-        try? await Task.sleep(nanoseconds: 2_000_000_000)
-        // Success Impact Interaction
-        let successGenerator = UINotificationFeedbackGenerator()
-        successGenerator.prepare()
-        successGenerator.notificationOccurred(.success)
     }
 }

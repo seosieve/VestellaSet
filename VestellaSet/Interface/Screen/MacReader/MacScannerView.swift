@@ -55,7 +55,7 @@ struct MacScannerView: UIViewRepresentable {
         func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
             guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
             
-            let request = VNRecognizeTextRequest { [weak self] request, error in
+            let request = VNRecognizeTextRequest { [weak self] request, _ in
                 guard let self = self else { return }
                 if let observations = request.results as? [VNRecognizedTextObservation] {
                     let detectedStrings = observations.compactMap { $0.topCandidates(1).first?.string }
@@ -64,8 +64,22 @@ struct MacScannerView: UIViewRepresentable {
                         self.parent.recognizedText = combinedText
                         
                         // 조건 체크
-                        if combinedText.contains("Major") || combinedText.contains("Minor") || combinedText.count >= 12 {
-                            self.captureSession?.stopRunning()
+                        if combinedText.contains("Major"),
+                           combinedText.contains("Minor"),
+                           combinedText.count >= 12 {
+
+                            // 처음 12글자 추출
+                            let prefix = String(combinedText.prefix(12))
+                            
+                            // 정규식 패턴: 숫자(0-9)와 대문자 알파벳(A-Z)만 12글자 연속
+                            let pattern = "^[A-Z0-9]{12}$"
+                            
+                            // NSPredicate로 정규식 매칭 검사
+                            let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+                            
+                            if predicate.evaluate(with: prefix) {
+                                self.captureSession?.stopRunning()
+                            }
                         }
                     }
                 }

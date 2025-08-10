@@ -11,7 +11,7 @@ struct BeaconMainView: View {
     @StateObject private var model = BeaconDataViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 HStack {
                     Spacer()
