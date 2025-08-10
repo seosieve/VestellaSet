@@ -15,7 +15,7 @@ internal struct BeaconSetApp: App {
     
     internal var body: some Scene {
         WindowGroup {
-            BeaconListView()
+            BeaconQRView()
         }
     }
 }
