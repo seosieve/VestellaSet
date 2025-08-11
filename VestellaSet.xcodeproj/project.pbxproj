@@ -13,10 +13,8 @@
 
 /* Begin PBXFileReference section */
 		0AAEE1FACC6B1B1F3DC2ED93 /* Pods-VestellaSet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VestellaSet.release.xcconfig"; path = "Target Support Files/Pods-VestellaSet/Pods-VestellaSet.release.xcconfig"; sourceTree = "<group>"; };
-		15633CF38E9F3FFA373392D7 /* Pods-BeaconSet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconSet.debug.xcconfig"; path = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.debug.xcconfig"; sourceTree = "<group>"; };
 		4E1C956B2D2406C90069037F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		55A7731C3A2C9874128EC9D9 /* Pods-VestellaSet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VestellaSet.debug.xcconfig"; path = "Target Support Files/Pods-VestellaSet/Pods-VestellaSet.debug.xcconfig"; sourceTree = "<group>"; };
-		69888AB76CB2C9DF3FADB79D /* Pods-BeaconSet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaconSet.release.xcconfig"; path = "Target Support Files/Pods-BeaconSet/Pods-BeaconSet.release.xcconfig"; sourceTree = "<group>"; };
 		CFD28A7C2D14145900859D49 /* VestellaSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VestellaSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D865DCAE48C1C7185865D4D8 /* Pods_VestellaSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VestellaSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -44,8 +42,6 @@
 		5435FB7213D2043F47959462 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				15633CF38E9F3FFA373392D7 /* Pods-BeaconSet.debug.xcconfig */,
-				69888AB76CB2C9DF3FADB79D /* Pods-BeaconSet.release.xcconfig */,
 				55A7731C3A2C9874128EC9D9 /* Pods-VestellaSet.debug.xcconfig */,
 				0AAEE1FACC6B1B1F3DC2ED93 /* Pods-VestellaSet.release.xcconfig */,
 			);
