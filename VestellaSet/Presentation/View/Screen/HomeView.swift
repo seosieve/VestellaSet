@@ -1,5 +1,5 @@
 //
-//  BeaconMainView.swift
+//  HomeView.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/10/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BeaconMainView: View {
+struct HomeView: View {
     @StateObject private var model = BeaconDataViewModel()
     
     var body: some View {
@@ -31,9 +31,9 @@ struct BeaconMainView: View {
 }
 
 // MARK: - UI Components
-extension BeaconMainView {
+extension HomeView {
     private var settingButton: some View {
-        NavigationLink(destination: BeaconSettingView(model: model)) {
+        NavigationLink(destination: SettingView(model: model)) {
             Text("Setting")
                 .foregroundColor(.blue)
                 .padding(8)
@@ -54,7 +54,7 @@ extension BeaconMainView {
 }
 
 // MARK: - Methods
-extension BeaconMainView {    
+extension HomeView {    
     func setMyAppUserDefaults() {
         UserDefaults.standard.set("a0fabefc-b1f5-4836-8328-7c5412fff9c4", forKey: "myApp_UUID")
         UserDefaults.standard.set(2, forKey: "myApp_broadcastInterval")

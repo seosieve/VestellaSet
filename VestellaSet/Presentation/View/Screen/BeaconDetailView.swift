@@ -1,6 +1,6 @@
 //
 //  BeaconDetailView.swift
-//  BeaconSet
+//  VestellaSet
 //
 //  Created by 서충원 on 12/31/24.
 //

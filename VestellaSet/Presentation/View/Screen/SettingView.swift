@@ -1,13 +1,13 @@
 //
-//  BeaconSettingView.swift
-//  BeaconSet
+//  SettingView.swift
+//  VestellaSet
 //
 //  Created by 서충원 on 1/20/25.
 //
 
 import SwiftUI
 
-struct BeaconSettingView: View {
+struct SettingView: View {
     @ObservedObject var model: BeaconDataViewModel
     
     @State private var scannedCode = "아직 스캔 안됨"
@@ -29,7 +29,7 @@ struct BeaconSettingView: View {
 }
 
 // MARK: - UI Components
-extension BeaconSettingView {
+extension SettingView {
     private var saveButton: some View {
         Button {
             let array = decodedScannedCodes()
@@ -45,7 +45,8 @@ extension BeaconSettingView {
     }
 }
 
-extension BeaconSettingView {
+// MARK: - Methods
+extension SettingView {
     func decodedScannedCodes() -> [String] {
         guard let data = scannedCode.data(using: .utf8) else {
             print("scannedCode 문자열을 UTF-8 데이터로 변환 실패")

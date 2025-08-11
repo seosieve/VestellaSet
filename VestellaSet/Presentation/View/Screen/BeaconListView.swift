@@ -1,6 +1,6 @@
 //
 //  BeaconListView.swift
-//  BeaconSet
+//  VestellaSet
 //
 //  Created by 베스텔라랩 on 12/30/24.
 //

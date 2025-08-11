@@ -5,7 +5,7 @@ target 'VestellaSet' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for BeaconSet
+  # Pods for VestellaSet
   pod 'MinewBeaconAdmin'
   pod 'SwiftLint'
 end
