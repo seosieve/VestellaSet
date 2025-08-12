@@ -8,8 +8,9 @@
 import Foundation
 
 enum UserDefaultsKey {
-    static let uuid = "myApp_UUID"
-    static let broadcastInterval = "myApp_broadcastInterval"
-    static let txPower = "myApp_txPower"
-    static let beaconList = "myApp_beaconList"
+    static let prefix = "vestella"
+    static let uuid = "\(prefix)_UUID"
+    static let broadcastInterval = "\(prefix)_broadcastInterval"
+    static let transmissionPower = "\(prefix)_transmissionPower"
+    static let beaconList = "\(prefix)_beaconList"
 }

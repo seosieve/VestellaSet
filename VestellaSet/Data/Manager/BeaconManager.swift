@@ -145,14 +145,14 @@ extension BeaconManager {
         let parts = item.split(separator: " ").map { Int(String($0))! }
         let major = parts[0]
         let minor = parts[1]
-        setting.uuid = UserDefaults.standard.string(forKey: "myApp_UUID")
         setting.major = major
         setting.minor = minor
-        setting.broadcastInterval = UserDefaults.standard.integer(forKey: "myApp_broadcastInterval")
-        setting.txPower = UserDefaults.standard.integer(forKey: "myApp_txPower")
+        setting.uuid = SettingRepository.shared.uuid
+        setting.broadcastInterval = SettingRepository.shared.broadcastInterval
+        setting.txPower = SettingRepository.shared.transmissionPower
         
         print(setting.broadcastInterval)
-        currentConnection?.writeSetting("minew123")
+        currentConnection?.writeSetting(Minew.password)
         print("Write Complete")
         return appendMacAddress(to: item, macAddress: macAddress)
     }

@@ -20,7 +20,7 @@ struct MacReaderView: View {
             Text(recognizedText)
                 .padding()
             
-            MacScannerView(recognizedText: $recognizedText)
+            OCRScanner(result: $recognizedText)
                 .frame(width: 200, height: 200)
             
             setButton

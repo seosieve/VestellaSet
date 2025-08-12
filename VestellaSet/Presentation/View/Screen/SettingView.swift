@@ -21,7 +21,7 @@ struct SettingView: View {
                 .foregroundColor(.blue)
                 .padding()
             
-            QRScannerView(scannedCode: $scannedCode)
+            QRScanner(result: $scannedCode)
                 .frame(width: 200, height: 200)
         }
         .padding()

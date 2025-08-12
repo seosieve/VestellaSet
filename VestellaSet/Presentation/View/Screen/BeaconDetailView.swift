@@ -16,22 +16,6 @@ internal struct BeaconDetailView: View {
     
     @Binding internal var isPresented: Bool
     
-    private var beaconDetails: [BeaconDetail] {
-        guard let setting = beaconManager.currentSetting else { return [BeaconDetail]() }
-        
-        return [
-            BeaconDetail(title: "Battery", value: String(setting.battery)),
-            BeaconDetail(title: "UUID", value: setting.uuid),
-            BeaconDetail(title: "Major", value: String(setting.major)),
-            BeaconDetail(title: "Minor", value: String(setting.minor)),
-            BeaconDetail(title: "Measured Distance", value: String(setting.calibratedTxPower)),
-            BeaconDetail(title: "Transmission Power", value: String(setting.txPower)),
-            BeaconDetail(title: "Broadcast Interval", value: String(setting.broadcastInterval)),
-            BeaconDetail(title: "MAC Address", value: setting.mac),
-            BeaconDetail(title: "iBeacon Name", value: setting.name ?? "N/A")
-        ]
-    }
-    
     internal var body: some View {
         VStack {
             Spacer()
