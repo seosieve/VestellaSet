@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct MacReaderView: View {
+struct BeaconReaderView: View {
     @ObservedObject var model: BeaconDataViewModel
     @State private var recognizedText: String = "텍스트 없음"
+    @State private var isRunning = true
+    @State private var navigateNext = false
     let item: String
     
     var body: some View {
@@ -20,17 +22,25 @@ struct MacReaderView: View {
             Text(recognizedText)
                 .padding()
             
-            OCRScanner(result: $recognizedText)
+            OCRScanner(result: $recognizedText, isRunning: $isRunning)
                 .frame(width: 200, height: 200)
             
             setButton
         }
         .padding()
+        .onChange(of: isRunning) {
+            if isRunning == false {
+                navigateNext = true
+            }
+        }
+        .navigationDestination(isPresented: $navigateNext) {
+            BeaconListView(model: model, macAddress: getMacAddress(), item: item)
+        }
     }
 }
 
 // MARK: - UI Components
-extension MacReaderView {
+extension BeaconReaderView {
     private var setButton: some View {
         NavigationLink(destination: BeaconListView(model: model, macAddress: getMacAddress(), item: item)) {
             Text("Set")
@@ -44,7 +54,7 @@ extension MacReaderView {
 }
 
 // MARK: - Methods
-extension MacReaderView {
+extension BeaconReaderView {
     func getMacAddress() -> String {
         return String(recognizedText.prefix(12)).lowercased()
     }

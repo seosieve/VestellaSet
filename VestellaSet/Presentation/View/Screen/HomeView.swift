@@ -44,7 +44,7 @@ extension HomeView {
     
     private var beaconList: some View {
         List(model.data, id: \.self) { item in
-            NavigationLink(destination: MacReaderView(model: model, item: item)) {
+            NavigationLink(destination: BeaconReaderView(model: model, item: item)) {
                 Text(item)
                     .padding()
             }

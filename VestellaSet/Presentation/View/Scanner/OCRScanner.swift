@@ -11,6 +11,7 @@ import Vision
 
 struct OCRScanner: UIViewRepresentable {
     @Binding var result: String
+    @Binding var isRunning: Bool
     
     func makeUIView(context: Context) -> UIView {
         setupCamera(context: context)
@@ -98,6 +99,10 @@ extension OCRScanner {
             guard predicate.evaluate(with: prefix) else { return }
             
             captureSession?.stopRunning()
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.parent.isRunning = false
+            }
         }
     }
 }
