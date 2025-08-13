@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BeaconReaderView: View {
     @ObservedObject var model: BeaconDataViewModel
-    @State private var recognizedText: String = "텍스트 없음"
+    @State private var macAdress: String = "텍스트 없음"
     @State private var isRunning = true
     @State private var navigateNext = false
     let item: String
@@ -19,10 +19,10 @@ struct BeaconReaderView: View {
             Text("🔍 인식된 텍스트:")
                 .font(.headline)
             
-            Text(recognizedText)
+            Text(macAdress)
                 .padding()
             
-            OCRScanner(result: $recognizedText, isRunning: $isRunning)
+            OCRScanner(result: $macAdress, isRunning: $isRunning)
                 .frame(width: 200, height: 200)
             
             setButton
@@ -34,7 +34,7 @@ struct BeaconReaderView: View {
             }
         }
         .navigationDestination(isPresented: $navigateNext) {
-            BeaconListView(model: model, macAddress: getMacAddress(), item: item)
+            BeaconListView(model: model, macAddress: macAdress, item: item)
         }
     }
 }
@@ -42,7 +42,7 @@ struct BeaconReaderView: View {
 // MARK: - UI Components
 extension BeaconReaderView {
     private var setButton: some View {
-        NavigationLink(destination: BeaconListView(model: model, macAddress: getMacAddress(), item: item)) {
+        NavigationLink(destination: BeaconListView(model: model, macAddress: macAdress, item: item)) {
             Text("Set")
                 .foregroundColor(.blue)
                 .padding(8)
@@ -50,12 +50,5 @@ extension BeaconReaderView {
                 .cornerRadius(8)
         }
         .padding()
-    }
-}
-
-// MARK: - Methods
-extension BeaconReaderView {
-    func getMacAddress() -> String {
-        return String(recognizedText.prefix(12)).lowercased()
     }
 }

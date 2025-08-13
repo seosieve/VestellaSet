@@ -69,11 +69,7 @@ extension OCRScanner {
             let request = VNRecognizeTextRequest { [weak self] request, _ in
                 guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
                 guard let combinedText = self?.combineTextObservation(observations) else { return }
-                
-                DispatchQueue.main.async {
-                    self?.parent.result = combinedText
-                    self?.checkValidation(combinedText)
-                }
+                self?.checkValidation(combinedText)
             }
             
             request.recognitionLevel = .accurate
@@ -82,26 +78,31 @@ extension OCRScanner {
         }
         
         private func combineTextObservation(_ observations: [VNRecognizedTextObservation]) -> String {
-            let sortedObservations = observations.sorted { $0.boundingBox.origin.y < $1.boundingBox.origin.y }
-            let detectedStrings = sortedObservations.compactMap { $0.topCandidates(1).first?.string }
+            let detectedStrings = observations.compactMap { $0.topCandidates(1).first?.string }
             return detectedStrings.joined(separator: " ")
         }
         
         private func checkValidation(_ combinedText: String) {
-            guard combinedText.contains("Major"), combinedText.contains("Minor") else { return }
+            let parts = combinedText.components(separatedBy: " ")
+            // 인식된 텍스트가 정확히 3개의 항목일 때만 진행
+            guard parts.count == 3 else { return }
             
-            let prefix = String(combinedText.prefix(12))
-            guard !prefix.contains(where: { $0.isWhitespace }) else { return }
+            // 1. Major 포함 텍스트
+            guard parts.first(where: { $0.localizedCaseInsensitiveContains("Major") }) != nil else { return }
             
-            let pattern = "^[A-Z0-9]{12}$"
-            let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+            // 2. Minor 포함 텍스트
+            guard parts.first(where: { $0.localizedCaseInsensitiveContains("Minor") }) != nil else { return }
             
-            guard predicate.evaluate(with: prefix) else { return }
+            // 3. 12글자 MAC 주소 (공백 없이 대문자/숫자)
+            let macPattern = "^[A-Z0-9]{12}$"
+            let predicate = NSPredicate(format: "SELF MATCHES %@", macPattern)
+            guard let macAddress = parts.first(where: { predicate.evaluate(with: $0) })?.lowercased() else { return }
             
             captureSession?.stopRunning()
             
             DispatchQueue.main.async { [weak self] in
                 self?.parent.isRunning = false
+                self?.parent.result = macAddress
             }
         }
     }
