@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E923C022E4C53D70013C2DD /* MinewBeaconAdmin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E923C012E4C53D70013C2DD /* MinewBeaconAdmin.framework */; };
 		4E923C032E4C53D70013C2DD /* MinewBeaconAdmin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E923C012E4C53D70013C2DD /* MinewBeaconAdmin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E923C062E4C58CD0013C2DD /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 4E923C052E4C58CD0013C2DD /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E923C062E4C58CD0013C2DD /* ComposableArchitecture in Frameworks */,
 				4E923C022E4C53D70013C2DD /* MinewBeaconAdmin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +126,7 @@
 			mainGroup = CFD28A732D14145900859D49;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				4E923C042E4C58CD0013C2DD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CFD28A7D2D14145900859D49 /* Products */;
@@ -401,6 +404,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4E923C042E4C58CD0013C2DD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.21.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4E923C052E4C58CD0013C2DD /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E923C042E4C58CD0013C2DD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CFD28A742D14145900859D49 /* Project object */;
 }
