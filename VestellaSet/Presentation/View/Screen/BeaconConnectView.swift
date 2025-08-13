@@ -1,5 +1,5 @@
 //
-//  BeaconListView.swift
+//  BeaconConnectView.swift
 //  VestellaSet
 //
 //  Created by 베스텔라랩 on 12/30/24.
@@ -8,13 +8,18 @@
 import SwiftUI
 import MinewBeaconAdmin
 
-internal struct BeaconListView: View {
+internal struct BeaconConnectView: View {
     @ObservedObject var model: BeaconDataViewModel
     @StateObject internal var beaconManager = BeaconManager()
     @State private var selectedBeacon: MinewBeacon?
     @State private var isLoading = false
     @State private var isConnecting = false
     @State var macAddress: String
+    
+    @State private var notFoundCount = 0
+    
+    @Environment(\.dismiss) private var dismiss
+    
     let item: String
     
     internal var body: some View {
@@ -25,18 +30,24 @@ internal struct BeaconListView: View {
             .onChange(of: beaconManager.connectionState) { _, newState in
                 handleConnecionState(newState)
             }
+            .onChange(of: beaconManager.isBeaconLost) { _, lost in
+                if lost {
+                    dismiss()
+                }
+            }
             .onAppear {
                 print(macAddress)
+                beaconManager.targetMacAddress = macAddress
             }
     }
 }
 
 // MARK: - Configure Views
-extension BeaconListView {
+extension BeaconConnectView {
     private var mainListView: some View {
         ZStack {
             gradientBackground
-            beaconScrollView
+            beaconView
             loadingOverlay
         }
     }
@@ -50,20 +61,17 @@ extension BeaconListView {
         .ignoresSafeArea()
     }
     
-    private var beaconScrollView: some View {
-        ScrollView {
-            VStack(spacing: 12) {
-                Spacer().frame(height: 30)
-                ForEach(beaconManager.minewBeacons.filter { $0.mac == macAddress }, id: \.deviceId) { beacon in
-                    Button {
-                        connectToBeacon(beacon)
-                    } label: {
-                        BeaconCardView(beacon: beacon)
-                    }
-                    .id(beacon.rssi)
-                    .padding(.horizontal, 20)
-                    .frame(height: 100)
+    private var beaconView: some View {
+        VStack(spacing: 12) {
+            ForEach(beaconManager.minewBeacons.filter { $0.mac == macAddress }, id: \.deviceId) { beacon in
+                Button {
+                    connectToBeacon(beacon)
+                } label: {
+                    BeaconCardView(beacon: beacon)
                 }
+                .id(beacon.rssi)
+                .padding(.horizontal, 20)
+                .frame(height: 100)
             }
         }
     }
@@ -78,7 +86,7 @@ extension BeaconListView {
     @ViewBuilder
     private var beaconDetailView: some View {
         if let beacon = selectedBeacon {
-            BeaconDetailView(model: model, beaconManager: beaconManager, beacon: beacon, item: item, macAddress: macAddress, isPresented: $isConnecting)
+            BeaconWriteView(model: model, beaconManager: beaconManager, beacon: beacon, item: item, macAddress: macAddress, isPresented: $isConnecting)
                 .onDisappear {
                     isLoading = false
                 }
@@ -87,7 +95,7 @@ extension BeaconListView {
 }
 
 // MARK: - Helper Methods
-extension BeaconListView {
+extension BeaconConnectView {
     private func handleConnecionState(_ newState: ConnectionState) {
         if newState == .connected {
             isConnecting = true

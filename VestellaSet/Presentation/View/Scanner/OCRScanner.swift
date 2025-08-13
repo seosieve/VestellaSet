@@ -96,8 +96,6 @@ extension OCRScanner {
         
         private func checkValidation(_ combinedText: String) {
             let parts = combinedText.components(separatedBy: " ")
-            // 인식된 텍스트가 정확히 3개의 항목일 때만 진행
-            guard parts.count == 3 else { return }
             
             // 1. Major 포함 텍스트
             guard parts.first(where: { $0.localizedCaseInsensitiveContains("Major") }) != nil else { return }

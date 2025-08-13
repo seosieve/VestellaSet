@@ -11,6 +11,8 @@ struct OCRReaderView: View {
     @ObservedObject var model: BeaconDataViewModel
     @State private var macAddress: String = "텍스트 없음"
     @State private var isScanning = true
+    @State private var isPresented = false
+    
     let item: String
     
     var body: some View {
@@ -25,8 +27,11 @@ struct OCRReaderView: View {
                 .frame(width: 200, height: 200)
         }
         .padding()
-        .navigationDestination(isPresented: .constant(!isScanning)) {
-            BeaconListView(model: model, macAddress: macAddress, item: item)
+        .navigationDestination(isPresented: $isPresented) {
+            BeaconConnectView(model: model, macAddress: macAddress, item: item)
+        }
+        .onChange(of: isScanning) { _, scanning in
+            isPresented = !scanning
         }
         .onAppear { isScanning = true }
         .onDisappear { isScanning = false }

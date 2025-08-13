@@ -18,6 +18,11 @@ final public class BeaconManager: NSObject, ObservableObject {
     @Published internal var connectionState: ConnectionState = .disconnected // Connection 결과 저장
     @Published internal var currentSetting: MinewBeaconSetting? // Setting의 실제 객체
     
+    @Published internal var isBeaconLost: Bool = false
+    
+    private var notFoundCount = 0
+    var targetMacAddress: String?
+    
     override internal init() {
         super.init()
         Task {
@@ -96,6 +101,20 @@ extension BeaconManager {
 extension BeaconManager: MinewBeaconManagerDelegate {
     public func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
         minewBeacons = beacons
+        
+        guard let targetMacAddress else { return }
+        
+        let found = beacons.contains { $0.mac == targetMacAddress }
+        
+        if found {
+            notFoundCount = 0
+            isBeaconLost = false
+        } else {
+            notFoundCount += 1
+            if notFoundCount >= 4 {
+                isBeaconLost = true
+            }
+        }
     }
 }
 
