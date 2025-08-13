@@ -11,13 +11,17 @@ import Vision
 
 struct OCRScanner: UIViewRepresentable {
     @Binding var result: String
-    @Binding var isRunning: Bool
+    @Binding var isScanning: Bool
     
     func makeUIView(context: Context) -> UIView {
-        setupCamera(context: context)
+        let view = setupCamera(context: context)
+        context.coordinator.startScanning()
+        return view
     }
     
-    func updateUIView(_ uiView: UIView, context: Context) {}
+    func updateUIView(_ uiView: UIView, context: Context) {
+        if isScanning { context.coordinator.startScanning() }
+    }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(parent: self)
@@ -44,9 +48,6 @@ private extension OCRScanner {
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
         
-        DispatchQueue.global(qos: .userInitiated).async {
-            captureSession.startRunning()
-        }
         context.coordinator.captureSession = captureSession
         
         return view
@@ -61,6 +62,17 @@ extension OCRScanner {
         
         init(parent: OCRScanner) {
             self.parent = parent
+        }
+        
+        func startScanning() {
+            guard let session = captureSession, !session.isRunning else { return }
+            DispatchQueue.global(qos: .userInitiated).async {
+                session.startRunning()
+            }
+        }
+        
+        func stopScanning() {
+            captureSession?.stopRunning()
         }
         
         func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -98,10 +110,10 @@ extension OCRScanner {
             let predicate = NSPredicate(format: "SELF MATCHES %@", macPattern)
             guard let macAddress = parts.first(where: { predicate.evaluate(with: $0) })?.lowercased() else { return }
             
-            captureSession?.stopRunning()
+            stopScanning()
             
             DispatchQueue.main.async { [weak self] in
-                self?.parent.isRunning = false
+                self?.parent.isScanning = false
                 self?.parent.result = macAddress
             }
         }
