@@ -11,10 +11,10 @@ class SettingRepository {
     @UserDefault(key: UserDefaultsKey.uuid, defaultValue: Vestella.uuid)
     var uuid: String
     
-    @UserDefault(key: UserDefaultsKey.broadcastInterval, defaultValue: 2)
+    @UserDefault(key: UserDefaultsKey.broadcastInterval, defaultValue: 1)
     var broadcastInterval: Int
     
-    @UserDefault(key: UserDefaultsKey.transmissionPower, defaultValue: 2)
+    @UserDefault(key: UserDefaultsKey.transmissionPower, defaultValue: 4)
     var transmissionPower: Int
     
     static let shared = SettingRepository()

@@ -21,6 +21,8 @@ struct SettingView: View {
                 .foregroundColor(.blue)
                 .padding()
             
+            Text(beaconCount())
+            
             QRScanner(result: $scannedCode)
                 .frame(width: 200, height: 200)
         }
@@ -59,5 +61,10 @@ extension SettingView {
             print("scannedCode 디코딩 실패: \(error.localizedDescription)")
             return []
         }
+    }
+    
+    func beaconCount() -> String {
+        let array = decodedScannedCodes()
+        return "\(array.count) 개"
     }
 }

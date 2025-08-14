@@ -17,7 +17,7 @@ internal struct BeaconWriteView: View {
     @Binding internal var isPresented: Bool
     
     internal var body: some View {
-        HStack(alignment: .center) {
+        VStack(alignment: .center) {
             Button("Save") {
                 let newData = beaconManager.write(item: item, macAddress: macAddress)
                 model.save(newData)
