@@ -9,21 +9,20 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var model = BeaconDataViewModel()
+    @State private var path = NavigationPath()
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                HStack {
-                    Spacer()
-                    settingButton
+        NavigationStack(path: $path) {
+            content
+                .navigationBarHidden(true)
+                .navigationDestination(for: String.self) { item in
+                    OCRReaderView(model: model, path: $path, item: item)
                 }
-                Spacer()
-                beaconList
-                Spacer()
-            }
-            .navigationBarHidden(true)
+//                .navigationDestination(for: Int.self) { setting in
+//                    SettingView(model: model)
+//                }
         }
-        .onAppear {
+        .task {
             printMyAppUserDefaults()
         }
     }
@@ -31,23 +30,19 @@ struct HomeView: View {
 
 // MARK: - UI Components
 extension HomeView {
-    private var settingButton: some View {
-        NavigationLink(destination: SettingView(model: model)) {
-            Text("Setting")
-                .foregroundColor(.blue)
-                .padding(8)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(8)
+    private var content: some View {
+        VStack {
+            topBar
+            Spacer()
+            BeaconListView(value: model.data)
+            Spacer()
         }
-        .padding()
     }
     
-    private var beaconList: some View {
-        List(model.data, id: \.self) { item in
-            NavigationLink(destination: OCRReaderView(model: model, item: item)) {
-                Text(item)
-                    .padding()
-            }
+    private var topBar: some View {
+        HStack {
+            Spacer()
+            SettingButton(value: 1)
         }
     }
 }

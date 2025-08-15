@@ -11,6 +11,7 @@ import MinewBeaconAdmin
 internal struct BeaconConnectView: View {
     @ObservedObject var model: BeaconDataViewModel
     @StateObject internal var beaconManager = BeaconManager()
+    @Binding var path: NavigationPath
     @State private var selectedBeacon: MinewBeacon?
     @State private var isLoading = false
     @State private var isConnecting = false
@@ -49,6 +50,12 @@ extension BeaconConnectView {
             gradientBackground
             beaconView
             loadingOverlay
+            Button {
+                path.removeLast(2)
+            } label: {
+                Text("Test")
+            }
+
         }
     }
     
