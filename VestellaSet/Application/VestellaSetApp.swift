@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 internal struct VestellaSetApp: App {
     internal var body: some Scene {
         WindowGroup {
-            AppView()
+            AppView(store: Store(initialState: AppFeature.State(), reducer: { AppFeature() }))
         }
     }
 }

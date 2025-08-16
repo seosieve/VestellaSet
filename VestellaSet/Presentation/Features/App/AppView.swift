@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 enum Destination: Hashable {
     case beaconConfig
@@ -14,6 +15,7 @@ enum Destination: Hashable {
 }
 
 struct AppView: View {
+    let store: StoreOf<AppFeature>
     @State private var path = NavigationPath()
     
     var body: some View {
