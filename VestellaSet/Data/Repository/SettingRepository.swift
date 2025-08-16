@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SettingRepository {
+class SettingRepository {    
     @UserDefault(key: UserDefaultsKey.uuid, defaultValue: Vestella.uuid)
     var uuid: String
     
@@ -16,6 +16,9 @@ class SettingRepository {
     
     @UserDefault(key: UserDefaultsKey.transmissionPower, defaultValue: 4)
     var transmissionPower: Int
+    
+    @UserDefault(key: UserDefaultsKey.targetList, defaultValue: [])
+    var targetList: [String]
     
     static let shared = SettingRepository()
     

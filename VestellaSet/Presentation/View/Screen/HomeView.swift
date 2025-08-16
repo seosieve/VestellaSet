@@ -8,23 +8,14 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject private var model = BeaconDataViewModel()
-    @State private var path = NavigationPath()
+    @Binding var path: NavigationPath
     
     var body: some View {
-        NavigationStack(path: $path) {
-            content
-                .navigationBarHidden(true)
-                .navigationDestination(for: String.self) { item in
-                    OCRReaderView(model: model, path: $path, item: item)
-                }
-//                .navigationDestination(for: Int.self) { setting in
-//                    SettingView(model: model)
-//                }
-        }
-        .task {
-            printMyAppUserDefaults()
-        }
+        content
+            .navigationBarHidden(true)
+            .task {
+                printMyAppUserDefaults()
+            }
     }
 }
 
@@ -34,7 +25,7 @@ extension HomeView {
         VStack {
             topBar
             Spacer()
-            BeaconListView(value: model.data)
+            BeaconListView()
             Spacer()
         }
     }
@@ -42,7 +33,7 @@ extension HomeView {
     private var topBar: some View {
         HStack {
             Spacer()
-            SettingButton(value: 1)
+            SettingButton()
         }
     }
 }

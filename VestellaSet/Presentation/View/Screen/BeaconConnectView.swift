@@ -9,7 +9,6 @@ import SwiftUI
 import MinewBeaconAdmin
 
 internal struct BeaconConnectView: View {
-    @ObservedObject var model: BeaconDataViewModel
     @StateObject internal var beaconManager = BeaconManager()
     @Binding var path: NavigationPath
     @State private var selectedBeacon: MinewBeacon?
@@ -21,7 +20,7 @@ internal struct BeaconConnectView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    let item: String
+    let target: String
     
     internal var body: some View {
         mainListView
@@ -93,7 +92,7 @@ extension BeaconConnectView {
     @ViewBuilder
     private var beaconDetailView: some View {
         if let beacon = selectedBeacon {
-            BeaconWriteView(model: model, beaconManager: beaconManager, beacon: beacon, item: item, macAddress: macAddress, isPresented: $isConnecting)
+            BeaconWriteView(beaconManager: beaconManager, beacon: beacon, item: target, macAddress: macAddress, isPresented: $isConnecting)
                 .onDisappear {
                     isLoading = false
                 }

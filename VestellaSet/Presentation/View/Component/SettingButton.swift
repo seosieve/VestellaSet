@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct SettingButton: View {
-    @State var value: Int
-    
     var body: some View {
-        NavigationLink(value: value) {
+        NavigationLink(value: Destination.setting) {
             Text("Setting")
                 .foregroundColor(.blue)
                 .padding(8)

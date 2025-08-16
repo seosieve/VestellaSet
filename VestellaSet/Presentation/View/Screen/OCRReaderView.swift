@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct OCRReaderView: View {
-    @ObservedObject var model: BeaconDataViewModel
     @Binding var path: NavigationPath
     @State private var macAddress: String = "텍스트 없음"
     @State private var isScanning = true
-    @State private var isPresented = false
     
-    let item: String
+    let target: String
     
     var body: some View {
         VStack(spacing: 20) {
@@ -28,12 +26,8 @@ struct OCRReaderView: View {
                 .frame(width: 200, height: 200)
         }
         .padding()
-        .navigationDestination(for: Int.self) { value in
-            BeaconConnectView(model: model, path: $path, macAddress: macAddress, item: item)
-        }
         .onChange(of: isScanning) { _, scanning in
-            isPresented = !scanning
-            path.append(3)
+            if !scanning { path.append(Destination.beaconConnect(macAddress: macAddress, target: target)) }
         }
         .onAppear { isScanning = true }
         .onDisappear { isScanning = false }

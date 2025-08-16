@@ -12,5 +12,5 @@ enum UserDefaultsKey {
     static let uuid = "\(prefix)_UUID"
     static let broadcastInterval = "\(prefix)_broadcastInterval"
     static let transmissionPower = "\(prefix)_transmissionPower"
-    static let beaconList = "\(prefix)_beaconList"
+    static let targetList = "\(prefix)_targetList"
 }

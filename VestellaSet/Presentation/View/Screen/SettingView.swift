@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct SettingView: View {
-    @ObservedObject var model: BeaconDataViewModel
-    
     @State private var scannedCode = "아직 스캔 안됨"
     
     var body: some View {
@@ -35,8 +33,7 @@ extension SettingView {
     private var saveButton: some View {
         Button {
             let array = decodedScannedCodes()
-            UserDefaults.standard.set(array, forKey: "myApp_beaconList")
-            model.save(array)
+            SettingRepository.shared.targetList = array
         } label: {
             Text("Save")
                 .foregroundColor(.blue)

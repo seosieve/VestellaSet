@@ -11,7 +11,7 @@ import SwiftUI
 internal struct VestellaSetApp: App {
     internal var body: some Scene {
         WindowGroup {
-            HomeView()
+            AppView()
         }
     }
 }

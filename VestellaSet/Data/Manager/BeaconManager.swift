@@ -177,17 +177,15 @@ extension BeaconManager {
     }
     
     private func appendMacAddress(to item: String, macAddress: String) -> [String] {
-        let defaults = UserDefaults.standard
-        
         // 1. 기존 배열 불러오기
-        var beaconList = defaults.stringArray(forKey: "myApp_beaconList") ?? []
+        var targetList = SettingRepository.shared.targetList
         
         // 2. 특정 item과 일치하는 경우만 뒤에 macAddress 추가
-        if let index = beaconList.firstIndex(of: item) {
-            beaconList[index] = "\(beaconList[index]) \(macAddress)"
+        if let index = targetList.firstIndex(of: item) {
+            targetList[index] = "\(targetList[index]) \(macAddress)"
         }
         
-        return beaconList
+        return targetList
     }
     
     public func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {

@@ -8,8 +8,8 @@
 import SwiftUI
 
 internal struct BeaconWriteView: View {
-    @ObservedObject var model: BeaconDataViewModel
     @ObservedObject internal var beaconManager: BeaconManager
+    @State private var targetList = SettingRepository.shared.targetList
     internal let beacon: MinewBeacon
     let item: String
     let macAddress: String
@@ -20,7 +20,7 @@ internal struct BeaconWriteView: View {
         VStack(alignment: .center) {
             Button("Save") {
                 let newData = beaconManager.write(item: item, macAddress: macAddress)
-                model.save(newData)
+                targetList = newData
             }
             .font(.system(size: 12))
             .foregroundStyle(.white)

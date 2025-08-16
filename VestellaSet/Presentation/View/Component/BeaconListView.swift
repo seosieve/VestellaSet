@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct BeaconListView: View {
-    @State var value: [String]
+    @State var targetList: [String] = []
     
     var body: some View {
-        List(value, id: \.self) { item in
-            NavigationLink(value: item) {
-                Text(item)
+        List(targetList, id: \.self) { target in
+            NavigationLink(value: Destination.ocrReader(target: target)) {
+                Text(target)
                     .padding()
             }
+        }
+        .onAppear {
+            targetList = SettingRepository.shared.targetList
         }
     }
 }
