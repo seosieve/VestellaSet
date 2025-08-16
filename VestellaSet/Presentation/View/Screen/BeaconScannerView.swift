@@ -1,5 +1,5 @@
 //
-//  OCRReaderView.swift
+//  BeaconScannerView.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/5/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OCRReaderView: View {
+struct BeaconScannerView: View {
     @Binding var path: NavigationPath
     @State private var macAddress: String = "텍스트 없음"
     @State private var isScanning = true
@@ -27,7 +27,7 @@ struct OCRReaderView: View {
         }
         .padding()
         .onChange(of: isScanning) { _, scanning in
-            if !scanning { path.append(Destination.beaconConnect(macAddress: macAddress, target: target)) }
+            if !scanning { path.append(Destination.beaconEditor(macAddress: macAddress, target: target)) }
         }
         .onAppear { isScanning = true }
         .onDisappear { isScanning = false }

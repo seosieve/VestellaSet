@@ -1,5 +1,5 @@
 //
-//  BeaconConnectView.swift
+//  BeaconEditorView.swift
 //  VestellaSet
 //
 //  Created by 베스텔라랩 on 12/30/24.
@@ -8,7 +8,7 @@
 import SwiftUI
 import MinewBeaconAdmin
 
-internal struct BeaconConnectView: View {
+internal struct BeaconEditorView: View {
     @StateObject internal var beaconManager = BeaconManager()
     @Binding var path: NavigationPath
     @State private var selectedBeacon: MinewBeacon?
@@ -52,7 +52,7 @@ internal struct BeaconConnectView: View {
 }
 
 // MARK: - Configure Views
-extension BeaconConnectView {
+extension BeaconEditorView {
     private var mainListView: some View {
         ZStack {
             gradientBackground
@@ -97,7 +97,7 @@ extension BeaconConnectView {
 }
 
 // MARK: - Helper Methods
-extension BeaconConnectView {
+extension BeaconEditorView {
     private func handleConnecionState(_ newState: ConnectionState) {
         if newState == .connected {
             isConnecting = true

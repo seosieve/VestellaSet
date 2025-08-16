@@ -7,18 +7,20 @@
 
 import SwiftUI
 
-struct BeaconListView: View {
-    @State var targetList: [String] = []
-    
-    var body: some View {
-        List(targetList, id: \.self) { target in
-            NavigationLink(value: Destination.ocrReader(target: target)) {
-                Text(target)
-                    .padding()
+extension BeaconDashboardView {
+    struct BeaconListView: View {
+        @State var targetList: [String] = []
+        
+        var body: some View {
+            List(targetList, id: \.self) { target in
+                NavigationLink(value: Destination.beaconScanner(target: target)) {
+                    Text(target)
+                        .padding()
+                }
             }
-        }
-        .onAppear {
-            targetList = SettingRepository.shared.targetList
+            .onAppear {
+                targetList = SettingRepository.shared.targetList
+            }
         }
     }
 }

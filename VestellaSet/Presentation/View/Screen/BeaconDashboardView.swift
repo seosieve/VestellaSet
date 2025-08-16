@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  BeaconDashboardView.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/10/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct BeaconDashboardView: View {
     @Binding var path: NavigationPath
     
     var body: some View {
@@ -20,7 +20,7 @@ struct HomeView: View {
 }
 
 // MARK: - UI Components
-extension HomeView {
+extension BeaconDashboardView {
     private var content: some View {
         VStack {
             topBar
@@ -39,7 +39,7 @@ extension HomeView {
 }
 
 // MARK: - Methods
-extension HomeView {
+extension BeaconDashboardView {
     func printMyAppUserDefaults() {
         let prefix = UserDefaultsKey.prefix
         let defaults = UserDefaults.standard

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingButton: View {
     var body: some View {
-        NavigationLink(value: Destination.setting) {
+        NavigationLink(value: Destination.beaconConfig) {
             Text("Setting")
                 .foregroundColor(.blue)
                 .padding(8)

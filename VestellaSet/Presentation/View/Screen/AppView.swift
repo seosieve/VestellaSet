@@ -8,9 +8,9 @@
 import SwiftUI
 
 enum Destination: Hashable {
-    case setting
-    case ocrReader(target: String)
-    case beaconConnect(macAddress: String, target: String)
+    case beaconConfig
+    case beaconScanner(target: String)
+    case beaconEditor(macAddress: String, target: String)
 }
 
 struct AppView: View {
@@ -18,12 +18,12 @@ struct AppView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            HomeView(path: $path)
+            BeaconDashboardView(path: $path)
                 .navigationDestination(for: Destination.self) { destination in
                     switch destination {
-                    case .setting: SettingView()
-                    case let .ocrReader(target): OCRReaderView(path: $path, target: target)
-                    case let .beaconConnect(macAddress, target): BeaconConnectView(path: $path, macAddress: macAddress, target: target)
+                    case .beaconConfig: BeaconConfigView()
+                    case let .beaconScanner(target): BeaconScannerView(path: $path, target: target)
+                    case let .beaconEditor(macAddress, target): BeaconEditorView(path: $path, macAddress: macAddress, target: target)
                     }
                 }
         }
