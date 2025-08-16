@@ -24,9 +24,6 @@ internal struct BeaconConnectView: View {
     
     internal var body: some View {
         mainListView
-            .navigationDestination(isPresented: $isConnecting) {
-                beaconDetailView
-            }
             .onChange(of: beaconManager.connectionState) { _, newState in
                 handleConnecionState(newState)
             }
@@ -39,6 +36,18 @@ internal struct BeaconConnectView: View {
                 print(macAddress)
                 beaconManager.targetMacAddress = macAddress
             }
+            .onChange(of: beaconManager.connectionState) { _, newState in
+                print("🧊 \(newState)")
+                if newState == .connected {
+                    print("connected a djkawdjwaodkwoad;lwa")
+                    let newData = beaconManager.write(item: target, macAddress: macAddress)
+                    SettingRepository.shared.targetList = newData
+                }
+                if newState == .disconnected {
+                    beaconManager.disconnect()
+                    path.removeLast(2)
+                }
+            }
     }
 }
 
@@ -49,12 +58,6 @@ extension BeaconConnectView {
             gradientBackground
             beaconView
             loadingOverlay
-            Button {
-                path.removeLast(2)
-            } label: {
-                Text("Test")
-            }
-
         }
     }
     
@@ -69,15 +72,18 @@ extension BeaconConnectView {
     
     private var beaconView: some View {
         VStack(spacing: 12) {
-            ForEach(beaconManager.minewBeacons.filter { $0.mac == macAddress }, id: \.deviceId) { beacon in
+            if let selectedBeacon = beaconManager.selectedBeacon {
+                BeaconCardView(beacon: selectedBeacon)
+                    .id(selectedBeacon.rssi)
+                    .padding(.horizontal, 20)
+                    .frame(height: 100)
+                
                 Button {
-                    connectToBeacon(beacon)
+                    connectToBeacon(selectedBeacon)
                 } label: {
-                    BeaconCardView(beacon: beacon)
+                    Text("Write")
+                        .background(Color.gray)
                 }
-                .id(beacon.rssi)
-                .padding(.horizontal, 20)
-                .frame(height: 100)
             }
         }
     }
@@ -86,16 +92,6 @@ extension BeaconConnectView {
     private var loadingOverlay: some View {
         if isLoading {
             LoadingToastView()
-        }
-    }
-    
-    @ViewBuilder
-    private var beaconDetailView: some View {
-        if let beacon = selectedBeacon {
-            BeaconWriteView(beaconManager: beaconManager, beacon: beacon, item: target, macAddress: macAddress, isPresented: $isConnecting)
-                .onDisappear {
-                    isLoading = false
-                }
         }
     }
 }

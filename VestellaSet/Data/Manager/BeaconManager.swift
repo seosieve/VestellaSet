@@ -19,6 +19,7 @@ final public class BeaconManager: NSObject, ObservableObject {
     @Published internal var currentSetting: MinewBeaconSetting? // Setting의 실제 객체
     
     @Published internal var isBeaconLost: Bool = false
+    @Published internal var selectedBeacon: MinewBeacon?
     
     private var notFoundCount = 0
     var targetMacAddress: String?
@@ -105,6 +106,7 @@ extension BeaconManager: MinewBeaconManagerDelegate {
         guard let targetMacAddress else { return }
         
         let found = beacons.contains { $0.mac == targetMacAddress }
+        selectedBeacon = beacons.filter { $0.mac == targetMacAddress }.first
         
         if found {
             notFoundCount = 0
