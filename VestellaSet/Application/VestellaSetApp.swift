@@ -10,9 +10,11 @@ import ComposableArchitecture
 
 @main
 internal struct VestellaSetApp: App {
+    let store = Store(initialState: AppFeature.State()) { AppFeature() }
+    
     internal var body: some Scene {
         WindowGroup {
-            AppView(store: Store(initialState: AppFeature.State(), reducer: { AppFeature() }))
+            AppView(store: store)
         }
     }
 }

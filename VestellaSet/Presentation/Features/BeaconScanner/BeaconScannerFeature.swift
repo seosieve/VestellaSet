@@ -27,7 +27,6 @@ struct BeaconScannerFeature {
             case .backButtonTapped:
                 return .none
             case .testButtonTapped:
-                print("f")
                 return .none
             case .beaconEditor:
                 return .none

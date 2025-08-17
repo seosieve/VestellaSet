@@ -25,47 +25,47 @@ enum AppPathAction {
 struct AppFeature {
     @ObservableState
     struct State {
-        var dashboard = BeaconDashBoardFeature.State()
-        var path = StackState<AppPath>()
+        var beaconDashBoard = BeaconDashBoardFeature.State()
+        var navigationPath = StackState<AppPath>()
     }
     
     enum Action {
-        case dashboard(BeaconDashBoardFeature.Action)
-        case path(StackAction<AppPath, AppPathAction>)
+        case beaconDashBoard(BeaconDashBoardFeature.Action)
+        case navigationPath(StackAction<AppPath, AppPathAction>)
     }
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.dashboard, action: \.dashboard) {
+        Scope(state: \.beaconDashBoard, action: \.beaconDashBoard) {
             BeaconDashBoardFeature()
         }
         
         Reduce { state, action in
             switch action {
-            case .path:
+            case .navigationPath:
                 return .none
-            case .dashboard(.configButtonTapped):
-                state.path.append(.beaconConfig)
+            case .beaconDashBoard(.configButtonTapped):
+                state.navigationPath.append(.beaconConfig)
                 return .none
-            case .dashboard(.importButtonTapped):
-                state.path.append(.beaconImport)
+            case .beaconDashBoard(.importButtonTapped):
+                state.navigationPath.append(.beaconImport)
                 return .none
-            case .dashboard(.targetSelected):
-                state.path.append(.beaconScanner)
+            case .beaconDashBoard(.targetSelected):
+                state.navigationPath.append(.beaconScanner)
                 return .none
-            case .dashboard(.beaconScanner(.testButtonTapped)):
-                state.path.append(.beaconEditor)
+            case .beaconDashBoard(.beaconScanner(.testButtonTapped)):
+                state.navigationPath.append(.beaconEditor)
                 return .none
-            case .dashboard(.beaconScanner(.backButtonTapped)):
-                state.path.removeLast()
+            case .beaconDashBoard(.beaconScanner(.backButtonTapped)):
+                state.navigationPath.removeLast()
                 return .none
-            case .dashboard(.beaconScanner(.beaconEditor(.backButtonTapped))):
-                state.path.removeLast(2)
+            case .beaconDashBoard(.beaconScanner(.beaconEditor(.backButtonTapped))):
+                state.navigationPath.removeLast(2)
                 return .none
-            case .dashboard(.beaconImport(.backButtonTapped)):
-                state.path.removeLast()
+            case .beaconDashBoard(.beaconImport(.backButtonTapped)):
+                state.navigationPath.removeLast()
                 return .none
-            case .dashboard(.beaconSetting(.backButtonTapped)):
-                state.path.removeLast()
+            case .beaconDashBoard(.beaconSetting(.backButtonTapped)):
+                state.navigationPath.removeLast()
                 return .none
             }
         }
