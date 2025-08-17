@@ -6,14 +6,18 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 extension BeaconDashboardView {
     struct BeaconListView: View {
+        let store: StoreOf<BeaconDashBoardFeature>
         @State var targetList: [String] = []
         
         var body: some View {
             List(targetList, id: \.self) { target in
-                NavigationLink(value: Destination.beaconScanner(target: target)) {
+                Button {
+                    store.send(.targetSelected)
+                } label: {
                     Text(target)
                         .padding()
                 }

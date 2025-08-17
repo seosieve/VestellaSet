@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct SettingButton: View {
+    let store: StoreOf<BeaconDashBoardFeature>
+    
     var body: some View {
-        NavigationLink(value: Destination.beaconConfig) {
+        Button {
+            store.send(.settingButtonTapped)
+        } label: {
             Text("Setting")
                 .foregroundColor(.blue)
                 .padding(8)
@@ -17,5 +22,15 @@ struct SettingButton: View {
                 .cornerRadius(8)
         }
         .padding()
+        
+        
+//        NavigationLink(value: Destination.beaconConfig) {
+//            Text("Setting")
+//                .foregroundColor(.blue)
+//                .padding(8)
+//                .background(Color.gray.opacity(0.2))
+//                .cornerRadius(8)
+//        }
+//        .padding()
     }
 }

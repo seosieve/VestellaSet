@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct BeaconScannerView: View {
-    @Binding var path: NavigationPath
+    let store: StoreOf<BeaconScannerFeature>
+    
+//    @Binding var path: NavigationPath
     @State private var macAddress: String = "텍스트 없음"
     @State private var isScanning = true
     
-    let target: String
+//    let target: String
     
     var body: some View {
         VStack(spacing: 20) {
@@ -26,9 +29,9 @@ struct BeaconScannerView: View {
                 .frame(width: 200, height: 200)
         }
         .padding()
-        .onChange(of: isScanning) { _, scanning in
-            if !scanning { path.append(Destination.beaconEditor(macAddress: macAddress, target: target)) }
-        }
+//        .onChange(of: isScanning) { _, scanning in
+//            if !scanning { path.append(Destination.beaconEditor(macAddress: macAddress, target: target)) }
+//        }
         .onAppear { isScanning = true }
         .onDisappear { isScanning = false }
     }

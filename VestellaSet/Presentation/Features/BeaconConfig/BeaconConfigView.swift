@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct BeaconConfigView: View {
+    let store: StoreOf<BeaconConfigFeature>
     @State private var scannedCode = "아직 스캔 안됨"
     
     var body: some View {

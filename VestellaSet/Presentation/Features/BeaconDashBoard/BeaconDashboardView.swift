@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct BeaconDashboardView: View {
-    @Binding var path: NavigationPath
+    let store: StoreOf<BeaconDashBoardFeature>
     
     var body: some View {
         content
+            .padding()
             .navigationBarHidden(true)
             .task {
                 printMyAppUserDefaults()
@@ -25,7 +27,7 @@ extension BeaconDashboardView {
         VStack {
             topBar
             Spacer()
-            BeaconListView()
+            BeaconListView(store: store)
             Spacer()
         }
     }
@@ -33,7 +35,7 @@ extension BeaconDashboardView {
     private var topBar: some View {
         HStack {
             Spacer()
-            SettingButton()
+            SettingButton(store: store)
         }
     }
 }
