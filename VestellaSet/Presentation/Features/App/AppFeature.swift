@@ -21,9 +21,7 @@ struct AppFeature {
     }
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.beaconDashBoard, action: \.beaconDashBoard) {
-            BeaconDashBoardFeature()
-        }
+        Scope(state: \.beaconDashBoard, action: \.beaconDashBoard) { BeaconDashBoardFeature() }
         
         Reduce { state, action in
             switch action {

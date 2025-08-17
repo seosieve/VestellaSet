@@ -22,6 +22,7 @@ struct BeaconScannerFeature {
     
     var body: some ReducerOf<Self> {
         Scope(state: \.beaconEditor, action: \.beaconEditor) { BeaconEditorFeature() }
+        
         Reduce { state, action in
             switch action {
             case .backButtonTapped:
