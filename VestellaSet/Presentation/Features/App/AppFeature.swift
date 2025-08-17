@@ -7,20 +7,6 @@
 
 import ComposableArchitecture
 
-enum AppPath: Hashable {
-    case beaconImport
-    case beaconConfig
-    case beaconScanner
-    case beaconEditor
-}
-
-enum AppPathAction {
-    case beaconImport(BeaconImportFeature.Action)
-    case beaconConfig(BeaconSettingFeature.Action)
-    case beaconScanner(BeaconScannerFeature.Action)
-    case beaconEditor(BeaconEditorFeature.Action)
-}
-
 @Reducer
 struct AppFeature {
     @ObservableState
