@@ -21,7 +21,7 @@ struct BeaconDashBoardFeature {
         case beaconImport(BeaconImportFeature.Action)
         case beaconSetting(BeaconSettingFeature.Action)
         case importButtonTapped
-        case configButtonTapped
+        case settingButtonTapped
         case targetSelected
     }
     
@@ -34,7 +34,7 @@ struct BeaconDashBoardFeature {
             switch action {
             case .importButtonTapped:
                 return .none
-            case .configButtonTapped:
+            case .settingButtonTapped:
                 return .none
             case .targetSelected:
                 return .none

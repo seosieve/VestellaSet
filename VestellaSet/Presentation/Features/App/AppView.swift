@@ -20,7 +20,7 @@ struct AppView: View {
                 case .beaconImport:
                     let store = store.scope(state: \.beaconDashBoard.beaconImport, action: \.beaconDashBoard.beaconImport)
                     BeaconImportView(store: store)
-                case .beaconConfig:
+                case .beaconSetting:
                     let store = store.scope(state: \.beaconDashBoard.beaconSetting, action: \.beaconDashBoard.beaconSetting)
                     BeaconSettingView(store: store)
                 case .beaconScanner:

@@ -27,8 +27,8 @@ struct AppFeature {
             switch action {
             case .navigationPath:
                 return .none
-            case .beaconDashBoard(.configButtonTapped):
-                state.navigationPath.append(.beaconConfig)
+            case .beaconDashBoard(.settingButtonTapped):
+                state.navigationPath.append(.beaconSetting)
                 return .none
             case .beaconDashBoard(.importButtonTapped):
                 state.navigationPath.append(.beaconImport)

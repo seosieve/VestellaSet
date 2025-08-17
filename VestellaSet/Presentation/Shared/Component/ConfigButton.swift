@@ -8,12 +8,12 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct ConfigButton: View {
+struct SettingButton: View {
     let store: StoreOf<BeaconDashBoardFeature>
     
     var body: some View {
         Button {
-            store.send(.configButtonTapped)
+            store.send(.settingButtonTapped)
         } label: {
             Text("Setting")
                 .foregroundColor(.blue)

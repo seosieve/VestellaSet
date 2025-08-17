@@ -36,7 +36,7 @@ extension BeaconDashboardView {
         HStack {
             Spacer()
             ImportButton(store: store)
-            ConfigButton(store: store)
+            SettingButton(store: store)
         }
     }
 }
