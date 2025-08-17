@@ -9,18 +9,26 @@ import SwiftUI
 import ComposableArchitecture
 
 struct AppView: View {
-    let store: StoreOf<AppFeature>
+    var store: StoreOf<AppFeature>
     
     var body: some View {
         NavigationStackStore(store.scope(state: \.path, action: \.path)) {
             BeaconDashboardView(store: store.scope(state: \.dashboard, action: \.dashboard))
-        } destination: { destinationStore in
-            SwitchStore(destinationStore) { store in
-                switch store {
+        } destination: { destination in
+            SwitchStore(destination) { pathStore in
+                switch pathStore {
+                case .beaconImport:
+                    let store = store.scope(state: \.dashboard.beaconImport, action: \.dashboard.beaconImport)
+                    BeaconImportView(store: store)
                 case .beaconConfig:
-                    CaseLet(\Destination.State.beaconConfig, action: Destination.Action.beaconConfig, then: BeaconConfigView.init)
+                    let store = store.scope(state: \.dashboard.beaconSetting, action: \.dashboard.beaconSetting)
+                    BeaconSettingView(store: store)
                 case .beaconScanner:
-                    CaseLet(\Destination.State.beaconScanner, action: Destination.Action.beaconScanner, then: BeaconScannerView.init)
+                    let store = store.scope(state: \.dashboard.beaconScanner, action: \.dashboard.beaconScanner)
+                    BeaconScannerView(store: store)
+                case .beaconEditor:
+                    let store = store.scope(state: \.dashboard.beaconScanner.beaconEditor, action: \.dashboard.beaconScanner.beaconEditor)
+                    BeaconEditorView(store:store)
                 }
             }
         }

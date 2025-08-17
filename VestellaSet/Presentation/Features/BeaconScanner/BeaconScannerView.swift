@@ -11,7 +11,6 @@ import ComposableArchitecture
 struct BeaconScannerView: View {
     let store: StoreOf<BeaconScannerFeature>
     
-//    @Binding var path: NavigationPath
     @State private var macAddress: String = "텍스트 없음"
     @State private var isScanning = true
     
@@ -21,6 +20,19 @@ struct BeaconScannerView: View {
         VStack(spacing: 20) {
             Text("🔍 인식된 텍스트:")
                 .font(.headline)
+            
+            Button {
+                store.send(.backButtonTapped)
+            } label: {
+                Text("Back")
+            }
+            
+            Button {
+                store.send(.testButtonTapped)
+            } label: {
+                Text("Navigate")
+            }
+
             
             Text(macAddress)
                 .padding()
@@ -34,5 +46,6 @@ struct BeaconScannerView: View {
 //        }
         .onAppear { isScanning = true }
         .onDisappear { isScanning = false }
+        .navigationBarBackButtonHidden()
     }
 }

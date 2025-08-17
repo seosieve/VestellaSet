@@ -35,7 +35,8 @@ extension BeaconDashboardView {
     private var topBar: some View {
         HStack {
             Spacer()
-            SettingButton(store: store)
+            ImportButton(store: store)
+            ConfigButton(store: store)
         }
     }
 }

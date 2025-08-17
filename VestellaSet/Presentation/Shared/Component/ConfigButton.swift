@@ -1,5 +1,5 @@
 //
-//  SettingButton.swift
+//  ConfigButton.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/15/25.
@@ -8,12 +8,12 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct SettingButton: View {
+struct ConfigButton: View {
     let store: StoreOf<BeaconDashBoardFeature>
     
     var body: some View {
         Button {
-            store.send(.settingButtonTapped)
+            store.send(.configButtonTapped)
         } label: {
             Text("Setting")
                 .foregroundColor(.blue)
@@ -21,16 +21,5 @@ struct SettingButton: View {
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(8)
         }
-        .padding()
-        
-        
-//        NavigationLink(value: Destination.beaconConfig) {
-//            Text("Setting")
-//                .foregroundColor(.blue)
-//                .padding(8)
-//                .background(Color.gray.opacity(0.2))
-//                .cornerRadius(8)
-//        }
-//        .padding()
     }
 }
