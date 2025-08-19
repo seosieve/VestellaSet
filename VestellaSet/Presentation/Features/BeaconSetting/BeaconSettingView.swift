@@ -29,9 +29,6 @@ struct BeaconSettingView: View {
                 .padding()
             
             Text(beaconCount())
-            
-            QRScanner(result: $scannedCode)
-                .frame(width: 200, height: 200)
         }
         .padding()
         .navigationBarBackButtonHidden()

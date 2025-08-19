@@ -31,9 +31,22 @@
 		CFD28A7C2D14145900859D49 /* VestellaSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VestellaSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4E923CAA2E54AD7B0013C2DD /* Exceptions for "VestellaSet" folder in "VestellaSet" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CFD28A7B2D14145900859D49 /* VestellaSet */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CFD28A7E2D14145900859D49 /* VestellaSet */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4E923CAA2E54AD7B0013C2DD /* Exceptions for "VestellaSet" folder in "VestellaSet" target */,
+			);
 			path = VestellaSet;
 			sourceTree = "<group>";
 		};
@@ -299,6 +312,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VestellaSet/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "앱 사용시 블루투스 권한";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "주변 블루투스 기기 권한";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Beacon MAC 주소, QR 스캔을 위해 카메라 권한이 필요해요.";
@@ -350,6 +364,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VestellaSet/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "앱 사용시 블루투스 권한";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "주변 블루투스 기기 권한";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Beacon MAC 주소, QR 스캔을 위해 카메라 권한이 필요해요.";
