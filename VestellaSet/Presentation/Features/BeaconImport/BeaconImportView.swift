@@ -13,7 +13,7 @@ struct BeaconImportView: View {
     
     var body: some View {
         Button {
-            store.send(.backButtonTapped)
+            store.send(.clickBackButton)
         } label: {
             Text("Back")
         }

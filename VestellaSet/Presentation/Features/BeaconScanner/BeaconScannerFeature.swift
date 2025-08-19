@@ -10,27 +10,22 @@ import ComposableArchitecture
 @Reducer
 struct BeaconScannerFeature {
     @ObservableState
-    struct State {
-        var beaconEditor = BeaconEditorFeature.State()
-    }
+    struct State { }
     
     enum Action {
-        case beaconEditor(BeaconEditorFeature.Action)
-        case backButtonTapped
-        case testButtonTapped
+        case clickEditorButton
+        case clickBackButton
     }
     
+    @Dependency(\.dismiss) var dismiss
+    
     var body: some ReducerOf<Self> {
-        Scope(state: \.beaconEditor, action: \.beaconEditor) { BeaconEditorFeature() }
-        
         Reduce { state, action in
             switch action {
-            case .backButtonTapped:
+            case .clickEditorButton:
                 return .none
-            case .testButtonTapped:
-                return .none
-            case .beaconEditor:
-                return .none
+            case .clickBackButton:
+                return .run { _ in await self.dismiss() }
             }
         }
     }

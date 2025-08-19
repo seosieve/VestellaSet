@@ -13,7 +13,7 @@ struct ImportButton: View {
     
     var body: some View {
         Button {
-            store.send(.importButtonTapped)
+            store.send(.clickImportButton)
         } label: {
             Text("Import")
                 .foregroundColor(.blue)

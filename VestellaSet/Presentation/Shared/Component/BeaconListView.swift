@@ -16,7 +16,7 @@ extension BeaconDashboardView {
         var body: some View {
             List(targetList, id: \.self) { target in
                 Button {
-                    store.send(.targetSelected)
+                    store.send(.clickTargetCell)
                 } label: {
                     Text(target)
                         .padding()

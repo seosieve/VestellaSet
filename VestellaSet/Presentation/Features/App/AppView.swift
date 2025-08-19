@@ -13,23 +13,19 @@ struct AppView: View {
     
     var body: some View {
         NavigationStackStore(store.scope(state: \.navigationPath, action: \.navigationPath)) {
-            BeaconDashboardView(store: store.scope(state: \.beaconDashBoard, action: \.beaconDashBoard))
-        } destination: { destination in
-            SwitchStore(destination) { pathStore in
-                switch pathStore {
-                case .beaconImport:
-                    let store = store.scope(state: \.beaconDashBoard.beaconImport, action: \.beaconDashBoard.beaconImport)
-                    BeaconImportView(store: store)
-                case .beaconSetting:
-                    let store = store.scope(state: \.beaconDashBoard.beaconSetting, action: \.beaconDashBoard.beaconSetting)
-                    BeaconSettingView(store: store)
-                case .beaconScanner:
-                    let store = store.scope(state: \.beaconDashBoard.beaconScanner, action: \.beaconDashBoard.beaconScanner)
-                    BeaconScannerView(store: store)
-                case .beaconEditor:
-                    let store = store.scope(state: \.beaconDashBoard.beaconScanner.beaconEditor, action: \.beaconDashBoard.beaconScanner.beaconEditor)
-                    BeaconEditorView(store:store)
-                }
+            Color.clear.onAppear { store.send(.onAppear) }
+        } destination: { store in
+            switch store.case {
+            case .beaconDashBoard(let store):
+                BeaconDashboardView(store: store)
+            case .beaconImport(let store):
+                BeaconImportView(store: store)
+            case .beaconSetting(let store):
+                BeaconSettingView(store: store)
+            case .beaconScanner(let store):
+                BeaconScannerView(store: store)
+            case .beaconEditor(let store):
+                BeaconEditorView(store:store)
             }
         }
     }

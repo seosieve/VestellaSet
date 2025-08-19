@@ -25,7 +25,7 @@ internal struct BeaconEditorView: View {
     internal var body: some View {
         mainListView
         Button {
-            store.send(.backButtonTapped)
+            store.send(.clickBackButton)
         } label: {
             Text("Back")
         }

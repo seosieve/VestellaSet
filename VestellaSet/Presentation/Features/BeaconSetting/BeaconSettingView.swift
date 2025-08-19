@@ -16,7 +16,7 @@ struct BeaconSettingView: View {
     var body: some View {
         VStack(alignment: .center) {
             Button {
-                store.send(.backButtonTapped)
+                store.send(.clickBackButton)
             } label: {
                 Text("Back")
             }

@@ -13,13 +13,13 @@ struct BeaconEditorFeature {
     struct State { }
     
     enum Action {
-        case backButtonTapped
+        case clickBackButton
     }
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .backButtonTapped:
+            case .clickBackButton:
                 return .none
             }
         }

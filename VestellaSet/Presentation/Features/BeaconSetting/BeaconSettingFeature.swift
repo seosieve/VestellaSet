@@ -10,17 +10,19 @@ import ComposableArchitecture
 @Reducer
 struct BeaconSettingFeature {
     @ObservableState
-    struct State {}
+    struct State { }
     
     enum Action {
-        case backButtonTapped
+        case clickBackButton
     }
+    
+    @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .backButtonTapped:
-                return .none
+            case .clickBackButton:
+                return .run { _ in await self.dismiss() }
             }
         }
     }

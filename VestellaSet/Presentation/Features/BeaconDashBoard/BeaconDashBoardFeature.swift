@@ -10,39 +10,22 @@ import ComposableArchitecture
 @Reducer
 struct BeaconDashBoardFeature {
     @ObservableState
-    struct State {
-        var beaconScanner = BeaconScannerFeature.State()
-        var beaconImport = BeaconImportFeature.State()
-        var beaconSetting = BeaconSettingFeature.State()
-    }
+    struct State { }
     
     enum Action {
-        case beaconScanner(BeaconScannerFeature.Action)
-        case beaconImport(BeaconImportFeature.Action)
-        case beaconSetting(BeaconSettingFeature.Action)
-        case importButtonTapped
-        case settingButtonTapped
-        case targetSelected
+        case clickImportButton
+        case clickSettingButton
+        case clickTargetCell
     }
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.beaconImport, action: \.beaconImport) { BeaconImportFeature() }
-        Scope(state: \.beaconScanner, action: \.beaconScanner) { BeaconScannerFeature() }
-        Scope(state: \.beaconSetting, action: \.beaconSetting) { BeaconSettingFeature() }
-        
         Reduce { state, action in
             switch action {
-            case .importButtonTapped:
+            case .clickImportButton:
                 return .none
-            case .settingButtonTapped:
+            case .clickSettingButton:
                 return .none
-            case .targetSelected:
-                return .none
-            case .beaconScanner:
-                return .none
-            case .beaconImport:
-                return .none
-            case .beaconSetting:
+            case .clickTargetCell:
                 return .none
             }
         }

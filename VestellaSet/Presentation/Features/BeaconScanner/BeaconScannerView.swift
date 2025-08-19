@@ -22,15 +22,15 @@ struct BeaconScannerView: View {
                 .font(.headline)
             
             Button {
-                store.send(.backButtonTapped)
+                store.send(.clickBackButton)
             } label: {
                 Text("Back")
             }
             
             Button {
-                store.send(.testButtonTapped)
+                store.send(.clickEditorButton)
             } label: {
-                Text("Navigate")
+                Text("Go Editor")
             }
 
             

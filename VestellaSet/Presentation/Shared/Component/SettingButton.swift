@@ -1,5 +1,5 @@
 //
-//  ConfigButton.swift
+//  SettingButton.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/15/25.
@@ -13,7 +13,7 @@ struct SettingButton: View {
     
     var body: some View {
         Button {
-            store.send(.settingButtonTapped)
+            store.send(.clickSettingButton)
         } label: {
             Text("Setting")
                 .foregroundColor(.blue)
