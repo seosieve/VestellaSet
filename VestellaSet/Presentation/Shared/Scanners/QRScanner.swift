@@ -16,7 +16,9 @@ struct QRScanner: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
-        
+        if let previewLayer = context.coordinator.previewLayer {
+             previewLayer.frame = uiView.bounds
+         }
     }
     
     func makeCoordinator() -> Coordinator {
@@ -27,7 +29,7 @@ struct QRScanner: UIViewRepresentable {
 // MARK: - Camera Setup
 private extension QRScanner {
     func setupCamera(context: Context) -> UIView {
-        let view = UIView()
+        let view = CameraView()  // 커스텀 UIView 사용
         
         let captureSession = AVCaptureSession()
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return view }
@@ -42,16 +44,31 @@ private extension QRScanner {
         metadataOutput.metadataObjectTypes = [.qr]
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = CGRect(origin: .zero, size: CGSize(width: 200, height: 200))
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
+        
+        // coordinator에 previewLayer 저장
+        context.coordinator.previewLayer = previewLayer
+        context.coordinator.captureSession = captureSession
         
         DispatchQueue.global(qos: .userInitiated).async {
             captureSession.startRunning()
         }
-        context.coordinator.captureSession = captureSession
         
         return view
+    }
+}
+
+// MARK: - Custom UIView
+class CameraView: UIView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // 서브레이어의 프레임을 현재 뷰 크기에 맞춤
+        layer.sublayers?.forEach { sublayer in
+            if sublayer is AVCaptureVideoPreviewLayer {
+                sublayer.frame = bounds
+            }
+        }
     }
 }
 
@@ -60,6 +77,7 @@ extension QRScanner {
     class Coordinator: NSObject, AVCaptureMetadataOutputObjectsDelegate {
         var parent: QRScanner
         var captureSession: AVCaptureSession?
+        var previewLayer: AVCaptureVideoPreviewLayer?
         
         init(_ parent: QRScanner) {
             self.parent = parent

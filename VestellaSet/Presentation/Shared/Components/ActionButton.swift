@@ -24,6 +24,7 @@ struct ActionButton: View {
         .background(Color.mintBase)
         .cornerRadius(8)
         .padding(.horizontal, 16)
+        .padding(.bottom, 8)
     }
 }
 
