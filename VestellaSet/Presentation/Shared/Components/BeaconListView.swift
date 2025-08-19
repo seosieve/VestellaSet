@@ -21,7 +21,12 @@ extension BeaconDashboardView {
                     Text(target)
                         .padding()
                 }
+                .listRowBackground(Color.monoShadow)
+                .listRowSeparatorTint(Color.monoBlack)
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.monoBlack)
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 50))
             .onAppear {
                 targetList = SettingRepository.shared.targetList
             }

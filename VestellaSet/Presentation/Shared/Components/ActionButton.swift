@@ -16,12 +16,12 @@ struct ActionButton: View {
         Button(action: action) {
             Text(title)
                 .font(Manrope.bold(size: 17))
-                .foregroundColor(.white)
+                .foregroundColor(.mintBlack)
                 .padding(.vertical, 10)
                 .frame(maxWidth: .infinity, alignment: .center)
         }
         .frame(height: 56)
-        .background(Color.green)
+        .background(Color.mintBase)
         .cornerRadius(8)
         .padding(.horizontal, 16)
     }

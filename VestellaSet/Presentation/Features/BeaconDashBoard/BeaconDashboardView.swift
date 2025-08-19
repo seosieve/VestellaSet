@@ -13,7 +13,6 @@ struct BeaconDashboardView: View {
     
     var body: some View {
         content
-            .padding()
             .navigationBarHidden(true)
             .task {
                 printMyAppUserDefaults()
@@ -28,8 +27,11 @@ extension BeaconDashboardView {
             topBar
             Spacer()
             BeaconListView(store: store)
+                .padding(.horizontal, 4)
             Spacer()
         }
+        .ignoresSafeArea(edges: .bottom)
+        .monoBackground()
     }
     
     private var topBar: some View {
@@ -38,6 +40,7 @@ extension BeaconDashboardView {
             ImportButton(store: store)
             SettingButton(store: store)
         }
+        .padding(.horizontal, 20)
     }
 }
 

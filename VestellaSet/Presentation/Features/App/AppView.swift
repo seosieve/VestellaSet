@@ -13,14 +13,7 @@ struct AppView: View {
     
     var body: some View {
         NavigationStackStore(store.scope(state: \.navigationPath, action: \.navigationPath)) {
-            Color.clear.onAppear { store.send(.onAppear)
-                for family in UIFont.familyNames {
-                    print("family:", family)
-                    for name in UIFont.fontNames(forFamilyName: family) {
-                        print("   name:", name)
-                    }
-                }
-            }
+            Color.clear.onAppear { store.send(.onAppear) }
         } destination: { store in
             switch store.case {
             case .beaconDashBoard(let store):
