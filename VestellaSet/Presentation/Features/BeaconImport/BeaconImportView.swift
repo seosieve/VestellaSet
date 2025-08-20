@@ -15,38 +15,13 @@ struct BeaconImportView: View {
     
     var body: some View {
         ZStack {
-            
-            GeometryReader { geometry in
-                QRScanner(result: $scannedCode)
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-            }
-            .ignoresSafeArea()
-            
-            GeometryReader { geometry in
-                Color.black.opacity(0.6)
-                    .mask(
-                        Rectangle()
-                            .fill(Color.white)
-                            .compositingGroup()
-                            .luminanceToAlpha()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .frame(width: 300, height: 300)
-                                    .blendMode(.destinationOut) // 중간 구멍
-                                    .position(x: geometry.size.width/2, y: geometry.size.height/2)
-                            )
-                    )
-                    .allowsHitTesting(false)
-            }
-            .ignoresSafeArea()
+            GeometryQRScanner(scannedCode: scannedCode)
+            ScannerDimView()
             
             VStack {
-                Button {
+                GlassButton(imageName: "XMark") {
                     store.send(.clickBackButton)
-                } label: {
-                    Text("Back")
                 }
-                
                 Spacer()
                 ActionButton(title: "Save") {
                     print("버튼 눌림")

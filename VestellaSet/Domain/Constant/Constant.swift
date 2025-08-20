@@ -14,3 +14,7 @@ enum Vestella {
 enum Minew {
     static let password = "minew123"
 }
+
+enum Spacing {
+    static let normal: CGFloat = 20
+}
