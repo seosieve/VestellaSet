@@ -11,23 +11,16 @@ import ComposableArchitecture
 struct BeaconImportView: View {
     let store: StoreOf<BeaconImportFeature>
     
-    @State private var scannedCode = "아직 스캔 안됨"
+    @State private var scannedCode = "스캔 댐"
     
     var body: some View {
         ZStack {
-            GeometryQRScanner(scannedCode: scannedCode)
+            GeometryQRScanner(store: store)
             ScannerDimView()
             
             VStack {
-                HStack {
-                    GlassButton(imageName: "XMark") {
-                        store.send(.clickBackButton)
-                    }
-                    .padding(.leading, 20)
-                    Spacer()
-                }
-                .padding(.top, 12)
-                
+                BackButton(store: store)
+                ProgressLabel()
                 Spacer()
                 ActionButton(title: "Save") {
                     print("버튼 눌림")
@@ -36,19 +29,5 @@ struct BeaconImportView: View {
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
-        
-        
-//        Button {
-//            store.send(.clickBackButton)
-//        } label: {
-//            Text("Back")
-//        }
-//        QRScanner(result: $scannedCode)
-//            .frame(width: 200, height: 200)
-//        Text("BeaconImportView")
-//            
-//        ActionButton(title: "Save") {
-//            print("버튼 눌림")
-//        }
     }
 }

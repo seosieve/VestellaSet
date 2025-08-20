@@ -22,7 +22,7 @@ struct ScannerLineView: View {
             
             ZStack(alignment: .top) {
                 LinearGradient(
-                    gradient: Gradient(colors: [color.opacity(opacity), color.opacity(0)]),
+                    gradient: Gradient(colors: [color.opacity(opacity + 0.3), color.opacity(0)]),
                     startPoint: .top,
                     endPoint: .bottom
                 )

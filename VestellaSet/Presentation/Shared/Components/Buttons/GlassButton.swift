@@ -30,18 +30,14 @@ struct GlassButton: View {
             .shadow(color: .black.opacity(0.5), radius: 4, x: -1, y: 2)
           
         }
-        .onTapGesture {
-                UIImpactFeedbackGenerator(style: .medium).impactOccurred() // ✅ 한 줄
-            }
         .buttonStyle(BouncyButtonStyle())
-     
     }
 }
 
 extension GlassButton {
     func glassBackground() -> LinearGradient {
         LinearGradient(
-            gradient: Gradient(colors: [.monoBlack.opacity(0.8), .monoShadow]),
+            gradient: Gradient(colors: [.monoBlack.opacity(0.7), .monoShadow]),
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )

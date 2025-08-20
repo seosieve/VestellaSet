@@ -10,9 +10,12 @@ import ComposableArchitecture
 @Reducer
 struct BeaconImportFeature {
     @ObservableState
-    struct State { }
+    struct State {
+        var isRunning: Bool = true
+    }
     
     enum Action {
+        case stopRunning
         case clickBackButton
     }
     
@@ -21,6 +24,9 @@ struct BeaconImportFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .stopRunning:
+                state.isRunning = false
+                return .none
             case .clickBackButton:
                 return .run { _ in await self.dismiss() }
             }

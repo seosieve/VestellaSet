@@ -11,7 +11,11 @@ struct BouncyButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .scaleEffect(configuration.isPressed ? 1.05 : 1.0)
-            .animation(.spring(response: 0.3, dampingFraction: 0.5), value: configuration.isPressed)
-            .onChange(of: configuration.isPressed) { UIImpactFeedbackGenerator(style: .soft).impactOccurred() }
+            .animation(.spring(response: 0.2, dampingFraction: 0.5), value: configuration.isPressed)
+            .onChange(of: configuration.isPressed) { _, isPressed in
+                if isPressed {
+                    UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+                }
+            }
     }
 }

@@ -7,9 +7,10 @@
 
 import SwiftUI
 import AVFoundation
+import ComposableArchitecture
 
 struct QRScanner: UIViewRepresentable {
-    @Binding var result: String
+    let store: StoreOf<BeaconImportFeature>
     
     func makeUIView(context: Context) -> UIView {
         setupCamera(context: context)
@@ -86,7 +87,9 @@ extension QRScanner {
         func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
             guard let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = metadataObject.stringValue else { return }
-            parent.result = stringValue
+            print(stringValue)
+//            parent.result = stringValue
+            parent.store.send(.stopRunning)
             captureSession?.stopRunning()
         }
     }

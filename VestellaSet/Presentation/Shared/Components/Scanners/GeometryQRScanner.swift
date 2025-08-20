@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct GeometryQRScanner: View {
-    @State var scannedCode: String
+    let store: StoreOf<BeaconImportFeature>
     
     var body: some View {
         GeometryReader { geometry in
-            QRScanner(result: $scannedCode)
+            QRScanner(store: store)
                 .frame(width: geometry.size.width, height: geometry.size.height)
         }
         .ignoresSafeArea()
