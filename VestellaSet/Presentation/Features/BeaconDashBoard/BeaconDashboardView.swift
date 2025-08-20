@@ -35,12 +35,17 @@ extension BeaconDashboardView {
     }
     
     private var topBar: some View {
-        HStack {
+        HStack(spacing: 8) {
             Spacer()
-            ImportButton(store: store)
-            SettingButton(store: store)
+            GlassButton(imageName: "Import") {
+                store.send(.clickImportButton)
+            }
+            GlassButton(imageName: "Setting") {
+                store.send(.clickSettingButton)
+            }
         }
-        .padding(.horizontal, 20)
+        .padding(.vertical, 12)
+        .padding(.trailing, 20)
     }
 }
 

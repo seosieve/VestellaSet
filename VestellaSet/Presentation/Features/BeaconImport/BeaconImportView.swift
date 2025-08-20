@@ -19,9 +19,15 @@ struct BeaconImportView: View {
             ScannerDimView()
             
             VStack {
-                GlassButton(imageName: "XMark") {
-                    store.send(.clickBackButton)
+                HStack {
+                    GlassButton(imageName: "XMark") {
+                        store.send(.clickBackButton)
+                    }
+                    .padding(.leading, 20)
+                    Spacer()
                 }
+                .padding(.top, 12)
+                
                 Spacer()
                 ActionButton(title: "Save") {
                     print("버튼 눌림")
