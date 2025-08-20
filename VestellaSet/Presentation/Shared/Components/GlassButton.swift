@@ -28,8 +28,13 @@ struct GlassButton: View {
             .overlay(innerGlow())
             .shadow(color: .black.opacity(0.2), radius: 8, x: 2, y: 2)
             .shadow(color: .black.opacity(0.5), radius: 4, x: -1, y: 2)
+          
         }
+        .onTapGesture {
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred() // ✅ 한 줄
+            }
         .buttonStyle(BouncyButtonStyle())
+     
     }
 }
 

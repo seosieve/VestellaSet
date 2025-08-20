@@ -12,5 +12,6 @@ struct BouncyButtonStyle: ButtonStyle {
         configuration.label
             .scaleEffect(configuration.isPressed ? 1.05 : 1.0)
             .animation(.spring(response: 0.3, dampingFraction: 0.5), value: configuration.isPressed)
+            .onChange(of: configuration.isPressed) { UIImpactFeedbackGenerator(style: .soft).impactOccurred() }
     }
 }
