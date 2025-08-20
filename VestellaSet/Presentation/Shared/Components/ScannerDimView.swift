@@ -30,6 +30,13 @@ struct ScannerDimView: View {
                 CornerHighlightView()
                     .frame(width: overlaySize.width, height: overlaySize.height)
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                
+                ScannerLineView()
+                    .frame(width: overlaySize.width, height: overlaySize.height)
+                    .mask(
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(width: overlaySize.width, height: overlaySize.height)
+                    )
             }
         }
         .ignoresSafeArea()
