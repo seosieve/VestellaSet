@@ -14,17 +14,23 @@ struct ScannerDimView: View {
             let overlayHeight = overlayWidth
             let overlaySize = CGSize(width: overlayWidth, height: overlayHeight)
             
-            Color.monoBlack.opacity(0.9)
-                .mask(
-                    maskRectangle
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .frame(width: overlaySize.width, height: overlaySize.height)
-                                .blendMode(.destinationOut)
-                                .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                        )
-                )
-                .allowsHitTesting(false)
+            ZStack {
+                Color.monoBlack.opacity(0.9)
+                    .mask(
+                        maskRectangle
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .frame(width: overlaySize.width, height: overlaySize.height)
+                                    .blendMode(.destinationOut)
+                                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                            )
+                    )
+                    .allowsHitTesting(false)
+                
+                CornerHighlightView()
+                    .frame(width: overlaySize.width, height: overlaySize.height)
+                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+            }
         }
         .ignoresSafeArea()
     }
