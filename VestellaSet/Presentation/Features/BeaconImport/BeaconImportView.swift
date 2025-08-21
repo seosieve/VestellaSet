@@ -16,7 +16,7 @@ struct BeaconImportView: View {
     var body: some View {
         ZStack {
             GeometryQRScanner(store: store)
-            ScannerDimView()
+            ScannerOverlayView()
             
             VStack {
                 BackButton(store: store)

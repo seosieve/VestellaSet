@@ -8,30 +8,25 @@
 import SwiftUI
 
 struct ScannerLineView: View {
-    var color: Color = .mintBase
-    var lineWidth: CGFloat = 3
-    var animationDuration: Double = 2
-    var gradientHeight: CGFloat = 60
-
     @State private var offsetY: CGFloat = 0
     @State private var opacity: Double = 1.0
 
     var body: some View {
         GeometryReader { geometry in
-            let h = geometry.size.height
+            let height = geometry.size.height
             
             ZStack(alignment: .top) {
                 LinearGradient(
-                    gradient: Gradient(colors: [color.opacity(opacity + 0.3), color.opacity(0)]),
+                    gradient: Gradient(colors: [.mintBase.opacity(opacity + 0.3), .mintBase.opacity(0)]),
                     startPoint: .top,
                     endPoint: .bottom
                 )
-                .frame(height: gradientHeight)
+                .frame(height: 60)
                 .offset(y: offsetY)
                 
                 Rectangle()
-                    .fill(color.opacity(opacity))
-                    .frame(height: lineWidth)
+                    .fill(Color.mintBase.opacity(opacity))
+                    .frame(height: 3)
                     .offset(y: offsetY)
             }
             .onAppear {
@@ -39,10 +34,10 @@ struct ScannerLineView: View {
                 opacity = 1.0
                 
                 DispatchQueue.main.async {
-                    withAnimation(.easeInOut(duration: animationDuration).repeatForever(autoreverses: true)) {
-                        offsetY = h - lineWidth
+                    withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+                        offsetY = height - 3
                     }
-                    withAnimation(.easeInOut(duration: animationDuration / 2).repeatForever(autoreverses: true)) {
+                    withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
                         opacity = 0.2
                     }
                 }
