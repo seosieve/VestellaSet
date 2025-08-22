@@ -13,17 +13,13 @@ struct ScannerLineView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            let barHeight: CGFloat = 3
-            let gradientHeight: CGFloat = 60
             let size = geometry.size.width - Spacing.normal * 2
-            let centerX = geometry.size.width / 2
-            let centerY = geometry.size.height / 2
             
             ZStack {
                 Rectangle()
                     .fill(Color.mintBase.opacity(opacity))
-                    .frame(width: size, height: barHeight)
-                    .position(x: centerX, y: centerY)
+                    .frame(width: size, height: Scanner.lineWidth)
+                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                     .offset(y: offsetY)
                 
                 LinearGradient(
@@ -31,14 +27,14 @@ struct ScannerLineView: View {
                     startPoint: .top,
                     endPoint: .bottom
                 )
-                .frame(width: size, height: gradientHeight)
-                .position(x: centerX, y: centerY + gradientHeight / 2)
+                .frame(width: size, height: Scanner.gradientHeight)
+                .position(x: geometry.size.width / 2, y: geometry.size.height / 2 + Scanner.gradientHeight / 2)
                 .offset(y: offsetY)
             }
             .mask(
                 RoundedRectangle(cornerRadius: Radius.normal)
                     .frame(width: size, height: size)
-                    .position(x: centerX, y: centerY)
+                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             )
             .onAppear {
                 offsetY = -size / 2

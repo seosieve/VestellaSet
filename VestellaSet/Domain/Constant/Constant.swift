@@ -14,3 +14,9 @@ enum Spacing {
 enum Radius {
     static let normal: CGFloat = 12
 }
+
+enum Scanner {
+    static let lineWidth: CGFloat = 4
+    static let gradientHeight: CGFloat = 60
+    static let edgeLength: CGFloat = 60
+}
