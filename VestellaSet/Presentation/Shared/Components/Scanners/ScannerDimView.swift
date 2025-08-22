@@ -10,24 +10,24 @@ import SwiftUI
 struct ScannerDimView: View {
     var body: some View {
         GeometryReader { geometry in
-            let overlayWidth = geometry.size.width - Spacing.normal * 2
-            let overlayHeight = overlayWidth
-            let overlaySize = CGSize(width: overlayWidth, height: overlayHeight)
+            let size = geometry.size.width - Spacing.normal * 2
             
             Color.monoBlack.opacity(0.9)
                 .mask(
-                    Rectangle()
-                        .fill(Color.white)
-                        .compositingGroup()
-                        .luminanceToAlpha()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .frame(width: overlaySize.width, height: overlaySize.height)
-                                .blendMode(.destinationOut)
-                                .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                        )
+                    ZStack {
+                        Rectangle()
+                            .fill(Color.white)
+                            .compositingGroup()
+                            .luminanceToAlpha()
+                        
+                        RoundedRectangle(cornerRadius: Radius.normal)
+                            .frame(width: size, height: size)
+                            .blendMode(.destinationOut)
+                            .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                    }
                 )
                 .allowsHitTesting(false)
         }
+        .ignoresSafeArea()
     }
 }
