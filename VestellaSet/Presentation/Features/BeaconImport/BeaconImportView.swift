@@ -22,7 +22,7 @@ struct BeaconImportView: View {
                 BackButton(store: store)
                 Spacer()
                 ActionButton(store: store, title: "Save") {
-                    print("버튼 눌림")
+                    store.send(.clickSaveButton)
                 }
             }
         }

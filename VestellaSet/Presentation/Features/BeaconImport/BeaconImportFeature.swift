@@ -18,6 +18,7 @@ struct BeaconImportFeature {
     struct State {
         var isRunning: Bool = true
         var isScanning: Bool = true
+        var targetList: [String] = []
         var major: Int = 0
         var count: Int = 0
     }
@@ -25,8 +26,10 @@ struct BeaconImportFeature {
     enum Action {
         case stopRunning
         case stopScanning
+        case setTargetList([String])
         case setMajor(Int)
         case setCount(Int)
+        case clickSaveButton
         case clickBackButton
     }
     
@@ -43,12 +46,18 @@ struct BeaconImportFeature {
             case .stopScanning:
                 state.isScanning = false
                 return .none
+            case .setTargetList(let targetList):
+                state.targetList = targetList
+                return .none
             case .setMajor(let major):
                 state.major = major
                 return .none
             case .setCount(let count):
                 state.count = count
                 return .none
+            case .clickSaveButton:
+                SettingRepository.shared.targetList = state.targetList
+                return .run { _ in await self.dismiss() }
             case .clickBackButton:
                 return .merge(
                     .cancel(id: CancelID.scannerAnimation),
