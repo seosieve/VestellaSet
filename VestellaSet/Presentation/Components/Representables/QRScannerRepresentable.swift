@@ -1,5 +1,5 @@
 //
-//  QRScanner.swift
+//  QRScannerRepresentable.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/8/25.
@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 import ComposableArchitecture
 
-struct QRScanner: UIViewRepresentable {
+struct QRScannerRepresentable: UIViewRepresentable {
     let store: StoreOf<BeaconImportFeature>
     
     func makeUIView(context: Context) -> UIView {
@@ -28,7 +28,7 @@ struct QRScanner: UIViewRepresentable {
 }
 
 // MARK: - Camera Setup
-private extension QRScanner {
+private extension QRScannerRepresentable {
     func setupCamera(context: Context) -> UIView {
         let view = CameraView()  // 커스텀 UIView 사용
         
@@ -74,13 +74,13 @@ class CameraView: UIView {
 }
 
 // MARK: - Coordinator
-extension QRScanner {
+extension QRScannerRepresentable {
     class Coordinator: NSObject, AVCaptureMetadataOutputObjectsDelegate {
-        var parent: QRScanner
+        var parent: QRScannerRepresentable
         var captureSession: AVCaptureSession?
         var previewLayer: AVCaptureVideoPreviewLayer?
         
-        init(_ parent: QRScanner) {
+        init(_ parent: QRScannerRepresentable) {
             self.parent = parent
         }
         

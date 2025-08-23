@@ -1,5 +1,5 @@
 //
-//  OCRScanner.swift
+//  OCRScannerRepresentable.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/5/25.
@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 import Vision
 
-struct OCRScanner: UIViewRepresentable {
+struct OCRScannerRepresentable: UIViewRepresentable {
     @Binding var result: String
     @Binding var isScanning: Bool
     
@@ -29,7 +29,7 @@ struct OCRScanner: UIViewRepresentable {
 }
 
 // MARK: - Camera Setup
-private extension OCRScanner {
+private extension OCRScannerRepresentable {
     func setupCamera(context: Context) -> UIView {
         let view = UIView()
         
@@ -55,12 +55,12 @@ private extension OCRScanner {
 }
 
 // MARK: - Coordinator
-extension OCRScanner {
+extension OCRScannerRepresentable {
     class Coordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
-        var parent: OCRScanner
+        var parent: OCRScannerRepresentable
         var captureSession: AVCaptureSession?
         
-        init(parent: OCRScanner) {
+        init(parent: OCRScannerRepresentable) {
             self.parent = parent
         }
         

@@ -33,11 +33,10 @@ struct BeaconScannerView: View {
                 Text("Go Editor")
             }
 
-            
             Text(macAddress)
                 .padding()
             
-            OCRScanner(result: $macAddress, isScanning: $isScanning)
+            OCRScannerRepresentable(result: $macAddress, isScanning: $isScanning)
                 .frame(width: 200, height: 200)
         }
         .padding()

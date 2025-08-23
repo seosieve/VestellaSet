@@ -8,11 +8,14 @@
 import Foundation
 
 enum Spacing {
-    static let normal: CGFloat = 20
+    static let large: CGFloat = 20
+    static let normal: CGFloat = 12
+    static let small: CGFloat = 8
 }
 
 enum Radius {
     static let normal: CGFloat = 12
+    static let small: CGFloat = 8
 }
 
 enum Scanner {
