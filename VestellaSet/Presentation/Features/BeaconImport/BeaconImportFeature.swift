@@ -18,11 +18,15 @@ struct BeaconImportFeature {
     struct State {
         var isRunning: Bool = true
         var isScanning: Bool = true
+        var major: Int = 0
+        var count: Int = 0
     }
     
     enum Action {
         case stopRunning
         case stopScanning
+        case setMajor(Int)
+        case setCount(Int)
         case clickBackButton
     }
     
@@ -38,6 +42,12 @@ struct BeaconImportFeature {
                 .cancellable(id: CancelID.scannerAnimation)
             case .stopScanning:
                 state.isScanning = false
+                return .none
+            case .setMajor(let major):
+                state.major = major
+                return .none
+            case .setCount(let count):
+                state.count = count
                 return .none
             case .clickBackButton:
                 return .merge(

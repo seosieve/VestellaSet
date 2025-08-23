@@ -87,10 +87,19 @@ extension QRScannerRepresentable {
         func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
             guard let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = metadataObject.stringValue else { return }
-            print(stringValue)
-//            parent.result = stringValue
+            let (count, major) = parseScannedCodes(stringValue)
+            parent.store.send(.setMajor(major))
+            parent.store.send(.setCount(count))
             parent.store.send(.stopRunning)
             captureSession?.stopRunning()
+        }
+        
+        func parseScannedCodes(_ codes: String) -> (count: Int, major: Int) {
+            guard let data = codes.data(using: .utf8) else { return (0, 0) }
+            guard let array = try? JSONDecoder().decode([String].self, from: data), !array.isEmpty else { return (0, 0) }
+            let major = array.first?.components(separatedBy: " ").compactMap { Int($0) }.first ?? 0
+            
+            return (array.count, major)
         }
     }
 }

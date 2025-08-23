@@ -15,9 +15,11 @@ struct ScannerInfoContainer: View {
     
     var body: some View {
         HStack(spacing: Spacing.small) {
-            ScannerInfoView(value: 245)
-            ScannerInfoView(value: 760)
+            ScannerInfoView(type: .major(store.major))
+            ScannerInfoView(type: .count(store.count))
         }
+        .opacity(store.isScanning ? 0 : 1)
+        .animation(.easeInOut, value: store.isScanning)
         .padding(.horizontal, Spacing.large)
         .offset(y: -(config.length / 2) - 55)
     }

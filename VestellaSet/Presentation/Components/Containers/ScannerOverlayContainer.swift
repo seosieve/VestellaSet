@@ -20,7 +20,7 @@ struct ScannerOverlayContainer: View {
                 ScannerDimView()
                 ScannerCornerView()
                 ScannerLineView(store: store)
-                ScannerInfoContainer()
+                ScannerInfoContainer(store: store)
                 ScannerProgressLabel()
             }
             .environment(\.scannerConfig, ScannerConfig(size: size, length: length))

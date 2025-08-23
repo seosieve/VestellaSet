@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ScannerInfoView: View {
-    @State var value: Int
+    let type: ScannerInfoType
     
     var body: some View {
         HStack(spacing: Spacing.normal) {
-            Text("Major")
+            Text(type.title)
                 .foregroundColor(.white)
                 .font(Manrope.regular(size: 14))
-            Text("\(value)")
+            Text("\(type.value)")
                 .foregroundColor(.mintBase)
                 .font(Manrope.bold(size: 20))
         }
