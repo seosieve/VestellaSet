@@ -9,6 +9,8 @@ import ComposableArchitecture
 
 @Reducer
 struct BeaconScannerFeature {
+    @Dependency(\.dismiss) var dismiss
+    
     @ObservableState
     struct State { }
     
@@ -16,8 +18,6 @@ struct BeaconScannerFeature {
         case clickEditorButton
         case clickBackButton
     }
-    
-    @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in

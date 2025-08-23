@@ -9,14 +9,14 @@ import ComposableArchitecture
 
 @Reducer
 struct BeaconSettingFeature {
+    @Dependency(\.dismiss) var dismiss
+    
     @ObservableState
     struct State { }
     
     enum Action {
         case clickBackButton
     }
-    
-    @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in

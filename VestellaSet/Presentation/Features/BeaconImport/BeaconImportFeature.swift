@@ -9,6 +9,11 @@ import ComposableArchitecture
 
 @Reducer
 struct BeaconImportFeature {
+    private enum CancelID { case scannerAnimation }
+    private let scannerStopDelay: Duration = .seconds(2)
+    
+    @Dependency(\.dismiss) var dismiss
+    
     @ObservableState
     struct State {
         var isRunning: Bool = true
@@ -21,19 +26,24 @@ struct BeaconImportFeature {
         case clickBackButton
     }
     
-    @Dependency(\.dismiss) var dismiss
-    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .stopRunning:
                 state.isRunning = false
-                return .none
+                return .run { send in
+                    try await Task.sleep(for: scannerStopDelay)
+                    await send(.stopScanning)
+                }
+                .cancellable(id: CancelID.scannerAnimation)
             case .stopScanning:
                 state.isScanning = false
                 return .none
             case .clickBackButton:
-                return .run { _ in await self.dismiss() }
+                return .merge(
+                    .cancel(id: CancelID.scannerAnimation),
+                    .run { _ in await self.dismiss() }
+                )
             }
         }
     }

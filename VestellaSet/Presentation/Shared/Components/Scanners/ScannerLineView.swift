@@ -54,7 +54,6 @@ struct ScannerLineView: View {
                 withAnimation(.easeOut(duration: 0.6)) {
                     opacity = 0
                 }
-                store.send(.stopScanning)
             }
         }
     }
