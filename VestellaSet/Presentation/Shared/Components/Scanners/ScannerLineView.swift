@@ -8,46 +8,42 @@
 import SwiftUI
 
 struct ScannerLineView: View {
+    @Environment(\.scannerConfig) var config
     @State private var offsetY: CGFloat = 0
     @State private var opacity: Double = 1.0
     
     var body: some View {
-        GeometryReader { geometry in
-            let size = geometry.size.width - Spacing.normal * 2
-            
-            ZStack {
-                Rectangle()
-                    .fill(Color.mintBase.opacity(opacity))
-                    .frame(width: size, height: Scanner.lineWidth)
-                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                    .offset(y: offsetY)
-                
-                LinearGradient(
-                    gradient: Gradient(colors: [.mintBase.opacity(opacity + 0.3), .mintBase.opacity(0)]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .frame(width: size, height: Scanner.gradientHeight)
-                .position(x: geometry.size.width / 2, y: geometry.size.height / 2 + Scanner.gradientHeight / 2)
+        ZStack {
+            Rectangle()
+                .fill(Color.mintBase.opacity(opacity))
+                .frame(width: config.length, height: Scanner.lineWidth)
+                .position(config.center)
                 .offset(y: offsetY)
-            }
-            .mask(
-                RoundedRectangle(cornerRadius: Radius.normal)
-                    .frame(width: size, height: size)
-                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+            
+            LinearGradient(
+                gradient: Gradient(colors: [.mintBase.opacity(opacity + 0.3), .mintBase.opacity(0)]),
+                startPoint: .top,
+                endPoint: .bottom
             )
-            .onAppear {
-                offsetY = -size / 2
-                opacity = 1.0
-                
-                withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
-                    offsetY = size / 2
-                }
-                withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
-                    opacity = 0.2
-                }
+            .frame(width: config.length, height: Scanner.gradientHeight)
+            .position(x: config.center.x, y: config.center.y + Scanner.gradientHeight / 2)
+            .offset(y: offsetY)
+        }
+        .mask(
+            RoundedRectangle(cornerRadius: Radius.normal)
+                .frame(width: config.length, height: config.length)
+                .position(config.center)
+        )
+        .onAppear {
+            offsetY = -config.length / 2
+            opacity = 1.0
+            
+            withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+                offsetY = config.length / 2
+            }
+            withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
+                opacity = 0.2
             }
         }
-        .ignoresSafeArea()
     }
 }
