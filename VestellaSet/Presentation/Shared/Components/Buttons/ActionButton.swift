@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ActionButton: View {
+    let store: StoreOf<BeaconImportFeature>
     var title: String
     var action: () -> Void
     
@@ -25,6 +26,8 @@ struct ActionButton: View {
         .cornerRadius(8)
         .padding(.horizontal, 16)
         .padding(.bottom, 8)
+        .transition(.opacity)
+        .animation(.easeInOut, value: store.isRunning)
     }
 }
 

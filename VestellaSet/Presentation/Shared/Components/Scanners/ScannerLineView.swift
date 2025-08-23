@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct ScannerLineView: View {
+    let store: StoreOf<BeaconImportFeature>
+    
     @Environment(\.scannerConfig) var config
     @State private var offsetY: CGFloat = 0
-    @State private var opacity: Double = 1.0
+    @State private var opacity: Double = 0
     
     var body: some View {
         ZStack {
@@ -21,13 +24,14 @@ struct ScannerLineView: View {
                 .offset(y: offsetY)
             
             LinearGradient(
-                gradient: Gradient(colors: [.mintBase.opacity(opacity + 0.3), .mintBase.opacity(0)]),
+                gradient: Gradient(colors: [.mintBase.opacity(opacity+0.3), .mintBase.opacity(0)]),
                 startPoint: .top,
                 endPoint: .bottom
             )
             .frame(width: config.length, height: Scanner.gradientHeight)
-            .position(x: config.center.x, y: config.center.y + Scanner.gradientHeight / 2)
+            .position(x: config.center.x, y: config.center.y + Scanner.gradientHeight / 2 - Scanner.lineWidth)
             .offset(y: offsetY)
+            .opacity(store.isRunning ? 0 : 1)
         }
         .mask(
             RoundedRectangle(cornerRadius: Radius.normal)
@@ -35,9 +39,10 @@ struct ScannerLineView: View {
                 .position(config.center)
         )
         .onAppear {
-            offsetY = -config.length / 2
+            offsetY = -config.length / 2   
+        }
+        .onChange(of: store.isRunning) {
             opacity = 1.0
-            
             withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
                 offsetY = config.length / 2
             }

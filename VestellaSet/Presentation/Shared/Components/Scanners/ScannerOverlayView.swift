@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct ScannerOverlayView: View {
+    let store: StoreOf<BeaconImportFeature>
+    
     var body: some View {
         GeometryReader { geometry in
             let size = CGSize(width: geometry.size.width, height: geometry.size.height)
@@ -16,27 +19,10 @@ struct ScannerOverlayView: View {
             ZStack {
                 ScannerDimView()
                 ScannerCornerView()
-                ScannerLineView()
+                ScannerLineView(store: store)
             }
             .environment(\.scannerConfig, ScannerConfig(size: size, length: length))
         }
         .ignoresSafeArea()
-    }
-}
-
-struct ScannerConfig {
-    var size: CGSize
-    var length: CGFloat
-    var center: CGPoint { CGPoint(x: size.width / 2, y: size.height / 2) }
-}
-
-private struct ScannerConfigKey: EnvironmentKey {
-    static let defaultValue = ScannerConfig(size: .zero, length: 0)
-}
-
-extension EnvironmentValues {
-    var scannerConfig: ScannerConfig {
-        get { self[ScannerConfigKey.self] }
-        set { self[ScannerConfigKey.self] = newValue }
     }
 }

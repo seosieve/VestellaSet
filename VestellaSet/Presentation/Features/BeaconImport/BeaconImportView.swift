@@ -16,14 +16,14 @@ struct BeaconImportView: View {
     var body: some View {
         ZStack {
             GeometryQRScanner(store: store)
-            ScannerOverlayView()
+            ScannerOverlayView(store: store)
             
             VStack {
                 BackButton(store: store)
                 ScanInfoContainer()
                 ProgressLabel()
                 Spacer()
-                ActionButton(title: "Save") {
+                ActionButton(store: store, title: "Save") {
                     print("버튼 눌림")
                 }
             }
