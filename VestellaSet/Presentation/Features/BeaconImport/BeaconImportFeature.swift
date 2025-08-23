@@ -12,10 +12,12 @@ struct BeaconImportFeature {
     @ObservableState
     struct State {
         var isRunning: Bool = true
+        var isScanning: Bool = true
     }
     
     enum Action {
         case stopRunning
+        case stopScanning
         case clickBackButton
     }
     
@@ -26,6 +28,9 @@ struct BeaconImportFeature {
             switch action {
             case .stopRunning:
                 state.isRunning = false
+                return .none
+            case .stopScanning:
+                state.isScanning = false
                 return .none
             case .clickBackButton:
                 return .run { _ in await self.dismiss() }

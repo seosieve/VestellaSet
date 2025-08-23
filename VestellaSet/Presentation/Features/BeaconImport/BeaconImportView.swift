@@ -20,8 +20,6 @@ struct BeaconImportView: View {
             
             VStack {
                 BackButton(store: store)
-                ScanInfoContainer()
-                ProgressLabel()
                 Spacer()
                 ActionButton(store: store, title: "Save") {
                     print("버튼 눌림")

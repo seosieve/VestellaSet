@@ -14,6 +14,7 @@ struct ActionButton: View {
     var action: () -> Void
     
     var body: some View {
+        
         Button(action: action) {
             Text(title)
                 .font(Manrope.bold(size: 17))
@@ -26,8 +27,8 @@ struct ActionButton: View {
         .cornerRadius(8)
         .padding(.horizontal, 16)
         .padding(.bottom, 8)
-        .transition(.opacity)
-        .animation(.easeInOut, value: store.isRunning)
+        .opacity(store.isScanning ? 0 : 1)
+        .animation(.easeInOut, value: store.isScanning)
     }
 }
 

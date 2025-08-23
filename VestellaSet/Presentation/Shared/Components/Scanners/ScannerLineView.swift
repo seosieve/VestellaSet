@@ -24,7 +24,7 @@ struct ScannerLineView: View {
                 .offset(y: offsetY)
             
             LinearGradient(
-                gradient: Gradient(colors: [.mintBase.opacity(opacity+0.3), .mintBase.opacity(0)]),
+                gradient: Gradient(colors: [.mintBase.opacity(opacity == 0 ? 0 : opacity + 0.3), .mintBase.opacity(0)]),
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -39,15 +39,22 @@ struct ScannerLineView: View {
                 .position(config.center)
         )
         .onAppear {
-            offsetY = -config.length / 2   
+            offsetY = -config.length / 2
         }
         .onChange(of: store.isRunning) {
             opacity = 1.0
-            withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+            withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true)) {
                 offsetY = config.length / 2
             }
             withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
                 opacity = 0.2
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                withAnimation(.easeOut(duration: 0.6)) {
+                    opacity = 0
+                }
+                store.send(.stopScanning)
             }
         }
     }
