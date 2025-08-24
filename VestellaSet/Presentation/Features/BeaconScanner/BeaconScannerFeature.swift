@@ -12,9 +12,14 @@ struct BeaconScannerFeature {
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
-    struct State { }
+    struct State {
+        var isRunning: Bool = true
+        var macAddress: String = ""
+    }
     
     enum Action {
+        case stopRunning
+        case setMacAddress(String)
         case clickEditorButton
         case clickBackButton
     }
@@ -22,6 +27,12 @@ struct BeaconScannerFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .stopRunning:
+                state.isRunning = false
+                return .none
+            case .setMacAddress(let macAddress):
+                state.macAddress = macAddress
+                return .none
             case .clickEditorButton:
                 return .none
             case .clickBackButton:

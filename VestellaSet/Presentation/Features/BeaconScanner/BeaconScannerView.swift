@@ -17,28 +17,35 @@ struct BeaconScannerView: View {
 //    let target: String
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text("🔍 인식된 텍스트:")
-                .font(.headline)
+        ZStack {
+            OCRScannerContainer(store: store)
+            ScannerDecorateContainer()
             
-            Button {
-                store.send(.clickBackButton)
-            } label: {
-                Text("Back")
+            VStack {
+                BackButton {
+                    store.send(.clickBackButton)
+                }
+                Spacer()
+                Button {
+                    store.send(.clickEditorButton)
+                } label: {
+                    Text("Go Editor")
+                }
             }
-            
-            Button {
-                store.send(.clickEditorButton)
-            } label: {
-                Text("Go Editor")
-            }
-
-            Text(macAddress)
-                .padding()
-            
-            OCRScannerRepresentable(result: $macAddress, isScanning: $isScanning)
-                .frame(width: 200, height: 200)
         }
+        
+        
+//        VStack(spacing: 20) {
+//            Text("🔍 인식된 텍스트:")
+//                .font(.headline)
+//
+//
+//            Text(macAddress)
+//                .padding()
+//            
+//            OCRScannerRepresentable(result: $macAddress, isScanning: $isScanning)
+//                .frame(width: 200, height: 200)
+//        }
 //        .onChange(of: isScanning) { _, scanning in
 //            if !scanning { path.append(Destination.beaconEditor(macAddress: macAddress, target: target)) }
 //        }

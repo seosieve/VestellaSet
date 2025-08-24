@@ -1,25 +1,22 @@
 //
-//  ScannerOverlayContainer.swift
+//  ScannerDecorateContainer.swift
 //  VestellaSet
 //
-//  Created by 서충원 on 8/23/25.
+//  Created by 서충원 on 8/24/25.
 //
 
 import SwiftUI
 import ComposableArchitecture
 
-struct ScannerOverlayContainer: View {
-    let store: StoreOf<BeaconImportFeature>
-    
+struct ScannerDecorateContainer: View {
     var body: some View {
         GeometryReader { geometry in
             let size = CGSize(width: geometry.size.width, height: geometry.size.height)
             let length = geometry.size.width - Spacing.large * 2
             
             ZStack {
-                ScannerLineView(store: store)
-                ScannerInfoContainer(store: store)
-                ScannerProgressLabel()
+                ScannerDimView()
+                ScannerCornerView()
             }
             .environment(\.scannerConfig, ScannerConfig(size: size, length: length))
         }

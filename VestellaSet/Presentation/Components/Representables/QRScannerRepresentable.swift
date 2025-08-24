@@ -29,8 +29,21 @@ struct QRScannerRepresentable: UIViewRepresentable {
 
 // MARK: - Camera Setup
 private extension QRScannerRepresentable {
+    // Custom Camera UIView
+    class CameraView: UIView {
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            // 서브레이어의 프레임을 현재 뷰 크기에 맞춤
+            layer.sublayers?.forEach { sublayer in
+                if sublayer is AVCaptureVideoPreviewLayer {
+                    sublayer.frame = bounds
+                }
+            }
+        }
+    }
+    
     func setupCamera(context: Context) -> UIView {
-        let view = CameraView()  // 커스텀 UIView 사용
+        let view = CameraView()
         
         let captureSession = AVCaptureSession()
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return view }
@@ -57,19 +70,6 @@ private extension QRScannerRepresentable {
         }
         
         return view
-    }
-}
-
-// MARK: - Custom UIView
-class CameraView: UIView {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // 서브레이어의 프레임을 현재 뷰 크기에 맞춤
-        layer.sublayers?.forEach { sublayer in
-            if sublayer is AVCaptureVideoPreviewLayer {
-                sublayer.frame = bounds
-            }
-        }
     }
 }
 

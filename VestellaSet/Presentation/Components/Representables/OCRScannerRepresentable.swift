@@ -8,10 +8,10 @@
 import SwiftUI
 import AVFoundation
 import Vision
+import ComposableArchitecture
 
 struct OCRScannerRepresentable: UIViewRepresentable {
-    @Binding var result: String
-    @Binding var isScanning: Bool
+    let store: StoreOf<BeaconScannerFeature>
     
     func makeUIView(context: Context) -> UIView {
         let view = setupCamera(context: context)
@@ -20,7 +20,11 @@ struct OCRScannerRepresentable: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
-        if isScanning { context.coordinator.startScanning() }
+        if let previewLayer = context.coordinator.previewLayer {
+            previewLayer.frame = uiView.bounds
+        }
+        
+        if store.isRunning { context.coordinator.startScanning() }
     }
     
     func makeCoordinator() -> Coordinator {
@@ -30,8 +34,21 @@ struct OCRScannerRepresentable: UIViewRepresentable {
 
 // MARK: - Camera Setup
 private extension OCRScannerRepresentable {
+    // Custom Camera UIView
+    class CameraView: UIView {
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            // 서브레이어의 프레임을 현재 뷰 크기에 맞춤
+            layer.sublayers?.forEach { sublayer in
+                if sublayer is AVCaptureVideoPreviewLayer {
+                    sublayer.frame = bounds
+                }
+            }
+        }
+    }
+    
     func setupCamera(context: Context) -> UIView {
-        let view = UIView()
+        let view = CameraView()
         
         let captureSession = AVCaptureSession()
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return view }
@@ -48,6 +65,8 @@ private extension OCRScannerRepresentable {
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
         
+        // coordinator에 previewLayer 저장
+        context.coordinator.previewLayer = previewLayer
         context.coordinator.captureSession = captureSession
         
         return view
@@ -59,6 +78,7 @@ extension OCRScannerRepresentable {
     class Coordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         var parent: OCRScannerRepresentable
         var captureSession: AVCaptureSession?
+        var previewLayer: AVCaptureVideoPreviewLayer?
         
         init(parent: OCRScannerRepresentable) {
             self.parent = parent
@@ -110,10 +130,8 @@ extension OCRScannerRepresentable {
             
             stopScanning()
             
-            DispatchQueue.main.async { [weak self] in
-                self?.parent.isScanning = false
-                self?.parent.result = macAddress
-            }
+            parent.store.send(.stopRunning)
+            parent.store.send(.setMacAddress(macAddress))
         }
     }
 }
