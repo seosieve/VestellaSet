@@ -14,9 +14,7 @@ struct BeaconDashboardView: View {
     var body: some View {
         content
             .navigationBarBackButtonHidden()
-            .task {
-                printMyAppUserDefaults()
-            }
+            .task { printMyAppUserDefaults() }
     }
 }
 
@@ -37,10 +35,10 @@ extension BeaconDashboardView {
     private var topBar: some View {
         HStack(spacing: 12) {
             Spacer()
-            GlassButton(imageName: "Import") {
+            GlassButton(image: .importIcon) {
                 store.send(.clickImportButton)
             }
-            GlassButton(imageName: "Setting") {
+            GlassButton(image: .settingIcon) {
                 store.send(.clickSettingButton)
             }
         }

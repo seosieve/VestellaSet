@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct GlassButton: View {
-    var imageName: String
+    var image: Image
     var action: () -> Void
     
     var body: some View {
         Button(action: action) {
             ZStack {
-                Image(imageName)
+                image
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24, height: 24)

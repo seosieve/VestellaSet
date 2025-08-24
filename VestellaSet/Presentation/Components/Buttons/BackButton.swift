@@ -12,7 +12,7 @@ struct BackButton: View {
     
     var body: some View {
         HStack {
-            GlassButton(imageName: "XMark") { action() }
+            GlassButton(image: .xmarkIcon) { action() }
             Spacer()
         }
         .padding(.top, 12)
