@@ -10,10 +10,9 @@ import ComposableArchitecture
 
 struct BeaconListView: View {
     let store: StoreOf<BeaconDashBoardFeature>
-    @State var targetList: [String] = []
     
     var body: some View {
-        List(targetList, id: \.self) { target in
+        List(store.targetList, id: \.self) { target in
             Button {
                 store.send(.clickTargetCell)
             } label: {
@@ -27,7 +26,7 @@ struct BeaconListView: View {
         .background(Color.monoBlack)
         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 50))
         .onAppear {
-            targetList = SettingRepository.shared.targetList
+            store.send(.getTargetList)
         }
     }
 }

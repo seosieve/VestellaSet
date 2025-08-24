@@ -12,6 +12,7 @@ struct BeaconImportFeature {
     private enum CancelID { case scannerAnimation }
     private let scannerStopDelay: Duration = .seconds(2)
     
+    @Dependency(\.appStorage) var appStorage
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
@@ -56,7 +57,7 @@ struct BeaconImportFeature {
                 state.count = count
                 return .none
             case .clickSaveButton:
-                SettingRepository.shared.targetList = state.targetList
+                appStorage.setTargetList(state.targetList)
                 return .run { _ in await self.dismiss() }
             case .clickBackButton:
                 return .merge(

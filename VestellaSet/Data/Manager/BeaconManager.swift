@@ -168,9 +168,9 @@ extension BeaconManager {
         let minor = parts[1]
         setting.major = major
         setting.minor = minor
-        setting.uuid = SettingRepository.shared.uuid
-        setting.broadcastInterval = SettingRepository.shared.broadcastInterval
-        setting.txPower = SettingRepository.shared.transmissionPower
+//        setting.uuid = SettingRepository.shared.uuid
+//        setting.broadcastInterval = SettingRepository.shared.broadcastInterval
+//        setting.txPower = SettingRepository.shared.transmissionPower
         
         print(setting.broadcastInterval)
         currentConnection?.writeSetting(Minew.password)
@@ -180,14 +180,15 @@ extension BeaconManager {
     
     private func appendMacAddress(to item: String, macAddress: String) -> [String] {
         // 1. 기존 배열 불러오기
-        var targetList = SettingRepository.shared.targetList
+//        var targetList = SettingRepository.shared.targetList
         
         // 2. 특정 item과 일치하는 경우만 뒤에 macAddress 추가
-        if let index = targetList.firstIndex(of: item) {
-            targetList[index] = "\(targetList[index]) \(macAddress)"
-        }
-        
-        return targetList
+//        if let index = targetList.firstIndex(of: item) {
+//            targetList[index] = "\(targetList[index]) \(macAddress)"
+//        }
+//        
+//        return targetList
+        return []
     }
     
     public func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {

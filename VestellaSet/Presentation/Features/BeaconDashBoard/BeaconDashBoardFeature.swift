@@ -9,10 +9,15 @@ import ComposableArchitecture
 
 @Reducer
 struct BeaconDashBoardFeature {
+    @Dependency(\.appStorage) var appStorage
+    
     @ObservableState
-    struct State { }
+    struct State {
+        var targetList: [String] = []
+    }
     
     enum Action {
+        case getTargetList
         case clickImportButton
         case clickSettingButton
         case clickTargetCell
@@ -21,6 +26,9 @@ struct BeaconDashBoardFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .getTargetList:
+                state.targetList = appStorage.getTargetList()
+                return .none
             case .clickImportButton:
                 return .none
             case .clickSettingButton:

@@ -21,7 +21,6 @@ struct BeaconSettingView: View {
                 Text("Back")
             }
 
-            saveButton
             Text("스캔된 코드:")
                 .font(.headline)
             Text(scannedCode)
@@ -32,22 +31,6 @@ struct BeaconSettingView: View {
         }
         .padding()
         .navigationBarBackButtonHidden()
-    }
-}
-
-// MARK: - UI Components
-extension BeaconSettingView {
-    private var saveButton: some View {
-        Button {
-            let array = decodedScannedCodes()
-            SettingRepository.shared.targetList = array
-        } label: {
-            Text("Save")
-                .foregroundColor(.blue)
-                .padding(8)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(8)
-        }
     }
 }
 
