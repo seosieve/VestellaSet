@@ -11,22 +11,21 @@ import ComposableArchitecture
 struct BeaconImportView: View {
     let store: StoreOf<BeaconImportFeature>
     
-    @State private var scannedCode = "스캔 댐"
-    
     var body: some View {
         ZStack {
             QRScannerContainer(store: store)
             ScannerOverlayContainer(store: store)
             
             VStack {
-                BackButton(store: store)
+                BackButton {
+                    store.send(.clickBackButton)
+                }
                 Spacer()
                 ActionButton(store: store, title: "Save") {
                     store.send(.clickSaveButton)
                 }
             }
         }
-        .monoBackground()
         .navigationBarBackButtonHidden()
     }
 }

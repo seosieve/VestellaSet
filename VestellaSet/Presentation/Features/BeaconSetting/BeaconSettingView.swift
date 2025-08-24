@@ -11,47 +11,16 @@ import ComposableArchitecture
 struct BeaconSettingView: View {
     let store: StoreOf<BeaconSettingFeature>
     
-    @State private var scannedCode = "아직 스캔 안됨"
-    
     var body: some View {
-        VStack(alignment: .center) {
-            Button {
-                store.send(.clickBackButton)
-            } label: {
-                Text("Back")
+        ZStack {
+            VStack {
+                BackButton {
+                    store.send(.clickBackButton)
+                }
+                Spacer()
             }
-
-            Text("스캔된 코드:")
-                .font(.headline)
-            Text(scannedCode)
-                .foregroundColor(.blue)
-                .padding()
-            
-            Text(beaconCount())
         }
-        .padding()
+        .monoBackground()
         .navigationBarBackButtonHidden()
-    }
-}
-
-// MARK: - Methods
-extension BeaconSettingView {
-    func decodedScannedCodes() -> [String] {
-        guard let data = scannedCode.data(using: .utf8) else {
-            print("scannedCode 문자열을 UTF-8 데이터로 변환 실패")
-            return []
-        }
-        
-        do {
-            return try JSONDecoder().decode([String].self, from: data)
-        } catch {
-            print("scannedCode 디코딩 실패: \(error.localizedDescription)")
-            return []
-        }
-    }
-    
-    func beaconCount() -> String {
-        let array = decodedScannedCodes()
-        return "\(array.count) 개"
     }
 }

@@ -39,7 +39,6 @@ struct BeaconScannerView: View {
             OCRScannerRepresentable(result: $macAddress, isScanning: $isScanning)
                 .frame(width: 200, height: 200)
         }
-        .padding()
 //        .onChange(of: isScanning) { _, scanning in
 //            if !scanning { path.append(Destination.beaconEditor(macAddress: macAddress, target: target)) }
 //        }

@@ -6,16 +6,13 @@
 //
 
 import SwiftUI
-import ComposableArchitecture
 
 struct BackButton: View {
-    let store: StoreOf<BeaconImportFeature>
+    var action: () -> Void
     
     var body: some View {
         HStack {
-            GlassButton(imageName: "XMark") {
-                store.send(.clickBackButton)
-            }
+            GlassButton(imageName: "XMark") { action() }
             Spacer()
         }
         .padding(.top, 12)

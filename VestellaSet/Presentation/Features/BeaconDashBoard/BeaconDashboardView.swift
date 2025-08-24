@@ -13,7 +13,7 @@ struct BeaconDashboardView: View {
     
     var body: some View {
         content
-            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden()
             .task {
                 printMyAppUserDefaults()
             }
