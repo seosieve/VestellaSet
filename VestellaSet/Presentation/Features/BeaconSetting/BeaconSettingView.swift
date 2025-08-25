@@ -20,8 +20,7 @@ struct BeaconSettingView: View {
                 Spacer()
             }
         }
-        .background(Color.monoShadow)
-//        .monoBackground()
+        .monoBackground()
         .navigationBarBackButtonHidden()
     }
 }
