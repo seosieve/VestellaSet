@@ -16,32 +16,47 @@ struct QRScannerRepresentable: UIViewRepresentable {
         setupCamera(context: context)
     }
     
-    func updateUIView(_ uiView: UIView, context: Context) {
-        if let previewLayer = context.coordinator.previewLayer {
-             previewLayer.frame = uiView.bounds
-         }
-    }
+    func updateUIView(_ uiView: UIView, context: Context) { }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 }
 
-// MARK: - Camera Setup
-private extension QRScannerRepresentable {
-    // Custom Camera UIView
-    class CameraView: UIView {
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            // 서브레이어의 프레임을 현재 뷰 크기에 맞춤
-            layer.sublayers?.forEach { sublayer in
-                if sublayer is AVCaptureVideoPreviewLayer {
-                    sublayer.frame = bounds
-                }
-            }
+// MARK: - Custom Camera UIView
+private class CameraView: UIView {
+    var previewLayer: AVCaptureVideoPreviewLayer?
+    var scanOverlay: UIView?
+    var metadataOutput: AVCaptureMetadataOutput?
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // PreviewLayer 크기 맞춤
+        previewLayer?.frame = bounds
+        
+        // ScanOverlay 사이즈 계산
+        let scanSize = CGSize(width: bounds.width - 40, height: bounds.width - 40)
+        let scanRect = CGRect(x: (bounds.width - scanSize.width) / 2, y: (bounds.height - scanSize.height) / 2, width: scanSize.width, height: scanSize.height)
+        
+        // Overlay 생성 또는 Frame 업데이트
+        if scanOverlay == nil {
+            let overlay = UIView(frame: scanRect)
+            overlay.backgroundColor = UIColor.red.withAlphaComponent(0.3)
+            addSubview(overlay)
+            scanOverlay = overlay
+        } else {
+            scanOverlay?.frame = scanRect
+        }
+        
+        // RectOfInterest 업데이트
+        if let previewLayer = previewLayer, let metadataOutput = metadataOutput {
+            metadataOutput.rectOfInterest = previewLayer.metadataOutputRectConverted(fromLayerRect: scanRect)
         }
     }
-    
+}
+
+// MARK: - Camera Setup
+private extension QRScannerRepresentable {
     func setupCamera(context: Context) -> UIView {
         let view = CameraView()
         
@@ -49,7 +64,6 @@ private extension QRScannerRepresentable {
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return view }
         guard let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice) else { return view }
         guard captureSession.canAddInput(videoInput) else { return view }
-        
         captureSession.addInput(videoInput)
         
         let metadataOutput = AVCaptureMetadataOutput()
@@ -57,12 +71,15 @@ private extension QRScannerRepresentable {
         metadataOutput.setMetadataObjectsDelegate(context.coordinator, queue: DispatchQueue.main)
         metadataOutput.metadataObjectTypes = [.qr]
         
+        // previewLayer 생성
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
-        
-        // coordinator에 previewLayer 저장
-        context.coordinator.previewLayer = previewLayer
+        // CameraView 저장
+        view.previewLayer = previewLayer
+        view.scanOverlay = nil
+        view.metadataOutput = metadataOutput
+        // Coordinator 저장
         context.coordinator.captureSession = captureSession
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -78,7 +95,6 @@ extension QRScannerRepresentable {
     class Coordinator: NSObject, AVCaptureMetadataOutputObjectsDelegate {
         var parent: QRScannerRepresentable
         var captureSession: AVCaptureSession?
-        var previewLayer: AVCaptureVideoPreviewLayer?
         
         init(_ parent: QRScannerRepresentable) {
             self.parent = parent
@@ -87,6 +103,7 @@ extension QRScannerRepresentable {
         func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
             guard let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = metadataObject.stringValue else { return }
+            
             let (targetList, count, major) = parseScannedCodes(stringValue)
             parent.store.send(.setTargetList(targetList))
             parent.store.send(.setMajor(major))
