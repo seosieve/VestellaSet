@@ -26,7 +26,6 @@ struct QRScannerRepresentable: UIViewRepresentable {
 // MARK: - Custom Camera UIView
 private class CameraView: UIView {
     var previewLayer: AVCaptureVideoPreviewLayer?
-    var scanOverlay: UIView?
     var metadataOutput: AVCaptureMetadataOutput?
     
     override func layoutSubviews() {
@@ -35,21 +34,12 @@ private class CameraView: UIView {
         previewLayer?.frame = bounds
         
         // ScanOverlay 사이즈 계산
-        let scanSize = CGSize(width: bounds.width - 40, height: bounds.width - 40)
-        let scanRect = CGRect(x: (bounds.width - scanSize.width) / 2, y: (bounds.height - scanSize.height) / 2, width: scanSize.width, height: scanSize.height)
-        
-        // Overlay 생성 또는 Frame 업데이트
-        if scanOverlay == nil {
-            let overlay = UIView(frame: scanRect)
-            overlay.backgroundColor = UIColor.red.withAlphaComponent(0.3)
-            addSubview(overlay)
-            scanOverlay = overlay
-        } else {
-            scanOverlay?.frame = scanRect
-        }
+        let inset: CGFloat = 40
+        let scanSize = CGSize(width: bounds.width - inset, height: bounds.width - inset)
+        let scanRect = CGRect(origin: CGPoint(x: (bounds.width - scanSize.width) / 2, y: (bounds.height - scanSize.height) / 2), size: scanSize)
         
         // RectOfInterest 업데이트
-        if let previewLayer = previewLayer, let metadataOutput = metadataOutput {
+        if let previewLayer = previewLayer, previewLayer.bounds != .zero, let metadataOutput = metadataOutput {
             metadataOutput.rectOfInterest = previewLayer.metadataOutputRectConverted(fromLayerRect: scanRect)
         }
     }
@@ -77,7 +67,6 @@ private extension QRScannerRepresentable {
         view.layer.addSublayer(previewLayer)
         // CameraView 저장
         view.previewLayer = previewLayer
-        view.scanOverlay = nil
         view.metadataOutput = metadataOutput
         // Coordinator 저장
         context.coordinator.captureSession = captureSession
