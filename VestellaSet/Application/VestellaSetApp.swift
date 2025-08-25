@@ -15,6 +15,7 @@ internal struct VestellaSetApp: App {
     internal var body: some Scene {
         WindowGroup {
             AppView(store: store)
+                .preferredColorScheme(.dark)
         }
     }
 }
