@@ -34,9 +34,10 @@ private class CameraView: UIView {
         previewLayer?.frame = bounds
         
         // ScanOverlay 사이즈 계산
-        let inset: CGFloat = 40
+        let inset: CGFloat = Spacing.large * 2
         let scanSize = CGSize(width: bounds.width - inset, height: bounds.width - inset)
-        let scanRect = CGRect(origin: CGPoint(x: (bounds.width - scanSize.width) / 2, y: (bounds.height - scanSize.height) / 2), size: scanSize)
+        let scanOrigin = CGPoint(x: (bounds.width - scanSize.width) / 2, y: (bounds.height - scanSize.height) / 2)
+        let scanRect = CGRect(origin: scanOrigin, size: scanSize)
         
         // RectOfInterest 업데이트
         if let previewLayer = previewLayer, previewLayer.bounds != .zero, let metadataOutput = metadataOutput {

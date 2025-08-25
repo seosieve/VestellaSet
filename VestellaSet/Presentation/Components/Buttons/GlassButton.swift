@@ -35,7 +35,7 @@ struct GlassButton: View {
 }
 
 extension GlassButton {
-    func glassBackground() -> LinearGradient {
+    private func glassBackground() -> LinearGradient {
         LinearGradient(
             gradient: Gradient(colors: [.monoBlack.opacity(0.7), .monoShadow]),
             startPoint: .topLeading,
@@ -43,7 +43,7 @@ extension GlassButton {
         )
     }
     
-    func outerGlow() -> some View {
+    private func outerGlow() -> some View {
         RoundedRectangle(cornerRadius: 30)
             .strokeBorder(
                 LinearGradient(
@@ -63,7 +63,7 @@ extension GlassButton {
             )
     }
     
-    func innerGlow() -> some View {
+    private func innerGlow() -> some View {
         RoundedRectangle(cornerRadius: 30)
             .strokeBorder(
                 LinearGradient(

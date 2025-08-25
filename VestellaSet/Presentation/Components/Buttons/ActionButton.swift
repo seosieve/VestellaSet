@@ -14,7 +14,6 @@ struct ActionButton: View {
     var action: () -> Void
     
     var body: some View {
-        
         Button(action: action) {
             Text(title)
                 .font(Manrope.bold(size: 17))

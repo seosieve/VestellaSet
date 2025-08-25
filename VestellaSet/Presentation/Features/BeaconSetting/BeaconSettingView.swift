@@ -12,13 +12,16 @@ struct BeaconSettingView: View {
     let store: StoreOf<BeaconSettingFeature>
     
     var body: some View {
-        ZStack {
-            VStack {
-                BackButton {
-                    store.send(.clickBackButton)
-                }
-                Spacer()
+        
+        VStack {
+            BackButton {
+                store.send(.clickBackButton)
             }
+            Spacer()
+            TextFieldContainer()
+            TextFieldContainer()
+            TextFieldContainer()
+            Spacer()
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
