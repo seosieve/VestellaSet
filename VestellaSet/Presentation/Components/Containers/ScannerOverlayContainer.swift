@@ -19,7 +19,7 @@ struct ScannerOverlayContainer: View {
             ZStack {
                 ScannerLineView(store: store)
                 ScannerInfoContainer(store: store)
-                ScannerProgressLabel()
+                ScannerProgressLabel(store: store)
             }
             .environment(\.scannerConfig, ScannerConfig(size: size, length: length))
         }

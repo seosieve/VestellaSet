@@ -23,3 +23,8 @@ enum Scanner {
     static let gradientHeight: CGFloat = 60
     static let edgeLength: CGFloat = 60
 }
+
+enum TextMessage {
+    static let detecting: String = "Detecting the QR code"
+    static let scanning: String = "Scanning the QR code"
+}

@@ -19,6 +19,7 @@ struct BeaconImportFeature {
     struct State {
         var isRunning: Bool = true
         var isScanning: Bool = true
+        var textMessage: String = TextMessage.detecting
         var targetList: [String] = []
         var major: Int = 0
         var count: Int = 0
@@ -39,6 +40,7 @@ struct BeaconImportFeature {
             switch action {
             case .stopRunning:
                 state.isRunning = false
+                state.textMessage = TextMessage.scanning
                 return .run { send in
                     try await Task.sleep(for: scannerStopDelay)
                     await send(.stopScanning)
