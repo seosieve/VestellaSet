@@ -11,4 +11,12 @@ extension View {
     func monoBackground() -> some View {
         self.background(Color.monoBlack.ignoresSafeArea())
     }
+    
+    func glassActionButtonStyle() -> some View {
+        self.modifier(GlassActionButtonModifier())
+    }
+    
+    func glassIconButtonStyle() -> some View {
+        self.modifier(GlassIconButtonModifier())
+    }
 }
