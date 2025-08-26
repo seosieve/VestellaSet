@@ -14,10 +14,11 @@ struct BeaconSettingFeature {
     @ObservableState
     struct State {
         var isPicking: Bool = false
+        var pickerType: SettingPickerType = .interval
     }
     
     enum Action {
-        case startPicking
+        case startPicking(SettingPickerType)
         case stopPicking
         case clickBackButton
         case clickSaveButton
@@ -26,7 +27,8 @@ struct BeaconSettingFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .startPicking:
+            case .startPicking(let type):
+                state.pickerType = type
                 state.isPicking = true
                 return .none
             case .stopPicking:
