@@ -42,13 +42,14 @@ struct BeaconImportFeature {
                 state.isRunning = false
                 state.textMessage = TextMessage.scanning
                 return .run { send in
+                    Haptic.softImpact()
                     try await Task.sleep(for: scannerStopDelay)
                     await send(.stopScanning)
                 }
                 .cancellable(id: CancelID.scannerAnimation)
             case .stopScanning:
                 state.isScanning = false
-                return .none
+                return .run { _ in Haptic.softImpact() }
             case .setTargetList(let targetList):
                 state.targetList = targetList
                 return .none

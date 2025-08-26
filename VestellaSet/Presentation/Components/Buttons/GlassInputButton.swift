@@ -18,8 +18,11 @@ struct GlassInputButton: View {
                     .foregroundStyle(Color.monoBase)
                     .font(Manrope.regular(size: 15))
                 Spacer()
-                Text(type.value)
-                    .font(Manrope.regular(size: 15))
+                Text(type.value.uppercased())
+                    .font(Manrope.bold(size: 17))
+                    .frame(width: 100, alignment: .trailing)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
                     
             }
             .padding(.horizontal, 16)

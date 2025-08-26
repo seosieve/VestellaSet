@@ -18,5 +18,6 @@ struct TitleLabel: View {
         Text(text)
             .font(Manrope.extraBold(size: 28))
             .padding(.top, Spacing.s32)
+            .padding(.bottom, Spacing.s8)
     }
 }

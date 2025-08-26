@@ -20,7 +20,7 @@ struct GlassActionButtonModifier: ViewModifier {
     
     private func glassBackground() -> LinearGradient {
         LinearGradient(
-            gradient: Gradient(colors: [.monoShadow.opacity(0.8), .monoBlack.opacity(0.85)]),
+            gradient: Gradient(colors: [.monoShadow.opacity(0.9), .monoBlack.opacity(0.85)]),
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
