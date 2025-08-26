@@ -12,9 +12,13 @@ struct BeaconSettingFeature {
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
-    struct State { }
+    struct State {
+        var isPicking: Bool = false
+    }
     
     enum Action {
+        case startPicking
+        case stopPicking
         case clickBackButton
         case clickSaveButton
     }
@@ -22,6 +26,12 @@ struct BeaconSettingFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .startPicking:
+                state.isPicking = true
+                return .none
+            case .stopPicking:
+                state.isPicking = false
+                return .none
             case .clickBackButton:
                 return .run { _ in await self.dismiss() }
             case .clickSaveButton:

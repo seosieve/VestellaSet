@@ -9,17 +9,12 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ActionButton: View {
-    var title: String
+    var type: ActionInfoType
     var action: () -> Void
-    
-    init(_ title: String, action: @escaping () -> Void) {
-        self.title = title
-        self.action = action
-    }
     
     var body: some View {
         Button(action: action) {
-            Text(title)
+            Text(type.title)
                 .font(Manrope.bold(size: 17))
                 .foregroundColor(.mintBlack)
                 .padding(.vertical, 10)
@@ -29,6 +24,7 @@ struct ActionButton: View {
         .background(Color.mintBase)
         .cornerRadius(8)
         .padding(.horizontal, Spacing.s20)
+        .padding(.top, Spacing.s12)
         .padding(.bottom, Spacing.s8)
     }
 }

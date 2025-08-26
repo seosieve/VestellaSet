@@ -6,50 +6,55 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct SettingPickerContainer: View {
-    @Binding var isPresented: Bool
-    @State private var offsetY: CGFloat = 400
+    let store: StoreOf<BeaconSettingFeature>
     
-    private let maxHeight: CGFloat = 300
+    @State private var offsetY: CGFloat = UIScreen.main.bounds.height
+    
+    private let sheetHeight: CGFloat = 400
     
     var body: some View {
-        VStack {
-            // Content
-            VStack(spacing: 20) {
-                Text("Custom Bottom Sheet")
-                    .font(.headline)
-                Text("여기에 원하는 UI를 넣으면 됩니다.")
+        ZStack {
+            if store.isPicking {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        store.send(.stopPicking)
+                    }
+                    .transition(.opacity)
             }
-            .padding()
             
-            Spacer()
+            VStack {
+                Spacer()
+                VStack(spacing: 20) {
+                    Text("Custom Bottom Sheet")
+                        .font(.headline)
+                    Text("여기에 원하는 UI를 넣으면 됩니다.")
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .frame(height: sheetHeight)
+                .background(Color.monoBlack.opacity(0.7))
+                .cornerRadius(16)
+                .shadow(radius: 8)
+                .offset(y: offsetY)
+            }
         }
-        .frame(maxWidth: .infinity)
-        .frame(height: maxHeight)
-        .background(Color.monoBlack.opacity(0.9))
-        .cornerRadius(16)
-        .shadow(radius: 8)
-        .offset(y: offsetY)
-        .gesture(
-            DragGesture()
-                .onChanged { value in
-                    if value.translation.height > 0 {
-                        offsetY = value.translation.height
-                    }
+        .onChange(of: store.isPicking) { _, newValue in
+            if newValue {
+                withAnimation(.easeOut) {
+                    offsetY = 0 // 위로 올라오기
                 }
-                .onEnded { value in
-                    if value.translation.height > 100 {
-                        withAnimation(.easeInOut) { isPresented = false }
-                    }
-                    offsetY = 0
+            } else {
+                withAnimation(.easeIn) {
+                    offsetY = sheetHeight + 100 // 다시 아래로
                 }
-        )
+            }
+        }
         .onAppear {
-             withAnimation(.easeOut) {
-                 offsetY = 0
-             }
-         }
-        .padding(.horizontal, Spacing.s20)
+            offsetY = sheetHeight + 100 // 시작 시 아래 숨김
+        }
     }
 }
