@@ -9,19 +9,29 @@ import SwiftUI
 import ComposableArchitecture
 
 struct BeaconSettingView: View {
+    @State var showPicker: Bool = false
+    
     let store: StoreOf<BeaconSettingFeature>
     
     var body: some View {
-        VStack(spacing: Spacing.s24) {
-            BackButton { store.send(.clickBackButton) }
-            TitleLabel("Setting")
-            VStack(spacing: Spacing.s12) {
-                GlassInputButton(type: .uuid(Vestella.uuid), action: {})
-                GlassPickerButton(type: .interval(3), action: {})
-                GlassPickerButton(type: .power(4), action: {})
+        ZStack {
+            VStack(spacing: Spacing.s24) {
+                BackButton { store.send(.clickBackButton) }
+                TitleLabel("Setting")
+                VStack(spacing: Spacing.s12) {
+                    GlassInputButton(type: .uuid(Vestella.uuid), action: {})
+                    GlassPickerButton(type: .interval(3), action: { showPicker = true })
+                    GlassPickerButton(type: .power(4), action: {})
+                }
+                ActionButton("Save") {}
+                Spacer()
             }
-            ActionButton("Save") { store.send(.clickSaveButton) }
-            Spacer()
+            .blur(radius: showPicker ? 10 : 0)
+            .animation(.easeInOut, value: showPicker)
+            
+            if showPicker {
+                SettingPickerContainer(isPresented: $showPicker)
+            }
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
