@@ -18,13 +18,11 @@ struct BeaconImportView: View {
             ScannerOverlayContainer(store: store)
             
             VStack {
-                BackButton {
-                    store.send(.clickBackButton)
-                }
+                BackButton { store.send(.clickBackButton) }
                 Spacer()
-                ActionButton(store: store, title: "Save") {
-                    store.send(.clickSaveButton)
-                }
+                ActionButton("Save") { store.send(.clickSaveButton) }
+                    .opacity(store.isScanning ? 0 : 1)
+                    .animation(.easeInOut, value: store.isScanning)
             }
         }
         .navigationBarBackButtonHidden()

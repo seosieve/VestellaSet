@@ -1,5 +1,5 @@
 //
-//  GlassButton.swift
+//  GlassIconButton.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/20/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GlassButton: View {
+struct GlassIconButton: View {
     var image: Image
     var action: () -> Void
     
@@ -24,6 +24,6 @@ struct GlassButton: View {
             .frame(width: 60, height: 40)
             .glassIconButtonStyle()
         }
-        .buttonStyle(BouncyButtonStyle())
+        .buttonStyle(BouncyButtonStyle(scalePercent: 105))
     }
 }

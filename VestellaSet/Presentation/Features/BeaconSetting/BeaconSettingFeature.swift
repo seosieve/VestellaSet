@@ -16,12 +16,15 @@ struct BeaconSettingFeature {
     
     enum Action {
         case clickBackButton
+        case clickSaveButton
     }
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .clickBackButton:
+                return .run { _ in await self.dismiss() }
+            case .clickSaveButton:
                 return .run { _ in await self.dismiss() }
             }
         }

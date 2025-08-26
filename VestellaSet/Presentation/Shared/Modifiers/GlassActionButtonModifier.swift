@@ -13,21 +13,21 @@ struct GlassActionButtonModifier: ViewModifier {
             .background(glassBackground())
             .overlay(outerGlow())
             .overlay(innerGlow())
-            .cornerRadius(Radius.small)
+            .cornerRadius(Radius.s8)
             .shadow(color: .black.opacity(0.2), radius: 8, x: 2, y: 2)
             .shadow(color: .black.opacity(0.4), radius: 4, x: -1, y: 2)
     }
     
     private func glassBackground() -> LinearGradient {
         LinearGradient(
-            gradient: Gradient(colors: [.monoShadow, .monoShadow.opacity(0.85)]),
+            gradient: Gradient(colors: [.monoShadow.opacity(0.8), .monoBlack.opacity(0.85)]),
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
     }
     
     private func outerGlow() -> some View {
-        RoundedRectangle(cornerRadius: Radius.small)
+        RoundedRectangle(cornerRadius: Radius.s8)
             .strokeBorder(
                 LinearGradient(
                     gradient: Gradient(colors: [
@@ -102,7 +102,7 @@ struct GlassActionButtonModifier: ViewModifier {
     }
     
     private func innerGlow() -> some View {
-        RoundedRectangle(cornerRadius: Radius.small)
+        RoundedRectangle(cornerRadius: Radius.s8)
             .strokeBorder(
                 LinearGradient(
                     gradient: Gradient(colors: [

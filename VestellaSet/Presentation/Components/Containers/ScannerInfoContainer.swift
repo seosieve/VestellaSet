@@ -14,13 +14,13 @@ struct ScannerInfoContainer: View {
     @Environment(\.scannerConfig) var config
     
     var body: some View {
-        HStack(spacing: Spacing.small) {
+        HStack(spacing: Spacing.s8) {
             ScannerInfoView(type: .major(store.major))
             ScannerInfoView(type: .count(store.count))
         }
         .opacity(store.isScanning ? 0 : 1)
         .animation(.easeInOut, value: store.isScanning)
-        .padding(.horizontal, Spacing.large)
+        .padding(.horizontal, Spacing.s20)
         .offset(y: -(config.length / 2) - 55)
     }
 }

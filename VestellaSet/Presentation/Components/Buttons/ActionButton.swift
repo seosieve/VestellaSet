@@ -9,9 +9,13 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ActionButton: View {
-    let store: StoreOf<BeaconImportFeature>
     var title: String
     var action: () -> Void
+    
+    init(_ title: String, action: @escaping () -> Void) {
+        self.title = title
+        self.action = action
+    }
     
     var body: some View {
         Button(action: action) {
@@ -24,10 +28,7 @@ struct ActionButton: View {
         .frame(height: 56)
         .background(Color.mintBase)
         .cornerRadius(8)
-        .padding(.horizontal, 16)
-        .padding(.bottom, 8)
-        .opacity(store.isScanning ? 0 : 1)
-        .animation(.easeInOut, value: store.isScanning)
+        .padding(.horizontal, Spacing.s20)
+        .padding(.bottom, Spacing.s8)
     }
 }
-

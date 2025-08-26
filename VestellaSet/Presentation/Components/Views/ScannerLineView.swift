@@ -34,7 +34,7 @@ struct ScannerLineView: View {
             .opacity(store.isRunning ? 0 : 1)
         }
         .mask(
-            RoundedRectangle(cornerRadius: Radius.normal)
+            RoundedRectangle(cornerRadius: Radius.s12)
                 .frame(width: config.length, height: config.length)
                 .position(config.center)
         )

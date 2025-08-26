@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "XMark.png",
+      "filename" : "ChevronDown.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "XMark 1.png",
+      "filename" : "ChevronDown 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "XMark 2.png",
+      "filename" : "ChevronDown 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

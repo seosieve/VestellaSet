@@ -16,8 +16,8 @@ struct ScannerCornerView: View {
             // TopLeft
             Path { path in
                 path.move(to: CGPoint(x: inset, y: Scanner.edgeLength + inset))
-                path.addLine(to: CGPoint(x: inset, y: Radius.normal + inset))
-                path.addQuadCurve(to: CGPoint(x: Radius.normal + inset, y: inset), control: CGPoint(x: inset, y: inset))
+                path.addLine(to: CGPoint(x: inset, y: Radius.s12 + inset))
+                path.addQuadCurve(to: CGPoint(x: Radius.s12 + inset, y: inset), control: CGPoint(x: inset, y: inset))
                 path.addLine(to: CGPoint(x: Scanner.edgeLength + inset, y: inset))
             }
             .stroke(Color.mintBase, lineWidth: Scanner.lineWidth)
@@ -25,8 +25,8 @@ struct ScannerCornerView: View {
             // TopRight
             Path { path in
                 path.move(to: CGPoint(x: config.length - Scanner.edgeLength - inset, y: inset))
-                path.addLine(to: CGPoint(x: config.length - Radius.normal - inset, y: inset))
-                path.addQuadCurve(to: CGPoint(x: config.length - inset, y: Radius.normal + inset),
+                path.addLine(to: CGPoint(x: config.length - Radius.s12 - inset, y: inset))
+                path.addQuadCurve(to: CGPoint(x: config.length - inset, y: Radius.s12 + inset),
                                   control: CGPoint(x: config.length - inset, y: inset))
                 path.addLine(to: CGPoint(x: config.length - inset, y: Scanner.edgeLength + inset))
             }
@@ -35,8 +35,8 @@ struct ScannerCornerView: View {
             // BottomLeft
             Path { path in
                 path.move(to: CGPoint(x: inset, y: config.length - Scanner.edgeLength - inset))
-                path.addLine(to: CGPoint(x: inset, y: config.length - Radius.normal - inset))
-                path.addQuadCurve(to: CGPoint(x: Radius.normal + inset, y: config.length - inset),
+                path.addLine(to: CGPoint(x: inset, y: config.length - Radius.s12 - inset))
+                path.addQuadCurve(to: CGPoint(x: Radius.s12 + inset, y: config.length - inset),
                                   control: CGPoint(x: inset, y: config.length - inset))
                 path.addLine(to: CGPoint(x: Scanner.edgeLength + inset, y: config.length - inset))
             }
@@ -45,8 +45,8 @@ struct ScannerCornerView: View {
             // BottomRight
             Path { path in
                 path.move(to: CGPoint(x: config.length - Scanner.edgeLength - inset, y: config.length - inset))
-                path.addLine(to: CGPoint(x: config.length - Radius.normal - inset, y: config.length - inset))
-                path.addQuadCurve(to: CGPoint(x: config.length - inset, y: config.length - Radius.normal - inset),
+                path.addLine(to: CGPoint(x: config.length - Radius.s12 - inset, y: config.length - inset))
+                path.addQuadCurve(to: CGPoint(x: config.length - inset, y: config.length - Radius.s12 - inset),
                                   control: CGPoint(x: config.length - inset, y: config.length - inset))
                 path.addLine(to: CGPoint(x: config.length - inset, y: config.length - Scanner.edgeLength - inset))
             }

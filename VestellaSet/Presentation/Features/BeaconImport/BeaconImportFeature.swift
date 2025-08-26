@@ -31,8 +31,8 @@ struct BeaconImportFeature {
         case setTargetList([String])
         case setMajor(Int)
         case setCount(Int)
-        case clickSaveButton
         case clickBackButton
+        case clickSaveButton
     }
     
     var body: some ReducerOf<Self> {
@@ -58,14 +58,14 @@ struct BeaconImportFeature {
             case .setCount(let count):
                 state.count = count
                 return .none
-            case .clickSaveButton:
-                appStorage.setTargetList(state.targetList)
-                return .run { _ in await self.dismiss() }
             case .clickBackButton:
                 return .merge(
                     .cancel(id: CancelID.scannerAnimation),
                     .run { _ in await self.dismiss() }
                 )
+            case .clickSaveButton:
+                appStorage.setTargetList(state.targetList)
+                return .run { _ in await self.dismiss() }
             }
         }
     }

@@ -19,7 +19,7 @@ struct ScannerDimView: View {
                         .compositingGroup()
                         .luminanceToAlpha()
                     
-                    RoundedRectangle(cornerRadius: Radius.normal)
+                    RoundedRectangle(cornerRadius: Radius.s12)
                         .frame(width: config.length, height: config.length)
                         .blendMode(.destinationOut)
                         .position(config.center)

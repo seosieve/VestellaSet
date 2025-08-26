@@ -34,10 +34,10 @@ extension BeaconDashboardView {
     private var topBar: some View {
         HStack(spacing: 12) {
             Spacer()
-            GlassButton(image: .importIcon) {
+            GlassIconButton(image: .importIcon) {
                 store.send(.clickImportButton)
             }
-            GlassButton(image: .settingIcon) {
+            GlassIconButton(image: .settingIcon) {
                 store.send(.clickSettingButton)
             }
         }

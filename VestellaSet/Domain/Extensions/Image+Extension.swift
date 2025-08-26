@@ -12,4 +12,5 @@ extension Image {
     static let importIcon = Image("Import")
     static let settingIcon = Image("Setting")
     static let xmarkIcon = Image("XMark")
+    static let chevronDownIcon = Image("ChevronDown")
 }
