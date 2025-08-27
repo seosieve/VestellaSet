@@ -14,6 +14,9 @@ struct BeaconDashboardView: View {
     var body: some View {
         content
             .navigationBarBackButtonHidden()
+            .onAppear {
+                printMyAppUserDefaults()
+            }
     }
 }
 
@@ -54,7 +57,9 @@ extension BeaconDashboardView {
         let dictionary = defaults.dictionaryRepresentation()
         
         for (key, value) in dictionary where key.hasPrefix(prefix) {
-            print("🕹️ \(key) : \(value)")
+            if key != UserDefaultsKey.targetList {
+                print("🕹️ \(key) : \(value)")
+            }
         }
     }
 }

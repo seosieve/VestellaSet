@@ -23,7 +23,7 @@ struct BeaconSettingFeature {
     enum Action {
         case showSheet(SettingSheetType)
         case hideSheet
-        case changeValue(Int)
+        case selectSheetItem(Int)
         case clickBackButton
         case clickSaveButton
     }
@@ -38,8 +38,14 @@ struct BeaconSettingFeature {
             case .hideSheet:
                 state.isSheetPresented = false
                 return .none
-            case .changeValue(let index):
-                state.interval = index
+            case .selectSheetItem(let index):
+                switch state.sheetType {
+                case .interval:
+                    state.interval = index
+                case .power:
+                    state.power = index
+                }
+                state.isSheetPresented = false
                 return .none
             case .clickBackButton:
                 return .run { _ in await self.dismiss() }
