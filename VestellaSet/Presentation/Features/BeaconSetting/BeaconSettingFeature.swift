@@ -13,13 +13,13 @@ struct BeaconSettingFeature {
     
     @ObservableState
     struct State {
-        var isPicking: Bool = false
-        var pickerType: SettingPickerType = .interval
+        var isSheetPresented: Bool = false
+        var sheetType: SettingSheetType = .interval
     }
     
     enum Action {
-        case startPicking(SettingPickerType)
-        case stopPicking
+        case showSheet(SettingSheetType)
+        case hideSheet
         case clickBackButton
         case clickSaveButton
     }
@@ -27,12 +27,12 @@ struct BeaconSettingFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .startPicking(let type):
-                state.pickerType = type
-                state.isPicking = true
+            case .showSheet(let type):
+                state.sheetType = type
+                state.isSheetPresented = true
                 return .none
-            case .stopPicking:
-                state.isPicking = false
+            case .hideSheet:
+                state.isSheetPresented = false
                 return .none
             case .clickBackButton:
                 return .run { _ in await self.dismiss() }

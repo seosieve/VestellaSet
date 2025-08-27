@@ -1,5 +1,5 @@
 //
-//  GlassPickerButton.swift
+//  GlassSelectionButton.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/25/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GlassPickerButton: View {
+struct GlassSelectionButton: View {
     let type: SettingInfoType
     var action: () -> Void
     

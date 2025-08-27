@@ -1,5 +1,5 @@
 //
-//  SettingPickerContainer.swift
+//  SettingSheetContainer.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/26/25.
@@ -8,54 +8,37 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct SettingPickerContainer: View {
+struct SettingSheetContainer: View {
     let store: StoreOf<BeaconSettingFeature>
     
     @State private var offsetY: CGFloat = 0
     
     private let sheetHeight: CGFloat = 400
     
-    struct Item: Identifiable {
-        let id = UUID()
-        let name: String
-    }
-
-    // 예시 데이터
-    let items: [Item] = [
-        Item(name: "첫 번째 항목"),
-        Item(name: "두 번째 항목"),
-        Item(name: "세 번째 항목"),
-        Item(name: "네 번째 항목"),
-        Item(name: "다섯 번째 항목"),
-        Item(name: "여섯 번째 항목"),
-        Item(name: "일곱 번째 항목"),
-        Item(name: "일곱 번째 항목"),
-        Item(name: "일곱 번째 항목"),
-    ]
-    
     var body: some View {
         ZStack {
-            if store.isPicking {
-                SettingDimView { store.send(.stopPicking) }
+            if store.isSheetPresented {
+                SettingDimView { store.send(.hideSheet) }
             }
             
             VStack {
                 Spacer()
                 VStack(spacing: 0) {
-                    Text(store.pickerType.title)
-                        .font(.headline)
-                        .padding(.vertical, Spacing.s16)
-                    ForEach(items, id: \.id) { item in
-                        Button(action: {store.send(.stopPicking)}) {
-                            HStack {
-                                Text(item.name)
+                    SettingSheetTitleLabel(title: store.sheetType.title)
+                    ForEach(store.sheetType.item, id: \.id) { item in
+                        Button(action: {store.send(.hideSheet)}) {
+                            HStack(spacing: Spacing.s20) {
+                                Text("\(item.index)")
+                                Text(item.value)
                                 Spacer()
                                 Image(systemName: "chevron.right")
                             }
                             .frame(minHeight: 48)
-                            .background(Color.gray.opacity(0.1))
+                            .padding(.horizontal, 20)
                         }
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
                     }
+                    .animation(.bouncy, value: store.isSheetPresented)
                 }
                 .padding(.vertical, Spacing.s8)
                 .frame(maxWidth: .infinity)
@@ -66,7 +49,7 @@ struct SettingPickerContainer: View {
                 .padding(.horizontal, Spacing.s20)
             }
         }
-        .onChange(of: store.isPicking) { _, newValue in
+        .onChange(of: store.isSheetPresented) { _, newValue in
             if newValue {
                 withAnimation(.bouncy) {
                     offsetY = 0 // 위로 올라오기

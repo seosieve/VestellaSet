@@ -17,15 +17,15 @@ struct BeaconSettingView: View {
                 BackButton { store.send(.clickBackButton) }
                 SettingTitleLabel()
                 GlassInputButton(type: .uuid(Vestella.uuid), action: {})
-                GlassPickerButton(type: .interval(3), action: { store.send(.startPicking(.interval)) })
-                GlassPickerButton(type: .power(4), action: { store.send(.startPicking(.power)) })
+                GlassSelectionButton(type: .interval(3), action: { store.send(.showSheet(.interval)) })
+                GlassSelectionButton(type: .power(4), action: { store.send(.showSheet(.power)) })
                 ActionButton(type: .save) { store.send(.clickBackButton) }
                 Spacer()
             }
-            .blur(radius: store.isPicking ? 8 : 0)
-            .animation(.easeOut, value: store.isPicking)
+            .blur(radius: store.isSheetPresented ? 8 : 0)
+            .animation(.easeOut, value: store.isSheetPresented)
             
-            SettingPickerContainer(store: store)
+            SettingSheetContainer(store: store)
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
