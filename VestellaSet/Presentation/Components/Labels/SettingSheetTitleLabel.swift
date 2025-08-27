@@ -11,8 +11,13 @@ struct SettingSheetTitleLabel: View {
     let title: String
     
     var body: some View {
-        Text(title)
-            .font(.headline)
-            .padding(.vertical, Spacing.s16)
+        HStack {
+            Text(title)
+                .foregroundStyle(Color.monoWhite)
+                .font(Manrope.extraBold(size: 18))
+                .padding(.horizontal, Spacing.s20)
+                .padding(.vertical, Spacing.s16)
+            Spacer()
+        }
     }
 }

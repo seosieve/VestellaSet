@@ -13,7 +13,7 @@ enum SettingSheetType {
     
     var title: String {
         switch self {
-        case .interval: return "BroadCastInterval"
+        case .interval: return "BroadcastInterval"
         case .power: return "TransmissonPower"
         }
     }
@@ -43,6 +43,12 @@ enum SettingSheetType {
                 SheetItem(index: 9, value: "900ms"),
                 SheetItem(index: 10, value: "1000ms"),
             ]
+        }
+    }
+    
+    var height: CGFloat {
+        switch self {
+        case .interval, .power: return CGFloat(self.item.count) * Sheet.itemHeight
         }
     }
     

@@ -35,6 +35,10 @@ enum Scanner {
     static let edgeLength: CGFloat = 60
 }
 
+enum Sheet {
+    static let itemHeight: CGFloat = 48
+}
+
 enum TextMessage {
     static let detecting: String = "Detecting the QR code"
     static let scanning: String = "Scanning the QR code"

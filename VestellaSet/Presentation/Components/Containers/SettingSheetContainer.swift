@@ -13,8 +13,6 @@ struct SettingSheetContainer: View {
     
     @State private var offsetY: CGFloat = 0
     
-    private let sheetHeight: CGFloat = 400
-    
     var body: some View {
         ZStack {
             if store.isSheetPresented {
@@ -26,15 +24,20 @@ struct SettingSheetContainer: View {
                 VStack(spacing: 0) {
                     SettingSheetTitleLabel(title: store.sheetType.title)
                     ForEach(store.sheetType.item, id: \.id) { item in
-                        Button(action: {store.send(.hideSheet)}) {
+                        Button(action: { store.send(.changeValue(item.index)) } ) {
                             HStack(spacing: Spacing.s20) {
                                 Text("\(item.index)")
+                                    .foregroundStyle(Color.monoWhite)
+                                    .font(Manrope.bold(size: 20))
                                 Text(item.value)
+                                    .foregroundStyle(Color.monoMedium)
+                                    .font(Manrope.regular(size: 14))
                                 Spacer()
                                 Image(systemName: "chevron.right")
                             }
-                            .frame(minHeight: 48)
-                            .padding(.horizontal, 20)
+                            .frame(height: Sheet.itemHeight)
+                            .padding(.horizontal, Spacing.s20)
+                            .background(item.index == store.interval ? Color.monoWhite.opacity(0.1) : Color.clear)
                         }
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                     }
@@ -42,26 +45,18 @@ struct SettingSheetContainer: View {
                 }
                 .padding(.vertical, Spacing.s8)
                 .frame(maxWidth: .infinity)
-                .background(Color.monoBlack.opacity(0.4))
-                .cornerRadius(16)
-                .shadow(radius: 8)
+                .glassSettingSheetStyle()
                 .offset(y: offsetY)
                 .padding(.horizontal, Spacing.s20)
             }
         }
         .onChange(of: store.isSheetPresented) { _, newValue in
             if newValue {
-                withAnimation(.bouncy) {
-                    offsetY = 0 // 위로 올라오기
-                }
+                withAnimation(.bouncy) { offsetY = 0 }
             } else {
-                withAnimation(.bouncy) {
-                    offsetY = sheetHeight + 100 // 다시 아래로
-                }
+                withAnimation(.bouncy) { offsetY = store.sheetType.height + 120 }
             }
         }
-        .onAppear {
-            offsetY = sheetHeight + 100 // 시작 시 아래 숨김
-        }
+        .onAppear { offsetY = store.sheetType.height + 120 }
     }
 }

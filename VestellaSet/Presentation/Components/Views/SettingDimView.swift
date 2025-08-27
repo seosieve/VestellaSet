@@ -11,7 +11,7 @@ struct SettingDimView: View {
     let action: () -> Void
     
     var body: some View {
-        Color.black.opacity(0.4)
+        Color.black.opacity(0.5)
             .ignoresSafeArea()
             .onTapGesture { action() }
             .transition(.opacity)

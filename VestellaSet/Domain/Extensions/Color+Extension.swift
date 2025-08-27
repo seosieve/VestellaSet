@@ -13,6 +13,7 @@ extension Color {
     static let mintBlack = Color("Token_05130E")
     
     /// Mono Color Set
+    static let monoWhite = Color("Token_FDFDFD")
     static let monoBase = Color("Token_AFAFAF")
     static let monoMedium = Color("Token_505152")
     static let monoShadow = Color("Token_1F2224")

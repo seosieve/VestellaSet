@@ -19,4 +19,8 @@ extension View {
     func glassIconButtonStyle() -> some View {
         self.modifier(GlassIconButtonModifier())
     }
+    
+    func glassSettingSheetStyle() -> some View {
+        self.modifier(GlassSettingSheetModifier())
+    }
 }
