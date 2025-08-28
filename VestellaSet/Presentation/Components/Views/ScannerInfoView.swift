@@ -13,7 +13,7 @@ struct ScannerInfoView: View {
     var body: some View {
         HStack(spacing: Spacing.s12) {
             Text(type.title)
-                .foregroundColor(.white)
+                .foregroundColor(.monoWhite)
                 .font(Manrope.regular(size: 14))
             Text("\(type.value)")
                 .foregroundColor(.mintBase)

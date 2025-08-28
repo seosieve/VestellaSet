@@ -15,7 +15,7 @@ struct ScannerDimView: View {
             .mask(
                 ZStack {
                     Rectangle()
-                        .fill(Color.white)
+                        .fill(Color.monoWhite)
                         .compositingGroup()
                         .luminanceToAlpha()
                     

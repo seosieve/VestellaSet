@@ -19,10 +19,10 @@ struct BeaconSettingView: View {
                 GlassInputButton(type: .uuid(Vestella.uuid), action: {})
                 GlassSelectionButton(type: .interval(store.interval), action: { store.send(.showSheet(.interval)) })
                 GlassSelectionButton(type: .power(store.power), action: { store.send(.showSheet(.power)) })
-                ActionButton(type: .save) { store.send(.clickBackButton) }
+                ActionButton(type: .save) { store.send(.clickSaveButton) }
                 Spacer()
             }
-            .blur(radius: store.isSheetPresented ? 8 : 0)
+            .blur(radius: store.isSheetPresented ? Radius.s8 : 0)
             .animation(.easeOut, value: store.isSheetPresented)
             
             SettingSheetContainer(store: store)

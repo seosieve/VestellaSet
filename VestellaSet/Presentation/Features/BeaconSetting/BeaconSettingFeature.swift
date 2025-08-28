@@ -50,6 +50,8 @@ struct BeaconSettingFeature {
             case .clickBackButton:
                 return .run { _ in await self.dismiss() }
             case .clickSaveButton:
+                appStorage.setBroadcastInterval(state.interval)
+                appStorage.setTransmissionPower(state.power)
                 return .run { _ in await self.dismiss() }
             }
         }
