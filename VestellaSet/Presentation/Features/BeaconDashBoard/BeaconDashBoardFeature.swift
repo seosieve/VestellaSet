@@ -13,11 +13,13 @@ struct BeaconDashBoardFeature {
     
     @ObservableState
     struct State {
+        var option: DashBoardOptionType = .all
         var targetList: [String] = []
     }
     
     enum Action {
         case getTargetList
+        case changeOption(DashBoardOptionType)
         case clickImportButton
         case clickSettingButton
         case clickTargetCell
@@ -28,6 +30,9 @@ struct BeaconDashBoardFeature {
             switch action {
             case .getTargetList:
                 state.targetList = appStorage.getTargetList()
+                return .none
+            case .changeOption(let option):
+                state.option = option
                 return .none
             case .clickImportButton:
                 return .none

@@ -11,8 +11,6 @@ import ComposableArchitecture
 struct DashBoardPickerContainer: View {
     let store: StoreOf<BeaconDashBoardFeature>
     
-    @State private var selected = "All"
-    let options = ["All", "Completed", "Incomplete"]
     @Namespace private var animationNamespace
     
     var body: some View {
@@ -21,25 +19,22 @@ struct DashBoardPickerContainer: View {
             let itemWidth = (geometry.size.width - totalSpacing) / 3
             
             HStack(spacing: Spacing.s8) {
-                ForEach(options, id: \.self) { option in
+                ForEach(DashBoardOptionType.allCases, id: \.self) { option in
                     ZStack {
-                        if selected == option {
+                        if store.option == option {
                             RoundedRectangle(cornerRadius: Radius.s8)
                                 .fill(Color.mintBase)
                                 .matchedGeometryEffect(id: "pickerHighlight", in: animationNamespace)
                                 .shadow(color: .mintBase, radius: Radius.s32, x: 0, y: 0)
                         }
-                        Text(option)
-                            .font(selected == option ? Manrope.bold(size: 14) : Manrope.regular(size: 14))
-                            .foregroundColor(selected == option ? .mintShadow : .monoBase)
+                        Text(option.title)
+                            .font(store.option == option ? Manrope.bold(size: 14) : Manrope.regular(size: 14))
+                            .foregroundColor(store.option == option ? .mintShadow : .monoBase)
                     }
                     .frame(width: itemWidth, height: 32)
                     .contentShape(RoundedRectangle(cornerRadius: Radius.s8))
-                    .onTapGesture {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                            selected = option
-                        }
-                    }
+                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: store.option)
+                    .onTapGesture { store.send(.changeOption(option)) }
                 }
             }
             .frame(height: geometry.size.height)
