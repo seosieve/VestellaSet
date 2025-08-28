@@ -12,40 +12,16 @@ struct BeaconDashboardView: View {
     let store: StoreOf<BeaconDashBoardFeature>
     
     var body: some View {
-        content
-            .navigationBarBackButtonHidden()
-            .onAppear {
-                printMyAppUserDefaults()
-            }
-    }
-}
-
-// MARK: - UI Components
-extension BeaconDashboardView {
-    private var content: some View {
         VStack {
-            topBar
-            Spacer()
+            DashBoardHeaderContainer(store: store)
+            DashBoardTextFieldView(store: store)
             BeaconListView(store: store)
-                .padding(.horizontal, 4)
-            Spacer()
         }
-        .ignoresSafeArea(edges: .bottom)
         .monoBackground()
-    }
-    
-    private var topBar: some View {
-        HStack(spacing: 12) {
-            Spacer()
-            GlassIconButton(image: .importIcon) {
-                store.send(.clickImportButton)
-            }
-            GlassIconButton(image: .settingIcon) {
-                store.send(.clickSettingButton)
-            }
+        .navigationBarBackButtonHidden()
+        .onAppear {
+            printMyAppUserDefaults()
         }
-        .padding(.vertical, 12)
-        .padding(.trailing, 20)
     }
 }
 

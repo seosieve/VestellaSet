@@ -12,6 +12,10 @@ enum Manrope {
         .custom("Manrope-Regular", size: size)
     }
     
+    static func medium(size: CGFloat) -> Font {
+        .custom("Manrope-Medium", size: size)
+    }
+    
     static func bold(size: CGFloat) -> Font {
         .custom("Manrope-Bold", size: size)
     }

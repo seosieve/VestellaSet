@@ -27,7 +27,7 @@ enum SettingSheetType {
                 SheetItem(index: 3, value: "-12dBm"),
                 SheetItem(index: 4, value: "-8dBm"),
                 SheetItem(index: 5, value: "-4dBm"),
-                SheetItem(index: 6, value: "-0dBm"),
+                SheetItem(index: 6, value: "0dBm"),
                 SheetItem(index: 7, value: "4dBm"),
             ]
         case .power:

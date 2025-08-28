@@ -16,7 +16,7 @@ struct ActionButton: View {
         Button(action: action) {
             Text(type.title)
                 .font(Manrope.bold(size: 17))
-                .foregroundColor(.mintBlack)
+                .foregroundStyle(Color.mintBlack)
                 .padding(.vertical, 10)
                 .frame(maxWidth: .infinity, alignment: .center)
         }

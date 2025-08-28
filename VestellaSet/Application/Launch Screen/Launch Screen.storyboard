@@ -22,20 +22,11 @@
                                     <constraint firstAttribute="height" constant="62" id="nV1-zf-pBG"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch Text.png" translatesAutoresizingMaskIntoConstraints="NO" id="8Ug-hd-WFU">
-                                <rect key="frame" x="136.66666666666666" y="768" width="119.99999999999997" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="avV-qP-fpC"/>
-                                    <constraint firstAttribute="height" constant="24" id="puF-RA-mvA"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" red="0.039215686274509803" green="0.039215686274509803" blue="0.039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="8Ug-hd-WFU" secondAttribute="bottom" constant="60" id="3Uo-Zp-8K9"/>
                             <constraint firstItem="TPA-ku-e9O" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.95" id="MS6-e1-hZ5"/>
-                            <constraint firstItem="8Ug-hd-WFU" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="OhG-lq-43F"/>
                             <constraint firstItem="TPA-ku-e9O" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="pJ2-EF-api"/>
                         </constraints>
                     </view>
@@ -47,6 +38,5 @@
     </scenes>
     <resources>
         <image name="Launch Logo.png" width="56" height="56"/>
-        <image name="Launch Text.png" width="120" height="24"/>
     </resources>
 </document>

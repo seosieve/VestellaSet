@@ -13,10 +13,10 @@ struct ScannerInfoView: View {
     var body: some View {
         HStack(spacing: Spacing.s12) {
             Text(type.title)
-                .foregroundColor(.monoWhite)
-                .font(Manrope.regular(size: 14))
+                .foregroundStyle(Color.monoWhite)
+                .font(Manrope.medium(size: 14))
             Text("\(type.value)")
-                .foregroundColor(.mintBase)
+                .foregroundStyle(Color.mintBase)
                 .font(Manrope.bold(size: 20))
         }
         .frame(maxWidth: .infinity, maxHeight: 70)
