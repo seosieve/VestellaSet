@@ -19,7 +19,7 @@ struct BeaconListView: View {
                 } label: {
                     Text(target)
                         .foregroundStyle(Color.monoWhite)
-                        .font(Manrope.medium(size: 17))
+                        .font(Manrope.medium(size: 16))
                 }
                 Spacer()
             }

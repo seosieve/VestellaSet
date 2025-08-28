@@ -15,6 +15,7 @@ struct BeaconDashboardView: View {
         VStack {
             DashBoardHeaderContainer(store: store)
             DashBoardTextFieldView(store: store)
+            DashBoardPickerContainer(store: store)
             BeaconListView(store: store)
         }
         .monoBackground()

@@ -16,6 +16,10 @@ extension View {
         self.modifier(GlassActionButtonModifier())
     }
     
+    func glassDashBoardPickerStyle() -> some View {
+        self.modifier(GlassDashBoardPickerModifier())
+    }
+    
     func glassIconButtonStyle() -> some View {
         self.modifier(GlassIconButtonModifier())
     }
