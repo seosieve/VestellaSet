@@ -12,29 +12,31 @@ struct BeaconListView: View {
     let store: StoreOf<BeaconDashBoardFeature>
     
     var body: some View {
-        List(store.targetList, id: \.self) { target in
-            HStack {
-                Button {
-                    store.send(.clickTargetCell)
-                } label: {
-                    Text(target)
-                        .foregroundStyle(Color.monoWhite)
-                        .font(Manrope.medium(size: 16))
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                ForEach(Array(store.targetList.enumerated()), id: \.element) { index, target in
+                    Button(action: { store.send(.clickTargetCell) }) {
+                        HStack {
+                            Text(target)
+                                .foregroundStyle(Color.monoWhite)
+                                .font(Manrope.medium(size: 16))
+                            Spacer()
+                        }
+                        .frame(height: 56)
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, Spacing.s16)
+                        .background(Color.monoShadow)
+                    }
+                    
+                    if index < store.targetList.count - 1 {
+                        Rectangle().fill(Color.monoBlack).frame(height: 1)
+                    }
                 }
-                Spacer()
             }
-            .frame(height: 56)
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, Spacing.s16)
-            .listRowBackground(Color.monoShadow)
-            .listRowSeparatorTint(Color.monoBlack)
-            .listRowInsets(EdgeInsets())
+            .cornerRadius(Radius.s8)
+            .padding(.horizontal, Spacing.s20)
         }
-        .scrollContentBackground(.hidden)
-        .background(Color.monoBlack)
-        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 50))
-        .onAppear {
-            store.send(.getTargetList)
-        }
+        .padding(.top, Spacing.s8)
+        .onAppear { store.send(.getTargetList) }
     }
 }

@@ -16,6 +16,7 @@ struct BeaconDashboardView: View {
             DashBoardHeaderContainer(store: store)
             DashBoardTextFieldView(store: store)
             DashBoardPickerContainer(store: store)
+            DashBoardSortButton()
             BeaconListView(store: store)
         }
         .monoBackground()

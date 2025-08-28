@@ -14,5 +14,6 @@ extension Image {
     static let importIcon = Image("Import")
     static let searchIcon = Image("Search")
     static let settingIcon = Image("Setting")
+    static let sortIcon = Image("Sort")
     static let xmarkIcon = Image("XMark")
 }
