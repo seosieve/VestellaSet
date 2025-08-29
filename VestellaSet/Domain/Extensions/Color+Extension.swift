@@ -10,6 +10,7 @@ import SwiftUI
 extension Color {
     /// Mint Color Set
     static let mintBase = Color("Token_31DD9E")
+    static let mintDark = Color("Token_245A49")
     static let mintShadow = Color("Token_0A261B")
     static let mintBlack = Color("Token_05130E")
     

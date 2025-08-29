@@ -13,6 +13,7 @@ struct DashBoardHeaderContainer: View {
     
     var body: some View {
         HStack(spacing: Spacing.s12) {
+            DashBoardProgressView()
             Spacer()
             GlassIconButton(image: .importIcon) {
                 store.send(.clickImportButton)
