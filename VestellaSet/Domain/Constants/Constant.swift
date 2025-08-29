@@ -35,6 +35,10 @@ enum Scanner {
     static let edgeLength: CGFloat = 60
 }
 
+enum Radar {
+    static let spacing: CGFloat = 88
+}
+
 enum Sheet {
     static let itemHeight: CGFloat = 48
 }

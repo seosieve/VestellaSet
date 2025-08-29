@@ -9,6 +9,7 @@ import SwiftUI
 
 extension Image {
     /// Icon Image Set
+    static let bluetoothIcon = Image("Bluetooth")
     static let checkIcon = Image("Check")
     static let chevronDownIcon = Image("ChevronDown")
     static let importIcon = Image("Import")
