@@ -32,7 +32,7 @@ struct BeaconEditorFeature {
                 return .none
             case .navigateToScanner:
                 beaconClient.stopScanning()
-                return .run { _ in await self.dismiss() }
+                return .none
             case .navigateToDashBoard:
                 beaconClient.stopScanning()
                 return .none

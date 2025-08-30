@@ -30,13 +30,13 @@ internal struct BeaconEditorView: View {
                 Button {
                     store.send(.navigateToScanner)
                 } label: {
-                    Text("Back")
+                    Text("Scanner")
                 }
                 
                 Button {
                     store.send(.navigateToDashBoard)
                 } label: {
-                    Text("Back2")
+                    Text("DashBoard")
                 }
             }
       

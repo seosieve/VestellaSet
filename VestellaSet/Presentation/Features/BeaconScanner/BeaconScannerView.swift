@@ -23,6 +23,5 @@ struct BeaconScannerView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .onAppear { store.send(.startScanning) }
     }
 }

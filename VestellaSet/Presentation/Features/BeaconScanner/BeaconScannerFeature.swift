@@ -13,14 +13,13 @@ struct BeaconScannerFeature {
     
     @ObservableState
     struct State: ScannerState {
-        var isScanning: Bool = false
+        var isScanning: Bool = true
         var isFinished: Bool = false
         var macAddress: String = ""
         var textMessage: String = TextMessage.detectingMAC
     }
     
     enum Action {
-        case startScanning
         case stopScanning
         case setMacAddress(String)
         case navigateToEditor(String)
@@ -30,9 +29,6 @@ struct BeaconScannerFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .startScanning:
-                state.isScanning = true
-                return .none
             case .stopScanning:
                 state.isScanning = false
                 state.isFinished = true

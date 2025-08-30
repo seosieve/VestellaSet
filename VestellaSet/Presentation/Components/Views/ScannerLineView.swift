@@ -38,25 +38,29 @@ struct ScannerLineView<S, A>: View where S: ScannerState {
                 .position(config.center)
         )
         .onAppear {
-            offsetY = -config.length / 2
+            startAnimationIfNeeded()
         }
-        .onChange(of: store.isScanning) { _, newValue in
-            guard newValue else { return }
-
-            offsetY = config.length / 2
-            opacity = 1.0
-
-            withAnimation(.easeInOut(duration: 1.6).repeatCount(store.isFinished ? 0 : .max, autoreverses: true)) {
-                offsetY = -config.length / 2
-            }
-            withAnimation(.easeInOut(duration: 1).repeatCount(store.isFinished ? 0 : .max, autoreverses: true)) {
-                opacity = 0.2
-            }
+        .onChange(of: store.isScanning) {
+            startAnimationIfNeeded()
         }
-        .onChange(of: store.isFinished) { _, newValue in
+        .onChange(of: store.isFinished) {
             withAnimation(.easeOut(duration: 0.6)) {
                 opacity = 0
             }
+        }
+    }
+    
+    private func startAnimationIfNeeded() {
+        guard store.isScanning else { return }
+        
+        offsetY = config.length / 2
+        opacity = 1.0
+        
+        withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true)) {
+            offsetY = -config.length / 2
+        }
+        withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
+            opacity = 0.2
         }
     }
 }
