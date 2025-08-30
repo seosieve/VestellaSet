@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RadarConfig {
     var length: CGFloat
-    var center: CGPoint
+    var center: CGPoint 
 }
 
 private struct RadarConfigKey: EnvironmentKey {

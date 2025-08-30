@@ -35,6 +35,12 @@ internal struct BeaconEditorView: View {
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
+        .onAppear {
+            store.send(.startScanning)
+        }
+        
+        
+        
 //            .onChange(of: beaconManager.connectionState) { _, newState in
 //                handleConnecionState(newState)
 //            }

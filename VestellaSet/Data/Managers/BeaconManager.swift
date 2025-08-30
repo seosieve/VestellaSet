@@ -101,6 +101,7 @@ extension BeaconManager {
 // MARK: - Beacon Combining
 extension BeaconManager: MinewBeaconManagerDelegate {
     public func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
+        print(beacons)
         minewBeacons = beacons
         
         guard let targetMacAddress else { return }

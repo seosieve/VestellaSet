@@ -9,6 +9,8 @@ import ComposableArchitecture
 
 @Reducer
 struct BeaconEditorFeature {
+    @Dependency(\.beaconClient) var beaconClient
+    
     @ObservableState
     struct State {
         var macAddress: String
@@ -16,12 +18,16 @@ struct BeaconEditorFeature {
     }
     
     enum Action {
+        case startScanning
         case clickBackButton
     }
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .startScanning:
+                beaconClient.startScanning()
+                return .none
             case .clickBackButton:
                 return .none
             }

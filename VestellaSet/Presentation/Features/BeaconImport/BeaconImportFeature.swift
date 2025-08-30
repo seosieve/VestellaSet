@@ -11,7 +11,7 @@ import ComposableArchitecture
 struct BeaconImportFeature {
     private enum CancelID { case scannerAnimation }
     
-    @Dependency(\.appStorage) var appStorage
+    @Dependency(\.userDefaultsClient) var userDefaults
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
@@ -67,7 +67,7 @@ struct BeaconImportFeature {
                     .run { _ in await self.dismiss() }
                 )
             case .clickSaveButton:
-                appStorage.setTargetList(state.targetList)
+                userDefaults.setTargetList(state.targetList)
                 return .run { _ in await self.dismiss() }
             }
         }

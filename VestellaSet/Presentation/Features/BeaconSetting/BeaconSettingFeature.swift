@@ -9,7 +9,7 @@ import ComposableArchitecture
 
 @Reducer
 struct BeaconSettingFeature {
-    @Dependency(\.appStorage) var appStorage
+    @Dependency(\.userDefaultsClient) var userDefaults
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
@@ -50,8 +50,8 @@ struct BeaconSettingFeature {
             case .clickBackButton:
                 return .run { _ in await self.dismiss() }
             case .clickSaveButton:
-                appStorage.setBroadcastInterval(state.interval)
-                appStorage.setTransmissionPower(state.power)
+                userDefaults.setBroadcastInterval(state.interval)
+                userDefaults.setTransmissionPower(state.power)
                 return .run { _ in await self.dismiss() }
             }
         }

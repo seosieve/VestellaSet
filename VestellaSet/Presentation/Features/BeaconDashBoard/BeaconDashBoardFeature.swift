@@ -9,7 +9,7 @@ import ComposableArchitecture
 
 @Reducer
 struct BeaconDashBoardFeature {
-    @Dependency(\.appStorage) var appStorage
+    @Dependency(\.userDefaultsClient) var userDefaults
     
     @ObservableState
     struct State {
@@ -29,7 +29,7 @@ struct BeaconDashBoardFeature {
         Reduce { state, action in
             switch action {
             case .getTargetList:
-                state.targetList = appStorage.getTargetList()
+                state.targetList = userDefaults.getTargetList()
                 return .none
             case .changeOption(let option):
                 state.option = option
