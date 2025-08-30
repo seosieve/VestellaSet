@@ -9,15 +9,15 @@ import SwiftUI
 
 struct RadarBeamWedgeView: View {
     @State private var rotation: Double = 0
+    @Environment(\.radarConfig) var config
     
-    let size: CGFloat
     let startAngle: Angle = .degrees(-140)
     let endAngle: Angle = .degrees(-90)
     
     var body: some View {
         GradientWedge(startAngle: startAngle, endAngle: endAngle)
             .fill(AngularGradient(gradient: wedgeGradient, center: .center, startAngle: startAngle, endAngle: endAngle))
-            .frame(width: size, height: size)
+            .frame(width: config.length, height: config.length)
             .rotationEffect(.degrees(rotation))
             .animation(.linear(duration: 2).repeatForever(autoreverses: false), value: rotation)
             .onAppear { rotation = 360 }

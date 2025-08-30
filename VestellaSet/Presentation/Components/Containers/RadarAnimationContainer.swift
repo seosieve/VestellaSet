@@ -10,15 +10,16 @@ import SwiftUI
 struct RadarAnimationContainer: View {
     var body: some View {
         GeometryReader { geometry in
-            let size = geometry.size.width - Radar.spacing
+            let length = geometry.size.width - Spacing.s44 * 2
             
             ZStack {
-                RadarBackgroundView(size: size)
-                RadarBeamLineView(size: size)
-                RadarBeamWedgeView(size: size)
-                RadarDimView(size: size)
+                RadarBackgroundView()
+                RadarBeamLineView()
+                RadarBeamWedgeView()
+                RadarDimView()
                 RadarCenterView()
             }
+            .environment(\.radarConfig, RadarConfig(length: length))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }

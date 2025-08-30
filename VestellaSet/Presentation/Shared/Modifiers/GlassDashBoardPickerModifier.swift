@@ -14,8 +14,8 @@ struct GlassDashBoardPickerModifier: ViewModifier {
             .overlay(outerGlow())
             .overlay(innerGlow())
             .cornerRadius(Radius.s8)
-            .shadow(color: .black.opacity(0.3), radius: Radius.s8, x: 2, y: 2)
-            .shadow(color: .black.opacity(0.5), radius: Radius.s4, x: -4, y: 2)
+            .shadow(color: .black.opacity(0.2), radius: Radius.s8, x: 2, y: 2)
+            .shadow(color: .black.opacity(0.3), radius: Radius.s4, x: -4, y: 2)
     }
     
     private func glassBackground() -> LinearGradient {

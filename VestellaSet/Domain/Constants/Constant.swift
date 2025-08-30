@@ -16,6 +16,9 @@ enum Spacing {
     static let s24: CGFloat = 24
     static let s28: CGFloat = 28
     static let s32: CGFloat = 32
+    static let s36: CGFloat = 36
+    static let s40: CGFloat = 40
+    static let s44: CGFloat = 44
 }
 
 enum Radius {
@@ -33,10 +36,6 @@ enum Scanner {
     static let lineWidth: CGFloat = 4
     static let gradientHeight: CGFloat = 60
     static let edgeLength: CGFloat = 60
-}
-
-enum Radar {
-    static let spacing: CGFloat = 88
 }
 
 enum Sheet {

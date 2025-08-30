@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct RadarBackgroundView: View {
-    let size: CGFloat
+    @Environment(\.radarConfig) var config
     
     var body: some View {
         Circle()
             .foregroundStyle(Color.black.opacity(0.2))
-            .frame(width: size, height: size)
+            .frame(width: config.length, height: config.length)
         
         Circle()
             .foregroundStyle(Color.black.opacity(0.3))
-            .frame(width: size * 0.75, height: size * 0.75)
+            .frame(width: config.length * 0.75, height: config.length * 0.75)
     }
 }

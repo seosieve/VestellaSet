@@ -9,14 +9,13 @@ import SwiftUI
 
 struct RadarBeamLineView: View {
     @State private var rotation: Double = 0
-    
-    let size: CGFloat
+    @Environment(\.radarConfig) var config
     
     var body: some View {
         Rectangle()
             .fill(LinearGradient(gradient: lineGradient, startPoint: .top, endPoint: .bottom))
-            .frame(width: 4, height: size / 2)
-            .offset(y: -(size / 4))
+            .frame(width: 4, height: config.length / 2)
+            .offset(y: -(config.length / 4))
             .rotationEffect(.degrees(rotation))
             .animation(.linear(duration: 2).repeatForever(autoreverses: false), value: rotation)
             .onAppear { rotation = 360 }

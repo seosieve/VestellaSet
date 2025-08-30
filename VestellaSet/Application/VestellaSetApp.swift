@@ -14,11 +14,11 @@ internal struct VestellaSetApp: App {
     
     internal var body: some Scene {
         WindowGroup {
-            RadarAnimationContainer()
-                .monoBackground()
-                .ignoresSafeArea()
-//            AppView(store: store)
-//                .preferredColorScheme(.dark)
+//            RadarAnimationContainer()
+//                .monoBackground()
+//                .ignoresSafeArea()
+            AppView(store: store)
+                .preferredColorScheme(.dark)
         }
     }
 }

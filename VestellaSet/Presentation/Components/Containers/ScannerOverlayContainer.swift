@@ -13,15 +13,15 @@ struct ScannerOverlayContainer: View {
     
     var body: some View {
         GeometryReader { geometry in
-            let size = CGSize(width: geometry.size.width, height: geometry.size.height)
             let length = geometry.size.width - Spacing.s20 * 2
+            let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
             
             ZStack {
                 ScannerLineView(store: store)
                 ScannerInfoContainer(store: store)
                 ScannerProgressLabel(store: store)
             }
-            .environment(\.scannerConfig, ScannerConfig(size: size, length: length))
+            .environment(\.scannerConfig, ScannerConfig(length: length, center: center))
         }
         .ignoresSafeArea()
     }

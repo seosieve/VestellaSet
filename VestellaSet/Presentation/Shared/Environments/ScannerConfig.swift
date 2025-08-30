@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct ScannerConfig {
-    var size: CGSize
     var length: CGFloat
-    var center: CGPoint { CGPoint(x: size.width / 2, y: size.height / 2) }
+    var center: CGPoint
 }
 
 private struct ScannerConfigKey: EnvironmentKey {
-    static let defaultValue = ScannerConfig(size: .zero, length: 0)
+    static let defaultValue = ScannerConfig(length: 0, center: .zero)
 }
 
 extension EnvironmentValues {

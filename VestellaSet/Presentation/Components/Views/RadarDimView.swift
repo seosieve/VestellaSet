@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct RadarDimView: View {
-    let size: CGFloat
+    @Environment(\.radarConfig) var config
     
     var body: some View {
         Rectangle()
             .fill(LinearGradient(gradient: dimGradient, startPoint: .top, endPoint: .bottom))
-            .frame(width: size, height: size)
+            .frame(width: config.length, height: config.length)
             .offset(y: 80)
     }
     

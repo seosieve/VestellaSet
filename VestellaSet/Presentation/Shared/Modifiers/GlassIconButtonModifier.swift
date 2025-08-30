@@ -14,8 +14,8 @@ struct GlassIconButtonModifier: ViewModifier {
             .overlay(outerGlow())
             .overlay(innerGlow())
             .cornerRadius(30)
-            .shadow(color: .black.opacity(0.2), radius: 8, x: 2, y: 2)
-            .shadow(color: .black.opacity(0.5), radius: 4, x: -1, y: 2)
+            .shadow(color: .black.opacity(0.2), radius: Radius.s8, x: 2, y: 2)
+            .shadow(color: .black.opacity(0.3), radius: Radius.s4, x: -1, y: 2)
     }
     
     private func glassBackground() -> LinearGradient {
