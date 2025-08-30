@@ -10,16 +10,16 @@ import ComposableArchitecture
 @Reducer
 struct BeaconImportFeature {
     private enum CancelID { case scannerAnimation }
-    private let scannerStopDelay: Duration = .seconds(2)
     
     @Dependency(\.appStorage) var appStorage
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
-    struct State {
-        var isRunning: Bool = true
-        var isScanning: Bool = true
-        var textMessage: String = TextMessage.detecting
+    struct State: ScannerState {
+        var isRunning: Bool = false
+        var isScanning: Bool = false
+        var isFinished: Bool = false
+        var textMessage: String = TextMessage.detectingQR
         var targetList: [String] = []
         var major: Int = 0
         var count: Int = 0
@@ -40,15 +40,17 @@ struct BeaconImportFeature {
             switch action {
             case .stopRunning:
                 state.isRunning = false
-                state.textMessage = TextMessage.scanning
+                state.isScanning = true
+                state.textMessage = TextMessage.scanningQR
                 return .run { send in
                     Haptic.softImpact()
-                    try await Task.sleep(for: scannerStopDelay)
+                    try await Task.sleep(for: .seconds(2))
                     await send(.stopScanning)
                 }
                 .cancellable(id: CancelID.scannerAnimation)
             case .stopScanning:
                 state.isScanning = false
+                state.isFinished = true
                 return .run { _ in Haptic.softImpact() }
             case .setTargetList(let targetList):
                 state.targetList = targetList

@@ -11,6 +11,7 @@ struct RadarAnimationContainer: View {
     var body: some View {
         GeometryReader { geometry in
             let length = geometry.size.width - Spacing.s44 * 2
+            let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
             
             ZStack {
                 RadarBackgroundView()
@@ -19,8 +20,8 @@ struct RadarAnimationContainer: View {
                 RadarDimView()
                 RadarCenterView()
             }
-            .environment(\.radarConfig, RadarConfig(length: length))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .environment(\.radarConfig, RadarConfig(length: length, center: center))
         }
+        .ignoresSafeArea()
     }
 }

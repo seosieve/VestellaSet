@@ -18,9 +18,9 @@ struct ScannerInfoContainer: View {
             ScannerInfoView(type: .major(store.major))
             ScannerInfoView(type: .count(store.count))
         }
-        .opacity(store.isScanning ? 0 : 1)
-        .animation(.easeInOut, value: store.isScanning)
+        .opacity(store.isFinished ? 1 : 0)
+        .animation(.easeInOut, value: store.isFinished)
         .padding(.horizontal, Spacing.s20)
-        .offset(y: -(config.length / 2) - 55)
+        .offset(y: -(config.length / 2) - Spacing.s52)
     }
 }

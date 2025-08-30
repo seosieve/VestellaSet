@@ -23,13 +23,17 @@ internal struct BeaconEditorView: View {
 //    let target: String
     
     internal var body: some View {
-        mainListView
-        Button {
-            store.send(.clickBackButton)
-        } label: {
-            Text("Back")
+        ZStack {
+            RadarAnimationContainer()
+    //        mainListView
+            Button {
+                store.send(.clickBackButton)
+            } label: {
+                Text("Back")
+            }
         }
-            .navigationBarBackButtonHidden()
+        .monoBackground()
+        .navigationBarBackButtonHidden()
 //            .onChange(of: beaconManager.connectionState) { _, newState in
 //                handleConnecionState(newState)
 //            }

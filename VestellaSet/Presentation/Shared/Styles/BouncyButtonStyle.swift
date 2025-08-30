@@ -18,8 +18,8 @@ struct BouncyButtonStyle: ButtonStyle {
         configuration.label
             .scaleEffect(configuration.isPressed ? scale : 1.0)
             .animation(.spring(response: 0.2, dampingFraction: 0.5), value: configuration.isPressed)
-            .onChange(of: configuration.isPressed) { _, isPressed in
-                if isPressed { Haptic.softImpact() }
+            .onChange(of: configuration.isPressed) { _, newValue in
+                if newValue { Haptic.softImpact() }
             }
     }
 }

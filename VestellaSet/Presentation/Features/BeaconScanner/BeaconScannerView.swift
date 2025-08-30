@@ -11,46 +11,18 @@ import ComposableArchitecture
 struct BeaconScannerView: View {
     let store: StoreOf<BeaconScannerFeature>
     
-    @State private var macAddress: String = "텍스트 없음"
-    @State private var isScanning = true
-    
-//    let target: String
-    
     var body: some View {
         ZStack {
             OCRScannerContainer(store: store)
             ScannerDecorateContainer()
+            OCROverlayContainer(store: store)
             
             VStack {
-                BackButton {
-                    store.send(.clickBackButton)
-                }
+                BackButton { store.send(.clickBackButton) }
                 Spacer()
-                Button {
-                    store.send(.clickEditorButton)
-                } label: {
-                    Text("Go Editor")
-                }
             }
         }
-        
-        
-//        VStack(spacing: 20) {
-//            Text("🔍 인식된 텍스트:")
-//                .font(.headline)
-//
-//
-//            Text(macAddress)
-//                .padding()
-//            
-//            OCRScannerRepresentable(result: $macAddress, isScanning: $isScanning)
-//                .frame(width: 200, height: 200)
-//        }
-//        .onChange(of: isScanning) { _, scanning in
-//            if !scanning { path.append(Destination.beaconEditor(macAddress: macAddress, target: target)) }
-//        }
-        .onAppear { isScanning = true }
-        .onDisappear { isScanning = false }
         .navigationBarBackButtonHidden()
+        .onAppear { store.send(.startScanning) }
     }
 }

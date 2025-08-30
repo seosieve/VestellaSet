@@ -15,14 +15,14 @@ struct BeaconImportView: View {
         ZStack {
             QRScannerContainer(store: store)
             ScannerDecorateContainer()
-            ScannerOverlayContainer(store: store)
+            QROverlayContainer(store: store)
             
             VStack {
                 BackButton { store.send(.clickBackButton) }
                 Spacer()
                 ActionButton(type: .save) { store.send(.clickSaveButton) }
-                    .opacity(store.isScanning ? 0 : 1)
-                    .animation(.easeInOut, value: store.isScanning)
+                    .opacity(store.isFinished ? 1 : 0)
+                    .animation(.easeInOut, value: store.isFinished)
             }
         }
         .navigationBarBackButtonHidden()

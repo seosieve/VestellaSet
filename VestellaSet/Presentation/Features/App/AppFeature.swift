@@ -43,7 +43,7 @@ struct AppFeature {
             case .navigationPath(.element(id: _, action: .beaconDashBoard(.clickTargetCell))):
                 state.navigationPath.append(.beaconScanner(BeaconScannerFeature.State()))
                 return .none
-            case .navigationPath(.element(id: _, action: .beaconScanner(.clickEditorButton))):
+            case .navigationPath(.element(id: _, action: .beaconScanner(.navigateToEditor))):
                 state.navigationPath.append(.beaconEditor(BeaconEditorFeature.State()))
                 return .none
             case .navigationPath(.element(id: _, action: .beaconEditor(.clickBackButton))):

@@ -19,6 +19,8 @@ enum Spacing {
     static let s36: CGFloat = 36
     static let s40: CGFloat = 40
     static let s44: CGFloat = 44
+    static let s48: CGFloat = 48
+    static let s52: CGFloat = 52
 }
 
 enum Radius {
@@ -47,6 +49,7 @@ enum Effect {
 }
 
 enum TextMessage {
-    static let detecting: String = "Detecting the QR code"
-    static let scanning: String = "Scanning the QR code"
+    static let detectingMAC: String = "Detecting the MAC address"
+    static let detectingQR: String = "Detecting the QR code"
+    static let scanningQR: String = "Scanning the QR code"
 }

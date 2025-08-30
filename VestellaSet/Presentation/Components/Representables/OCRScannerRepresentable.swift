@@ -14,17 +14,13 @@ struct OCRScannerRepresentable: UIViewRepresentable {
     let store: StoreOf<BeaconScannerFeature>
     
     func makeUIView(context: Context) -> UIView {
-        let view = setupCamera(context: context)
-        context.coordinator.startScanning()
-        return view
+        setupCamera(context: context)
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
         if let previewLayer = context.coordinator.previewLayer {
             previewLayer.frame = uiView.bounds
         }
-        
-        if store.isRunning { context.coordinator.startScanning() }
     }
     
     func makeCoordinator() -> Coordinator {
@@ -61,13 +57,16 @@ private extension OCRScannerRepresentable {
         captureSession.addOutput(videoOutput)
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = CGRect(origin: .zero, size: CGSize(width: 200, height: 200))
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
         
         // coordinator에 previewLayer 저장
         context.coordinator.previewLayer = previewLayer
         context.coordinator.captureSession = captureSession
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            captureSession.startRunning()
+        }
         
         return view
     }
@@ -79,20 +78,10 @@ extension OCRScannerRepresentable {
         var parent: OCRScannerRepresentable
         var captureSession: AVCaptureSession?
         var previewLayer: AVCaptureVideoPreviewLayer?
+        private var sendFlag = false
         
         init(parent: OCRScannerRepresentable) {
             self.parent = parent
-        }
-        
-        func startScanning() {
-            guard let session = captureSession, !session.isRunning else { return }
-            DispatchQueue.global(qos: .userInitiated).async {
-                session.startRunning()
-            }
-        }
-        
-        func stopScanning() {
-            captureSession?.stopRunning()
         }
         
         func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -105,6 +94,7 @@ extension OCRScannerRepresentable {
             }
             
             request.recognitionLevel = .accurate
+            request.recognitionLanguages = ["en-US"]
             let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
             try? handler.perform([request])
         }
@@ -117,10 +107,11 @@ extension OCRScannerRepresentable {
         private func checkValidation(_ combinedText: String) {
             let parts = combinedText.components(separatedBy: " ")
             
-            // 1. Major 포함 텍스트
-            guard parts.first(where: { $0.localizedCaseInsensitiveContains("Major") }) != nil else { return }
+            // 1. 중복 실행 방지 Flag 처리
+            guard !sendFlag else { return }
             
-            // 2. Minor 포함 텍스트
+            // 2. Major, Minor 포함 텍스트
+            guard parts.first(where: { $0.localizedCaseInsensitiveContains("Major") }) != nil else { return }
             guard parts.first(where: { $0.localizedCaseInsensitiveContains("Minor") }) != nil else { return }
             
             // 3. 12글자 MAC 주소 (공백 없이 대문자/숫자)
@@ -128,10 +119,13 @@ extension OCRScannerRepresentable {
             let predicate = NSPredicate(format: "SELF MATCHES %@", macPattern)
             guard let macAddress = parts.first(where: { predicate.evaluate(with: $0) })?.lowercased() else { return }
             
-            stopScanning()
+            sendFlag = true
             
-            parent.store.send(.stopRunning)
-            parent.store.send(.setMacAddress(macAddress))
+            DispatchQueue.main.async { [weak self] in
+                self?.parent.store.send(.stopScanning)
+                self?.parent.store.send(.setMacAddress(macAddress))
+                self?.captureSession?.stopRunning()
+            }
         }
     }
 }

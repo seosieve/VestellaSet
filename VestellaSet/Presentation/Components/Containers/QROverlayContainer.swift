@@ -1,5 +1,5 @@
 //
-//  ScannerOverlayContainer.swift
+//  QROverlayContainer.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/23/25.
@@ -8,7 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct ScannerOverlayContainer: View {
+struct QROverlayContainer: View {
     let store: StoreOf<BeaconImportFeature>
     
     var body: some View {

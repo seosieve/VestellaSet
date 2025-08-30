@@ -9,10 +9,11 @@ import SwiftUI
 
 struct RadarConfig {
     var length: CGFloat
+    var center: CGPoint
 }
 
 private struct RadarConfigKey: EnvironmentKey {
-    static let defaultValue = RadarConfig(length: 0)
+    static let defaultValue = RadarConfig(length: 0, center: .zero)
 }
 
 extension EnvironmentValues {

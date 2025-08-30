@@ -12,28 +12,39 @@ struct BeaconScannerFeature {
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
-    struct State {
-        var isRunning: Bool = true
+    struct State: ScannerState {
+        var isScanning: Bool = false
+        var isFinished: Bool = false
+        var textMessage: String = TextMessage.detectingMAC
         var macAddress: String = ""
     }
     
     enum Action {
-        case stopRunning
+        case startScanning
+        case stopScanning
         case setMacAddress(String)
-        case clickEditorButton
+        case navigateToEditor
         case clickBackButton
     }
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .stopRunning:
-                state.isRunning = false
+            case .startScanning:
+                state.isScanning = true
+                return .none
+            case .stopScanning:
+                state.isScanning = false
+                state.isFinished = true
                 return .none
             case .setMacAddress(let macAddress):
                 state.macAddress = macAddress
-                return .none
-            case .clickEditorButton:
+                return .run { send in
+                    Haptic.softImpact()
+                    try await Task.sleep(for: .seconds(0.6))
+                    await send(.navigateToEditor)
+                }
+            case .navigateToEditor:
                 return .none
             case .clickBackButton:
                 return .run { _ in await self.dismiss() }
