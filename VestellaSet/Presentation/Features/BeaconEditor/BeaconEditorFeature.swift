@@ -10,7 +10,9 @@ import ComposableArchitecture
 @Reducer
 struct BeaconEditorFeature {
     @ObservableState
-    struct State { }
+    struct State {
+        var textMessage: String = TextMessage.detectingBeacon
+    }
     
     enum Action {
         case clickBackButton

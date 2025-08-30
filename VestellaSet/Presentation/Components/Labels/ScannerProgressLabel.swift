@@ -15,6 +15,7 @@ struct ScannerProgressLabel<S, A>: View where S: ScannerState {
     
     var body: some View {
         DottedLabel(text: store.textMessage)
+            .font(Manrope.bold(size: 16))
             .position(x: config.center.x, y: config.center.y + config.length / 2 + Spacing.s36)
             .opacity(store.isFinished ? 0 : 1)
             .animation(.easeInOut, value: store.isFinished)

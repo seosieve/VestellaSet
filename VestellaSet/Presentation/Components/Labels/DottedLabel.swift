@@ -15,7 +15,6 @@ struct DottedLabel: View {
             let dotCount = Int(Date().timeIntervalSinceReferenceDate / 0.4) % 4
             Text(text + String(repeating: ".", count: dotCount))
                 .foregroundStyle(Color.monoBase)
-                .font(Manrope.bold(size: 16))
         }
     }
 }

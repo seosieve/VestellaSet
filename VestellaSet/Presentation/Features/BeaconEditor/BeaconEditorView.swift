@@ -25,6 +25,7 @@ internal struct BeaconEditorView: View {
     internal var body: some View {
         ZStack {
             RadarAnimationContainer()
+            RadarOverlayContainer(store: store)
     //        mainListView
             Button {
                 store.send(.clickBackButton)
