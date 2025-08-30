@@ -43,8 +43,8 @@ struct AppFeature {
             case .navigationPath(.element(id: _, action: .beaconDashBoard(.clickTargetCell))):
                 state.navigationPath.append(.beaconScanner(BeaconScannerFeature.State()))
                 return .none
-            case .navigationPath(.element(id: _, action: .beaconScanner(.navigateToEditor))):
-                state.navigationPath.append(.beaconEditor(BeaconEditorFeature.State()))
+            case .navigationPath(.element(id: _, action: .beaconScanner(.navigateToEditor(let macAddress)))):
+                state.navigationPath.append(.beaconEditor(BeaconEditorFeature.State(macAddress: macAddress)))
                 return .none
             case .navigationPath(.element(id: _, action: .beaconEditor(.clickBackButton))):
                 state.navigationPath.removeLast(2)

@@ -11,6 +11,7 @@ import ComposableArchitecture
 struct BeaconEditorFeature {
     @ObservableState
     struct State {
+        var macAddress: String
         var textMessage: String = TextMessage.detectingBeacon
     }
     

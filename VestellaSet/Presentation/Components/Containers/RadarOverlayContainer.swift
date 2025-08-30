@@ -19,7 +19,7 @@ struct RadarOverlayContainer: View {
             VStack(spacing: Spacing.s8) {
                 DottedLabel(text: store.textMessage)
                     .font(Manrope.regular(size: 16))
-                Text("AC325D56")
+                Text(store.macAddress.uppercased())
                     .foregroundStyle(Color.monoWhite)
                     .font(Manrope.extraBold(size: 24))
             }
