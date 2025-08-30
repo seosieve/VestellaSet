@@ -10,6 +10,7 @@ import ComposableArchitecture
 @Reducer
 struct BeaconEditorFeature {
     @Dependency(\.beaconClient) var beaconClient
+    @Dependency(\.dismiss) var dismiss
     
     @ObservableState
     struct State {
@@ -19,7 +20,8 @@ struct BeaconEditorFeature {
     
     enum Action {
         case startScanning
-        case clickBackButton
+        case navigateToScanner
+        case navigateToDashBoard
     }
     
     var body: some ReducerOf<Self> {
@@ -28,7 +30,11 @@ struct BeaconEditorFeature {
             case .startScanning:
                 beaconClient.startScanning()
                 return .none
-            case .clickBackButton:
+            case .navigateToScanner:
+                beaconClient.stopScanning()
+                return .run { _ in await self.dismiss() }
+            case .navigateToDashBoard:
+                beaconClient.stopScanning()
                 return .none
             }
         }

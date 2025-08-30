@@ -78,18 +78,13 @@ extension BeaconManager {
 
 // MARK: - Beacon Scanning
 extension BeaconManager {
-    internal func startScanningWithReset() {
-        stopScanning()
-        startScanning()
-    }
-    
-    private func startScanning() {
+    func startScanning() {
         guard let minewBeaconManager else { return }
         minewBeaconManager.startScan()
         print("▶️ Beacon Start Scanning")
     }
     
-    private func stopScanning() {
+    func stopScanning() {
         guard let minewBeaconManager else { return }
         minewBeaconManager.stopScan()
         print("⏹️ Beacon Stop Scanning")
@@ -133,8 +128,6 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
     internal func disconnect() {
         currentConnection?.disconnect()
         currentConnection = nil
-        // Reset & Start
-        startScanningWithReset()
     }
     
     // Connecting 결과를 ConnectionState로 방출

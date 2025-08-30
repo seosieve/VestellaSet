@@ -10,6 +10,7 @@ import ComposableArchitecture
 struct BeaconClient {
     var manager: BeaconManager
     var startScanning: () -> Void
+    var stopScanning: () -> Void
 }
 
 extension DependencyValues {
@@ -24,7 +25,8 @@ private enum BeaconClientKey: DependencyKey {
         let manager = BeaconManager()
         return BeaconClient(
             manager: manager,
-            startScanning: { manager.startScanningWithReset() },
+            startScanning: { manager.startScanning() },
+            stopScanning: { manager.stopScanning() },
         )
     }()
 }

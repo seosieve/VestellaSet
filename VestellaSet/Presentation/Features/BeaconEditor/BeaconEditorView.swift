@@ -12,11 +12,9 @@ import ComposableArchitecture
 internal struct BeaconEditorView: View {
     let store: StoreOf<BeaconEditorFeature>
     
-//    @StateObject internal var beaconManager = BeaconManager()
     @State private var selectedBeacon: MinewBeacon?
     @State private var isLoading = false
     @State private var isConnecting = false
-//    @State var macAddress: String
     
     @State private var notFoundCount = 0
     
@@ -27,11 +25,21 @@ internal struct BeaconEditorView: View {
             RadarAnimationContainer()
             RadarOverlayContainer(store: store)
     //        mainListView
-            Button {
-                store.send(.clickBackButton)
-            } label: {
-                Text("Back")
+            
+            VStack {
+                Button {
+                    store.send(.navigateToScanner)
+                } label: {
+                    Text("Back")
+                }
+                
+                Button {
+                    store.send(.navigateToDashBoard)
+                } label: {
+                    Text("Back2")
+                }
             }
+      
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
