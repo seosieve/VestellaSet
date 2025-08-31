@@ -21,8 +21,7 @@ final public class BeaconManager: NSObject, ObservableObject {
     @Published internal var isBeaconLost: Bool = false
     @Published internal var selectedBeacon: MinewBeacon?
     
-    private var notFoundCount = 0
-    var targetMacAddress: String?
+    var macAddress: String?
     
     override internal init() {
         super.init()
@@ -95,23 +94,23 @@ extension BeaconManager {
 
 // MARK: - Beacon Combining
 extension BeaconManager: MinewBeaconManagerDelegate {
+    func setMacAddress(_ macAddress: String) {
+        self.macAddress = macAddress
+    }
+    
     public func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
         minewBeacons = beacons
         
-        guard let targetMacAddress else { return }
+        guard let macAddress else { return }
         
-        let found = beacons.contains { $0.mac == targetMacAddress }
-        selectedBeacon = beacons.filter { $0.mac == targetMacAddress }.first
+        print(macAddress)
         
-        if found {
-            notFoundCount = 0
-            isBeaconLost = false
-        } else {
-            notFoundCount += 1
-            if notFoundCount >= 4 {
-                isBeaconLost = true
-            }
-        }
+        let found = beacons.contains { $0.mac == macAddress }
+        selectedBeacon = beacons.filter { $0.mac == macAddress }.first
+    }
+    
+    func increase() {
+        
     }
 }
 

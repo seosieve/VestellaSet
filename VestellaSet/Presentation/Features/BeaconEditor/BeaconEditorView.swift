@@ -16,8 +16,6 @@ internal struct BeaconEditorView: View {
     @State private var isLoading = false
     @State private var isConnecting = false
     
-    @State private var notFoundCount = 0
-    
 //    let target: String
     
     internal var body: some View {
@@ -43,9 +41,7 @@ internal struct BeaconEditorView: View {
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
-        .onAppear {
-            store.send(.startScanning)
-        }
+        .onAppear { store.send(.startScanning) }
         
         
         

@@ -9,6 +9,7 @@ import ComposableArchitecture
 
 struct BeaconClient {
     var manager: BeaconManager
+    var setMacAddress: (String) -> Void
     var startScanning: () -> Void
     var stopScanning: () -> Void
 }
@@ -25,6 +26,7 @@ private enum BeaconClientKey: DependencyKey {
         let manager = BeaconManager()
         return BeaconClient(
             manager: manager,
+            setMacAddress: { manager.setMacAddress($0) },
             startScanning: { manager.startScanning() },
             stopScanning: { manager.stopScanning() },
         )

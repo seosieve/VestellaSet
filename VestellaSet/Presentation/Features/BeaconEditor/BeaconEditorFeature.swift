@@ -16,10 +16,12 @@ struct BeaconEditorFeature {
     struct State {
         var macAddress: String
         var textMessage: String = TextMessage.detectingBeacon
+        var timeoutCounter: Int = 0
     }
     
     enum Action {
         case startScanning
+        case increaseTimeoutCounter
         case navigateToScanner
         case navigateToDashBoard
     }
@@ -28,7 +30,12 @@ struct BeaconEditorFeature {
         Reduce { state, action in
             switch action {
             case .startScanning:
+                beaconClient.setMacAddress(state.macAddress)
                 beaconClient.startScanning()
+                return .none
+            case .increaseTimeoutCounter:
+                state.timeoutCounter += 1
+                print(state.timeoutCounter)
                 return .none
             case .navigateToScanner:
                 beaconClient.stopScanning()
