@@ -15,7 +15,7 @@ struct BeaconListView: View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 ForEach(Array(store.targetList.enumerated()), id: \.element) { index, target in
-                    Button(action: { store.send(.clickTargetCell) }) {
+                    Button(action: { store.send(.clickTargetCell(target)) }) {
                         HStack {
                             Text(target)
                                 .foregroundStyle(Color.monoWhite)

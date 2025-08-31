@@ -9,11 +9,13 @@ import ComposableArchitecture
 
 @Reducer
 struct BeaconEditorFeature {
+    @Dependency(\.userDefaultsClient) var userDefaults
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
     struct State {
         var beaconClient: BeaconClient?
+        var target: String
         var macAddress: String
         var textMessage: String = TextMessage.detectingBeacon
         var beacon: MinewBeacon? = nil
@@ -28,7 +30,7 @@ struct BeaconEditorFeature {
         case increaseTimeoutCounter
         case startConnecting
         case startWritting
-        case navigateToScanner
+        case navigateToScanner(String)
         case navigateToDashBoard
     }
     
@@ -64,7 +66,7 @@ struct BeaconEditorFeature {
                 state.timeoutCounter += 1
                 switch state.timeoutCounter {
                 case 3...:
-                    return .send(.navigateToScanner)
+                    return .send(.navigateToScanner(state.target))
                 default:
                     return .none
                 }
@@ -82,7 +84,7 @@ struct BeaconEditorFeature {
                     return .send(.startWritting)
                 case .disconnected:
                     print("🩵 \(state.connectionState.rawValue)")
-                    return .none
+                    return .send(.navigateToDashBoard)
                 case .connectFailed:
                     print("🩵 \(state.connectionState.rawValue)")
                     return .none
@@ -92,10 +94,10 @@ struct BeaconEditorFeature {
                 }
                 
             case .startConnecting:
-                state.beaconClient?.startConnecting(state.beacon!)
+                state.beaconClient?.startConnecting(state.beacon)
                 return .none
             case .startWritting:
-                state.beaconClient?.startWritting()
+                state.beaconClient?.startWritting(state.target)
                 return .none
             case .navigateToScanner:
                 return .none

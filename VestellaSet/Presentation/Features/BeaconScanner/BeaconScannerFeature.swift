@@ -15,6 +15,7 @@ struct BeaconScannerFeature {
     struct State: ScannerState {
         var isScanning: Bool = true
         var isFinished: Bool = false
+        var target: String
         var macAddress: String = ""
         var textMessage: String = TextMessage.detectingMAC
     }
@@ -22,7 +23,7 @@ struct BeaconScannerFeature {
     enum Action {
         case stopScanning
         case setMacAddress(String)
-        case navigateToEditor(String)
+        case navigateToEditor(String, String)
         case clickBackButton
     }
     
@@ -35,10 +36,11 @@ struct BeaconScannerFeature {
                 return .none
             case .setMacAddress(let macAddress):
                 state.macAddress = macAddress
+                let target = state.target
                 return .run { send in
                     Haptic.softImpact()
                     try await Task.sleep(for: .seconds(0.6))
-                    await send(.navigateToEditor(macAddress))
+                    await send(.navigateToEditor(target, macAddress))
                 }
             case .navigateToEditor:
                 return .none

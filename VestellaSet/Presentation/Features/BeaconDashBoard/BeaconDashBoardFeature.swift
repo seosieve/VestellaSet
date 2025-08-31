@@ -22,7 +22,7 @@ struct BeaconDashBoardFeature {
         case changeOption(DashBoardOptionType)
         case clickImportButton
         case clickSettingButton
-        case clickTargetCell
+        case clickTargetCell(String)
     }
     
     var body: some ReducerOf<Self> {

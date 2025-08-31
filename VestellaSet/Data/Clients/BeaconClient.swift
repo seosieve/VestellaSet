@@ -11,9 +11,8 @@ struct BeaconClient {
     private var manager: BeaconManager
     var setMacAddress: (String) -> Void
     var startScanning: () -> Void
-    var stopScanning: () -> Void
-    var startConnecting: (MinewBeacon) -> Void
-    var startWritting: () -> Void
+    var startConnecting: (MinewBeacon?) -> Void
+    var startWritting: (String) -> Void
     var onBeaconNotFound: AsyncStream<Void>
     var onBeaconFound: AsyncStream<MinewBeacon>
     var onBeaconConnect: AsyncStream<ConnectionState>
@@ -27,29 +26,20 @@ struct BeaconClient {
         self.startScanning = {
             manager.startScanning()
         }
-        self.stopScanning = {
-            manager.stopScanning()
-        }
         self.startConnecting = { beacon in
             manager.startConnecting(to: beacon)
         }
-        self.startWritting = {
-            manager.startWritting()
+        self.startWritting = { target in
+            manager.startWritting(target: target)
         }
         self.onBeaconNotFound = AsyncStream { continuation in
-            manager.onBeaconNotFound = {
-                continuation.yield()
-            }
+            manager.onBeaconNotFound = { continuation.yield() }
         }
         self.onBeaconFound = AsyncStream { continuation in
-            manager.onBeaconFound = { beacon in
-                continuation.yield(beacon)
-            }
+            manager.onBeaconFound = { continuation.yield($0) }
         }
         self.onBeaconConnect = AsyncStream { continuation in
-            manager.onBeaconConnect = { beacon in
-                continuation.yield(beacon)
-            }
+            manager.onBeaconConnect = { continuation.yield($0) }
         }
     }
 }

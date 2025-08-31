@@ -40,15 +40,15 @@ struct AppFeature {
             case .navigationPath(.element(id: _, action: .beaconDashBoard(.clickSettingButton))):
                 state.navigationPath.append(.beaconSetting(BeaconSettingFeature.State()))
                 return .none
-            case .navigationPath(.element(id: _, action: .beaconDashBoard(.clickTargetCell))):
-                state.navigationPath.append(.beaconScanner(BeaconScannerFeature.State()))
+            case .navigationPath(.element(id: _, action: .beaconDashBoard(.clickTargetCell(let target)))):
+                state.navigationPath.append(.beaconScanner(BeaconScannerFeature.State(target: target)))
                 return .none
-            case .navigationPath(.element(id: _, action: .beaconScanner(.navigateToEditor(let macAddress)))):
-                state.navigationPath.append(.beaconEditor(BeaconEditorFeature.State(macAddress: macAddress)))
+            case .navigationPath(.element(id: _, action: .beaconScanner(.navigateToEditor(let target, let macAddress)))):
+                state.navigationPath.append(.beaconEditor(BeaconEditorFeature.State(target: target, macAddress: macAddress)))
                 return .none
-            case .navigationPath(.element(id: _, action: .beaconEditor(.navigateToScanner))):
+            case .navigationPath(.element(id: _, action: .beaconEditor(.navigateToScanner(let target)))):
                 state.navigationPath.removeLast(2)
-                state.navigationPath.append(.beaconScanner(BeaconScannerFeature.State()))
+                state.navigationPath.append(.beaconScanner(BeaconScannerFeature.State(target: target)))
                 return .none
             case .navigationPath(.element(id: _, action: .beaconEditor(.navigateToDashBoard))):
                 state.navigationPath.removeLast(2)

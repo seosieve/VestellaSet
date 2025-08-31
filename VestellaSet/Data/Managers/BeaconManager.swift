@@ -12,8 +12,7 @@ import CoreBluetooth
 final public class BeaconManager: NSObject, ObservableObject {
     private var bluetoothManager: CBCentralManager? // Bluetooth Manager
     private var minewBeaconManager: MinewBeaconManager? // MinewBeacon Manager
-    
-    @Published internal var currentConnection: MinewBeaconConnection? // Connection의 실제 객체
+    private var currentConnection: MinewBeaconConnection? // Connection의 실제 객체
     
     var macAddress: String?
     var onBeaconNotFound: (() -> Void)?
@@ -90,7 +89,8 @@ extension BeaconManager: MinewBeaconManagerDelegate {
 
 // MARK: - Beacon Connecting
 extension BeaconManager: MinewBeaconConnectionDelegate {
-    func startConnecting(to beacon: MinewBeacon) {
+    func startConnecting(to beacon: MinewBeacon?) {
+        guard let beacon else { return }
         currentConnection = MinewBeaconConnection(beacon: beacon)
         currentConnection?.delegate = self
         currentConnection?.connect()
@@ -109,18 +109,17 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
 
 // MARK: - Beacon Writing
 extension BeaconManager {
-    public func startWritting() {
+    public func startWritting(target: String) {
         guard let setting = currentConnection?.setting else { return }
-//        let parts = item.split(separator: " ").map { Int(String($0))! }
-//        let major = parts[0]
-//        let minor = parts[1]
-        setting.major = 100
-        setting.minor = 3000
+
+        let target = target.split(separator: " ").compactMap { Int($0) }
+        guard target.count == 2 else { return }
+
+        (setting.major, setting.minor) = (target[0], target[1])
+        
 //        setting.uuid = SettingRepository.shared.uuid
 //        setting.broadcastInterval = SettingRepository.shared.broadcastInterval
 //        setting.txPower = SettingRepository.shared.transmissionPower
-        
-        print(setting.broadcastInterval)
         currentConnection?.writeSetting(Minew.password)
         print("Write Complete")
 //        return appendMacAddress(to: item, macAddress: macAddress)
