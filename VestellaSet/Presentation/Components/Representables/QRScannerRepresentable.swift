@@ -30,8 +30,10 @@ private class CameraView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        guard let previewLayer, let metadataOutput else { return }
         // PreviewLayer 크기 맞춤
-        previewLayer?.frame = bounds
+        previewLayer.frame = bounds
         
         // ScanOverlay 사이즈 계산
         let inset: CGFloat = Spacing.s20 * 2
@@ -40,7 +42,8 @@ private class CameraView: UIView {
         let scanRect = CGRect(origin: scanOrigin, size: scanSize)
         
         // RectOfInterest 업데이트
-        if let previewLayer = previewLayer, previewLayer.bounds != .zero, let metadataOutput = metadataOutput {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            guard previewLayer.bounds != .zero else { return }
             metadataOutput.rectOfInterest = previewLayer.metadataOutputRectConverted(fromLayerRect: scanRect)
         }
     }

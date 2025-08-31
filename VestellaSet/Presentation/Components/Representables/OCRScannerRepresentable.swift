@@ -17,11 +17,7 @@ struct OCRScannerRepresentable: UIViewRepresentable {
         setupCamera(context: context)
     }
     
-    func updateUIView(_ uiView: UIView, context: Context) {
-        if let previewLayer = context.coordinator.previewLayer {
-            previewLayer.frame = uiView.bounds
-        }
-    }
+    func updateUIView(_ uiView: UIView, context: Context) { }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(parent: self)
@@ -124,6 +120,9 @@ extension OCRScannerRepresentable {
             DispatchQueue.main.async { [weak self] in
                 self?.parent.store.send(.stopScanning)
                 self?.parent.store.send(.setMacAddress(macAddress))
+            }
+            
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 self?.captureSession?.stopRunning()
             }
         }
