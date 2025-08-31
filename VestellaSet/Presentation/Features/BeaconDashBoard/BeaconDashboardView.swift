@@ -22,7 +22,7 @@ struct BeaconDashboardView: View {
         .monoBackground()
         .navigationBarBackButtonHidden()
         .onAppear {
-            printMyAppUserDefaults()
+//            printMyAppUserDefaults()
         }
     }
 }

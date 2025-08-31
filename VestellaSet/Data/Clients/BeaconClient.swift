@@ -8,27 +8,30 @@
 import ComposableArchitecture
 
 struct BeaconClient {
-    var manager: BeaconManager
+    private var manager: BeaconManager
     var setMacAddress: (String) -> Void
     var startScanning: () -> Void
     var stopScanning: () -> Void
-}
-
-extension DependencyValues {
-    var beaconClient: BeaconClient {
-        get { self[BeaconClientKey.self] }
-        set { self[BeaconClientKey.self] = newValue }
-    }
-}
-
-private enum BeaconClientKey: DependencyKey {
-    static let liveValue: BeaconClient = {
+    var increaseTimeoutCounter: () -> AsyncStream<Void>
+    
+    init() {
         let manager = BeaconManager()
-        return BeaconClient(
-            manager: manager,
-            setMacAddress: { manager.setMacAddress($0) },
-            startScanning: { manager.startScanning() },
-            stopScanning: { manager.stopScanning() },
-        )
-    }()
+        self.manager = manager
+        self.setMacAddress = { mac in
+            manager.macAddress = mac
+        }
+        self.startScanning = {
+            manager.startScanning()
+        }
+        self.stopScanning = {
+            manager.stopScanning()
+        }
+        self.increaseTimeoutCounter = {
+            AsyncStream { continuation in
+                manager.increaseTimeoutCounter = {
+                    continuation.yield()
+                }
+            }
+        }
+    }
 }

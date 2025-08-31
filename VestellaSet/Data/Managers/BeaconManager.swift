@@ -13,7 +13,6 @@ final public class BeaconManager: NSObject, ObservableObject {
     private var bluetoothManager: CBCentralManager? // Bluetooth Manager
     private var minewBeaconManager: MinewBeaconManager? // MinewBeacon Manager
     
-    @Published internal var minewBeacons: [MinewBeacon] = [] // MinewBeacon 배열
     @Published internal var currentConnection: MinewBeaconConnection? // Connection의 실제 객체
     @Published internal var connectionState: ConnectionState = .disconnected // Connection 결과 저장
     @Published internal var currentSetting: MinewBeaconSetting? // Setting의 실제 객체
@@ -22,14 +21,16 @@ final public class BeaconManager: NSObject, ObservableObject {
     @Published internal var selectedBeacon: MinewBeacon?
     
     var macAddress: String?
+    var increaseTimeoutCounter: (() -> Void)?
     
-    override internal init() {
+    override init() {
         super.init()
-        Task {
-            setupBluetoothManager()
-            setupMinewBeaconManager()
-            await setupAppStateMonitoring()
-        }
+        setupBluetoothManager()
+        setupMinewBeaconManager()
+    }
+    
+    deinit {
+        stopScanning()
     }
 }
 
@@ -56,23 +57,6 @@ extension BeaconManager {
         self.minewBeaconManager = MinewBeaconManager.sharedInstance()
         self.minewBeaconManager?.delegate = self
     }
-    
-    private func setupAppStateMonitoring() async {
-        for await event in AppState.shared.appStateStream {
-            await handleAppStateEvent(event)
-        }
-    }
-    
-    private func handleAppStateEvent(_ event: AppState.Event) async {
-        await MainActor.run {
-            switch event {
-            case .didEnterBackground:
-                stopScanning()
-            case .willEnterForeground:
-                startScanning()
-            }
-        }
-    }
 }
 
 // MARK: - Beacon Scanning
@@ -86,9 +70,10 @@ extension BeaconManager {
     func stopScanning() {
         guard let minewBeaconManager else { return }
         minewBeaconManager.stopScan()
+        minewBeaconManager.delegate = nil
+        bluetoothManager?.delegate = nil
+        bluetoothManager = nil
         print("⏹️ Beacon Stop Scanning")
-        // Beacon 배열 제거
-        minewBeacons.removeAll()
     }
 }
 
@@ -99,18 +84,9 @@ extension BeaconManager: MinewBeaconManagerDelegate {
     }
     
     public func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
-        minewBeacons = beacons
-        
-        guard let macAddress else { return }
-        
-        print(macAddress)
-        
+        guard macAddress != nil else { return }
         let found = beacons.contains { $0.mac == macAddress }
-        selectedBeacon = beacons.filter { $0.mac == macAddress }.first
-    }
-    
-    func increase() {
-        
+        if !found { increaseTimeoutCounter?() }
     }
 }
 

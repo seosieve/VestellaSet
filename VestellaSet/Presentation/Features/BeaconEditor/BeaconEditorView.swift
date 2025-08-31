@@ -41,7 +41,7 @@ internal struct BeaconEditorView: View {
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
-        .onAppear { store.send(.startScanning) }
+        .onAppear { store.send(.configureBeaconClient) }
         
         
         
