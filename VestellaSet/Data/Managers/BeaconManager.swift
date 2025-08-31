@@ -14,14 +14,11 @@ final public class BeaconManager: NSObject, ObservableObject {
     private var minewBeaconManager: MinewBeaconManager? // MinewBeacon Manager
     
     @Published internal var currentConnection: MinewBeaconConnection? // Connection의 실제 객체
-    @Published internal var connectionState: ConnectionState = .disconnected // Connection 결과 저장
-    @Published internal var currentSetting: MinewBeaconSetting? // Setting의 실제 객체
-    
-    @Published internal var isBeaconLost: Bool = false
-    @Published internal var selectedBeacon: MinewBeacon?
     
     var macAddress: String?
-    var increaseTimeoutCounter: (() -> Void)?
+    var onBeaconNotFound: (() -> Void)?
+    var onBeaconFound: ((MinewBeacon) -> Void)?
+    var onBeaconConnect: ((ConnectionState) -> Void)?
     
     override init() {
         super.init()
@@ -70,9 +67,6 @@ extension BeaconManager {
     func stopScanning() {
         guard let minewBeaconManager else { return }
         minewBeaconManager.stopScan()
-        minewBeaconManager.delegate = nil
-        bluetoothManager?.delegate = nil
-        bluetoothManager = nil
         print("⏹️ Beacon Stop Scanning")
     }
 }
@@ -85,57 +79,43 @@ extension BeaconManager: MinewBeaconManagerDelegate {
     
     public func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
         guard macAddress != nil else { return }
-        let found = beacons.contains { $0.mac == macAddress }
-        if !found { increaseTimeoutCounter?() }
+        
+        if let foundBeacon = beacons.first(where: { $0.mac == macAddress }) {
+            onBeaconFound?(foundBeacon)
+        } else {
+            onBeaconNotFound?()
+        }
     }
 }
 
 // MARK: - Beacon Connecting
 extension BeaconManager: MinewBeaconConnectionDelegate {
-    internal func connect(to beacon: MinewBeacon) {
-        // Create new Connection
+    func startConnecting(to beacon: MinewBeacon) {
         currentConnection = MinewBeaconConnection(beacon: beacon)
         currentConnection?.delegate = self
         currentConnection?.connect()
     }
     
-    internal func disconnect() {
+    func disconnect() {
         currentConnection?.disconnect()
         currentConnection = nil
     }
     
     // Connecting 결과를 ConnectionState로 방출
     public func beaconConnection(_ connection: MinewBeaconConnection!, didChange state: ConnectionState) {
-        self.connectionState = state
-        // 연결 되었을 때, Setting값 전달
-        if state == .connected {
-            self.currentSetting = connection.setting
-        }
-        
-        switch state {
-        case .connected:
-            print("Connected to Device and Reading Setting")
-        case .disconnected:
-            print("Device Disconnected")
-        case .connecting:
-            print("Connecting to Device")
-        case .connectFailed:
-            print("Connecting failed")
-        @unknown default:
-            break
-        }
+        onBeaconConnect?(state)
     }
 }
 
 // MARK: - Beacon Writing
 extension BeaconManager {
-    public func write(item: String, macAddress: String) -> [String] {
-        guard let setting = currentConnection?.setting else { return [] }
-        let parts = item.split(separator: " ").map { Int(String($0))! }
-        let major = parts[0]
-        let minor = parts[1]
-        setting.major = major
-        setting.minor = minor
+    public func startWritting() {
+        guard let setting = currentConnection?.setting else { return }
+//        let parts = item.split(separator: " ").map { Int(String($0))! }
+//        let major = parts[0]
+//        let minor = parts[1]
+        setting.major = 100
+        setting.minor = 3000
 //        setting.uuid = SettingRepository.shared.uuid
 //        setting.broadcastInterval = SettingRepository.shared.broadcastInterval
 //        setting.txPower = SettingRepository.shared.transmissionPower
@@ -143,7 +123,7 @@ extension BeaconManager {
         print(setting.broadcastInterval)
         currentConnection?.writeSetting(Minew.password)
         print("Write Complete")
-        return appendMacAddress(to: item, macAddress: macAddress)
+//        return appendMacAddress(to: item, macAddress: macAddress)
     }
     
     private func appendMacAddress(to item: String, macAddress: String) -> [String] {
@@ -162,10 +142,10 @@ extension BeaconManager {
     public func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {
         if success {
             print("Successfully wrote beacon settings")
-            self.connectionState = .disconnected
+            onBeaconConnect?(.disconnected)
         } else {
             print("Failed to write beacon settings")
-            self.connectionState = .disconnected
+            onBeaconConnect?(.disconnected)
             self.currentConnection = nil
         }
     }

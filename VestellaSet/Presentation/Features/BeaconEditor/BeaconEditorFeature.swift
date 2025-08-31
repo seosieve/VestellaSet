@@ -16,14 +16,18 @@ struct BeaconEditorFeature {
         var beaconClient: BeaconClient?
         var macAddress: String
         var textMessage: String = TextMessage.detectingBeacon
-        var beacons: [MinewBeacon] = []
+        var beacon: MinewBeacon? = nil
         var timeoutCounter: Int = 0
+        var connectionState: ConnectionState = .disconnected
     }
     
     enum Action {
         case configureBeaconClient
-        case updateBeacons([MinewBeacon])
+        case updateBeacon(MinewBeacon)
+        case updateConnectionState(ConnectionState)
         case increaseTimeoutCounter
+        case startConnecting
+        case startWritting
         case navigateToScanner
         case navigateToDashBoard
     }
@@ -36,14 +40,26 @@ struct BeaconEditorFeature {
                 client.setMacAddress(state.macAddress)
                 state.beaconClient = client
                 return .run { send in
-                    for await _ in client.increaseTimeoutCounter() {
-                        await send(.increaseTimeoutCounter)
-                    }
+                    async let notFoundTask: Void = {
+                        for await _ in client.onBeaconNotFound {
+                            await send(.increaseTimeoutCounter)
+                        }
+                    }()
+                    
+                    async let foundTask: Void = {
+                        for await beacon in client.onBeaconFound {
+                            await send(.updateBeacon(beacon))
+                        }
+                    }()
+                    
+                    async let connectTask: Void = {
+                        for await connection in client.onBeaconConnect {
+                            await send(.updateConnectionState(connection))
+                        }
+                    }()
+                    
+                    _ = await (notFoundTask, foundTask, connectTask)
                 }
-            case .updateBeacons(let beacons):
-                state.beacons = beacons
-                print(state.beacons.map{ $0.mac })
-                return .none
             case .increaseTimeoutCounter:
                 state.timeoutCounter += 1
                 switch state.timeoutCounter {
@@ -52,6 +68,35 @@ struct BeaconEditorFeature {
                 default:
                     return .none
                 }
+            case .updateBeacon(let beacon):
+                state.beacon = beacon
+                return .none
+            case .updateConnectionState(let connection):
+                state.connectionState = connection
+                switch state.connectionState {
+                case .connecting:
+                    print("🩵 \(state.connectionState.rawValue)")
+                    return .none
+                case .connected:
+                    print("🩵 \(state.connectionState.rawValue)")
+                    return .send(.startWritting)
+                case .disconnected:
+                    print("🩵 \(state.connectionState.rawValue)")
+                    return .none
+                case .connectFailed:
+                    print("🩵 \(state.connectionState.rawValue)")
+                    return .none
+                default:
+                    print("🩵 \(state.connectionState.rawValue)")
+                    return .none
+                }
+                
+            case .startConnecting:
+                state.beaconClient?.startConnecting(state.beacon!)
+                return .none
+            case .startWritting:
+                state.beaconClient?.startWritting()
+                return .none
             case .navigateToScanner:
                 return .none
             case .navigateToDashBoard:

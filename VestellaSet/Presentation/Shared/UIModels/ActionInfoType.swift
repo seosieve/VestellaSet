@@ -9,10 +9,12 @@ import Foundation
 
 enum ActionInfoType {
     case save
+    case write
     
     var title: String {
         switch self {
         case .save: return "Save"
+        case .write: return "Write"
         }
     }
 }
