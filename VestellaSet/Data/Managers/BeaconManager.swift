@@ -80,8 +80,10 @@ extension BeaconManager: MinewBeaconManagerDelegate {
         guard macAddress != nil else { return }
         
         if let foundBeacon = beacons.first(where: { $0.mac == macAddress }) {
+            print("found")
             onBeaconFound?(foundBeacon)
         } else {
+            print("notfound")
             onBeaconNotFound?()
         }
     }
@@ -109,19 +111,16 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
 
 // MARK: - Beacon Writing
 extension BeaconManager {
-    public func startWritting(target: String) {
+    public func startWritting(target: String, uuid: String, interval: Int, power: Int) {
         guard let setting = currentConnection?.setting else { return }
 
         let target = target.split(separator: " ").compactMap { Int($0) }
         guard target.count == 2 else { return }
 
         (setting.major, setting.minor) = (target[0], target[1])
+        (setting.uuid, setting.broadcastInterval, setting.txPower) = (uuid, interval, power)
         
-//        setting.uuid = SettingRepository.shared.uuid
-//        setting.broadcastInterval = SettingRepository.shared.broadcastInterval
-//        setting.txPower = SettingRepository.shared.transmissionPower
         currentConnection?.writeSetting(Minew.password)
-        print("Write Complete")
 //        return appendMacAddress(to: item, macAddress: macAddress)
     }
     
@@ -139,13 +138,7 @@ extension BeaconManager {
     }
     
     public func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {
-        if success {
-            print("Successfully wrote beacon settings")
-            onBeaconConnect?(.disconnected)
-        } else {
-            print("Failed to write beacon settings")
-            onBeaconConnect?(.disconnected)
-            self.currentConnection = nil
-        }
+        onBeaconConnect?(.disconnected)
+//        disconnect()
     }
 }

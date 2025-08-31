@@ -77,19 +77,18 @@ struct BeaconEditorFeature {
                 state.connectionState = connection
                 switch state.connectionState {
                 case .connecting:
-                    print("🩵 \(state.connectionState.rawValue)")
+                    print("🩵 connecting")
                     return .none
                 case .connected:
-                    print("🩵 \(state.connectionState.rawValue)")
+                    print("🩵 connected")
                     return .send(.startWritting)
                 case .disconnected:
-                    print("🩵 \(state.connectionState.rawValue)")
+                    print("🩵 disconnected")
                     return .send(.navigateToDashBoard)
                 case .connectFailed:
-                    print("🩵 \(state.connectionState.rawValue)")
+                    print("🩵 connectFailed")
                     return .none
                 default:
-                    print("🩵 \(state.connectionState.rawValue)")
                     return .none
                 }
                 
@@ -97,7 +96,12 @@ struct BeaconEditorFeature {
                 state.beaconClient?.startConnecting(state.beacon)
                 return .none
             case .startWritting:
-                state.beaconClient?.startWritting(state.target)
+                let target = state.target
+                let uuid = userDefaults.getUUID()
+                let interval = userDefaults.getBroadcastInterval()
+                let power = userDefaults.getTransmissionPower()
+                
+                state.beaconClient?.startWritting(target, uuid, interval, power)
                 return .none
             case .navigateToScanner:
                 return .none

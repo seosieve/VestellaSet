@@ -8,6 +8,8 @@
 import ComposableArchitecture
 
 struct UserDefaultsClient {
+    var getUUID: () -> String
+    var setUUID: (String) -> Void
     var getBroadcastInterval: () -> Int
     var setBroadcastInterval: (Int) -> Void
     var getTransmissionPower: () -> Int
@@ -25,6 +27,8 @@ extension DependencyValues {
 
 private enum UserDefaultsClientKey: DependencyKey {
     static let liveValue: UserDefaultsClient = UserDefaultsClient(
+        getUUID: { UserDefaults.standard.string(forKey: UserDefaultsKey.uuid) ?? Vestella.uuid },
+        setUUID: { UserDefaults.standard.set($0, forKey: UserDefaultsKey.uuid) },
         getBroadcastInterval: { UserDefaults.standard.integer(forKey: UserDefaultsKey.broadcastInterval) },
         setBroadcastInterval: { UserDefaults.standard.set($0, forKey: UserDefaultsKey.broadcastInterval) },
         getTransmissionPower: { UserDefaults.standard.integer(forKey: UserDefaultsKey.transmissionPower) },
