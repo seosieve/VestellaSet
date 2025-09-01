@@ -80,10 +80,8 @@ extension BeaconManager: MinewBeaconManagerDelegate {
         guard macAddress != nil else { return }
         
         if let foundBeacon = beacons.first(where: { $0.mac == macAddress }) {
-            print("found")
             onBeaconFound?(foundBeacon)
         } else {
-            print("notfound")
             onBeaconNotFound?()
         }
     }
@@ -113,27 +111,27 @@ extension BeaconManager: MinewBeaconConnectionDelegate {
 extension BeaconManager {
     public func startWritting(target: String, uuid: String, interval: Int, power: Int) {
         guard let setting = currentConnection?.setting else { return }
-
+        
         let target = target.split(separator: " ").compactMap { Int($0) }
         guard target.count == 2 else { return }
-
+        
         (setting.major, setting.minor) = (target[0], target[1])
         (setting.uuid, setting.broadcastInterval, setting.txPower) = (uuid, interval, power)
         
         currentConnection?.writeSetting(Minew.password)
-//        return appendMacAddress(to: item, macAddress: macAddress)
+        //        return appendMacAddress(to: item, macAddress: macAddress)
     }
     
     private func appendMacAddress(to item: String, macAddress: String) -> [String] {
         // 1. 기존 배열 불러오기
-//        var targetList = SettingRepository.shared.targetList
+        //        var targetList = SettingRepository.shared.targetList
         
         // 2. 특정 item과 일치하는 경우만 뒤에 macAddress 추가
-//        if let index = targetList.firstIndex(of: item) {
-//            targetList[index] = "\(targetList[index]) \(macAddress)"
-//        }
-//        
-//        return targetList
+        //        if let index = targetList.firstIndex(of: item) {
+        //            targetList[index] = "\(targetList[index]) \(macAddress)"
+        //        }
+        //
+        //        return targetList
         return []
     }
     

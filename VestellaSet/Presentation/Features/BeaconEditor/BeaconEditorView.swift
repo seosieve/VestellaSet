@@ -14,25 +14,16 @@ internal struct BeaconEditorView: View {
     
     var body: some View {
         ZStack {
-            if store.beacon == nil {
-                RadarAnimationContainer()
-                RadarOverlayContainer(store: store)
-            }
-            
-            Button {
-                store.send(.navigateToDashBoard)
-            } label: {
-                Text("DashBoard")
-            }
+            RadarAnimationContainer(store: store)
+            RadarOverlayContainer(store: store)
             
             VStack {
+                BackButton { store.send(.navigateToDashBoard) }
                 Spacer()
-                if store.beacon != nil {
-                    ActionButton(type: .write) {
-                        store.send(.startConnecting)   
-                    }
-                }
+                ActionButton(type: .write) { store.send(.startConnecting) }
             }
+            .opacity(store.beacon == nil ? 0 : 1)
+            .animation(.easeInOut, value: store.beacon)
         }
         .monoBackground()
         .navigationBarBackButtonHidden()

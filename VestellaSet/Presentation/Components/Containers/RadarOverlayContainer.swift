@@ -25,6 +25,8 @@ struct RadarOverlayContainer: View {
             }
             .position(center)
             .offset(y: -(length / 2) - Spacing.s64)
+            .opacity(store.beacon == nil ? 1 : 0)
+            .animation(.easeInOut, value: store.beacon)
         }
         .ignoresSafeArea()
     }

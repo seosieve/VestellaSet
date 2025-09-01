@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct RadarAnimationContainer: View {
+    let store: StoreOf<BeaconEditorFeature>
+    
     var body: some View {
         GeometryReader { geometry in
             let length = geometry.size.width - Spacing.s44 * 2
@@ -21,6 +24,8 @@ struct RadarAnimationContainer: View {
                 RadarCenterView()
             }
             .environment(\.radarConfig, RadarConfig(length: length, center: center))
+            .opacity(store.beacon == nil ? 1 : 0)
+            .animation(.easeInOut, value: store.beacon)
         }
         .ignoresSafeArea()
     }
