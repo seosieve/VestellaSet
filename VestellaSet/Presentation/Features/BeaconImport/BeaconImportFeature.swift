@@ -68,6 +68,7 @@ struct BeaconImportFeature {
                 )
             case .clickSaveButton:
                 userDefaults.setTargetList(state.targetList)
+                userDefaults.resetCompleteList()
                 return .run { _ in await self.dismiss() }
             }
         }

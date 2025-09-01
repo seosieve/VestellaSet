@@ -18,6 +18,7 @@ struct UserDefaultsClient {
     var setTargetList: ([String]) -> Void
     var completeList: () -> [String: String]
     var appendCompleteList: (String, String) -> Void
+    var resetCompleteList: () -> Void
 }
 
 extension DependencyValues {
@@ -38,6 +39,7 @@ private enum UserDefaultsClientKey: DependencyKey {
         targetList: { UserDefaultsManager.shared.targetList },
         setTargetList: { UserDefaultsManager.shared.targetList = $0 },
         completeList: { UserDefaultsManager.shared.completeList },
-        appendCompleteList: { UserDefaultsManager.shared.completeList[$0] = $1 }
+        appendCompleteList: { UserDefaultsManager.shared.completeList[$0] = $1 },
+        resetCompleteList: { UserDefaultsManager.shared.completeList = [:] },
     )
 }

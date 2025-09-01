@@ -15,10 +15,11 @@ struct BeaconDashBoardFeature {
     struct State {
         var option: DashBoardOptionType = .all
         var targetList: [String] = []
+        var completeList: [String: String] = [:]
     }
     
     enum Action {
-        case getTargetList
+        case refreshData
         case changeOption(DashBoardOptionType)
         case clickImportButton
         case clickSettingButton
@@ -28,8 +29,9 @@ struct BeaconDashBoardFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .getTargetList:
+            case .refreshData:
                 state.targetList = userDefaults.targetList()
+                state.completeList = userDefaults.completeList()
                 return .none
             case .changeOption(let option):
                 state.option = option
@@ -44,4 +46,3 @@ struct BeaconDashBoardFeature {
         }
     }
 }
-

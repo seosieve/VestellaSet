@@ -16,11 +16,19 @@ struct BeaconListView: View {
             LazyVStack(spacing: 0) {
                 ForEach(Array(store.targetList.enumerated()), id: \.element) { index, target in
                     Button(action: { store.send(.clickTargetCell(target)) }) {
-                        HStack {
+                        HStack(spacing: Spacing.s16) {
                             Text(target)
                                 .foregroundStyle(Color.monoWhite)
                                 .font(Manrope.medium(size: 16))
+                            
+                            Text((store.completeList[target] ?? "").uppercased())
+                                .foregroundStyle(Color.monoMedium)
+                                .font(Manrope.medium(size: 16))
+                            
                             Spacer()
+                            
+                            CheckCircleView()
+                                .opacity(store.completeList[target] == nil ? 0 : 1)
                         }
                         .frame(height: 56)
                         .frame(maxWidth: .infinity)
@@ -37,6 +45,6 @@ struct BeaconListView: View {
             .padding(.horizontal, Spacing.s20)
         }
         .padding(.top, Spacing.s8)
-        .onAppear { store.send(.getTargetList) }
+        .task(id: UUID()) { store.send(.refreshData) }
     }
 }
