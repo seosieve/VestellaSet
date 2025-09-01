@@ -11,34 +11,42 @@ import ComposableArchitecture
 struct DashBoardPickerContainer: View {
     let store: StoreOf<BeaconDashBoardFeature>
     
-    @Namespace private var animationNamespace
+    @State private var selectedIndex: Int = 0
+    
+    private let options = DashBoardOptionType.allCases
     
     var body: some View {
-        HStack(spacing: Spacing.s8) {
-            ForEach(DashBoardOptionType.allCases, id: \.self) { option in
-                ZStack {
-                    if store.option == option {
-                        RoundedRectangle(cornerRadius: Radius.s8)
-                            .fill(Color.mintBase)
-                            .matchedGeometryEffect(id: Effect.id, in: animationNamespace)
-                            .shadow(color: .mintBase, radius: Radius.s32, x: 0, y: 0)
+        GeometryReader { geo in
+            ZStack(alignment: .leading) {
+                // 배경 이동
+                RoundedRectangle(cornerRadius: Radius.s8)
+                    .fill(Color.mintBase)
+                    .frame(width: geo.size.width / CGFloat(options.count), height: 32)
+                    .offset(x: CGFloat(selectedIndex) * (geo.size.width / CGFloat(options.count)))
+                    .animation(.spring(response: 0.3, dampingFraction: 0.8), value: selectedIndex)
+                    .shadow(color: .mintBase, radius: Radius.s32, x: 0, y: 0)
+                
+                HStack(spacing: 0) {
+                    ForEach(Array(options.enumerated()), id: \.offset) { index, option in
+                        Text(option.title)
+                            .font(store.option == option ? Manrope.bold(size: 14) : Manrope.regular(size: 14))
+                            .foregroundColor(selectedIndex == index ? .mintShadow : .monoBase)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 32)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                selectedIndex = index
+                                store.send(.changeOption(option))
+                            }
                     }
-                    
-                    Text(option.title)
-                        .font(store.option == option ? Manrope.bold(size: 14) : Manrope.regular(size: 14))
-                        .foregroundColor(store.option == option ? .mintShadow : .monoBase)
                 }
-                .frame(maxWidth: .infinity)
-                .frame(height: 32)
-                .contentShape(RoundedRectangle(cornerRadius: Radius.s8))
-                .onTapGesture { store.send(.changeOption(option)) }
             }
+            .frame(height: geo.size.height)
         }
-        .frame(height: 48)
+        .frame(height: 46)
         .padding(.horizontal, Spacing.s8)
         .glassDashBoardPickerStyle()
         .padding(.horizontal, Spacing.s20)
         .padding(.vertical, Spacing.s12)
-        .animation(.spring(response: 0.3, dampingFraction: 0.8), value: store.option)
     }
 }

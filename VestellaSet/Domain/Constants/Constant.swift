@@ -43,10 +43,6 @@ enum Sheet {
     static let itemHeight: CGFloat = 48
 }
 
-enum Effect {
-    static let id: String = "pickerHighlight"
-}
-
 enum TextMessage {
     static let detectingBeacon: String = "Detecting the Beacon"
     static let detectingMAC: String = "Detecting the MAC address"

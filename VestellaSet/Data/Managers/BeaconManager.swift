@@ -138,7 +138,13 @@ extension BeaconManager {
     }
     
     public func beaconConnection(_ connection: MinewBeaconConnection!, didWriteSetting success: Bool) {
-        onBeaconConnect?(.disconnected)
-//        disconnect()
+        if success {
+            print("Successfully wrote beacon settings")
+            onBeaconConnect?(.disconnected)
+        } else {
+            print("Failed to write beacon settings")
+            onBeaconConnect?(.disconnected)
+            self.currentConnection = nil
+        }
     }
 }
