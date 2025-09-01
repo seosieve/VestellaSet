@@ -16,6 +16,8 @@ struct UserDefaultsClient {
     var setTransmissionPower: (Int) -> Void
     var targetList: () -> [String]
     var setTargetList: ([String]) -> Void
+    var completeList: () -> [String: String]
+    var appendCompleteList: (String, String) -> Void
 }
 
 extension DependencyValues {
@@ -34,6 +36,8 @@ private enum UserDefaultsClientKey: DependencyKey {
         transmissionPower: { UserDefaultsManager.shared.transmissionPower },
         setTransmissionPower: { UserDefaultsManager.shared.transmissionPower = $0 },
         targetList: { UserDefaultsManager.shared.targetList },
-        setTargetList: { UserDefaultsManager.shared.targetList = $0 }
+        setTargetList: { UserDefaultsManager.shared.targetList = $0 },
+        completeList: { UserDefaultsManager.shared.completeList },
+        appendCompleteList: { UserDefaultsManager.shared.completeList[$0] = $1 }
     )
 }

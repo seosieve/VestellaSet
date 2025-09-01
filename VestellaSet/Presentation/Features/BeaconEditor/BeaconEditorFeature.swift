@@ -30,6 +30,7 @@ struct BeaconEditorFeature {
         case increaseTimeoutCounter
         case startConnecting
         case startWritting
+        case appendCompleteList
         case navigateToScanner(String)
         case navigateToDashBoard
     }
@@ -102,6 +103,11 @@ struct BeaconEditorFeature {
                 let power = userDefaults.transmissionPower()
                 
                 state.beaconClient?.startWritting(target, uuid, interval, power)
+                return .run { send in
+                    await send(.appendCompleteList)
+                }
+            case .appendCompleteList:
+                userDefaults.appendCompleteList(state.target, state.macAddress)
                 return .none
             case .navigateToScanner:
                 return .none

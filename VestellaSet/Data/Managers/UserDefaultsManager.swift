@@ -34,4 +34,7 @@ final class UserDefaultsManager {
     
     @UserDefault(key: UserDefaultsKey.targetList, defaultValue: [])
     var targetList: [String]
+    
+    @UserDefault(key: UserDefaultsKey.completeList, defaultValue: [:])
+    var completeList: [String: String]
 }

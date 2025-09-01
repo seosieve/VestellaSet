@@ -13,6 +13,7 @@ enum UserDefaultsKey {
     static let broadcastInterval = "\(prefix)_broadcastInterval"
     static let transmissionPower = "\(prefix)_transmissionPower"
     static let targetList = "\(prefix)_targetList"
+    static let completeList = "\(prefix)_completeList"
 }
 
 enum Vestella {
