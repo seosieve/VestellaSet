@@ -8,18 +8,18 @@
 import ComposableArchitecture
 
 struct UserDefaultsClient {
-    var getUUID: () -> String
-    var setUUID: (String) -> Void
-    var getBroadcastInterval: () -> Int
+    var uuid: () -> String
+    var setUuid: (String) -> Void
+    var broadcastInterval: () -> Int
     var setBroadcastInterval: (Int) -> Void
-    var getTransmissionPower: () -> Int
+    var transmissionPower: () -> Int
     var setTransmissionPower: (Int) -> Void
-    var getTargetList: () -> [String]
+    var targetList: () -> [String]
     var setTargetList: ([String]) -> Void
 }
 
 extension DependencyValues {
-    var userDefaultsClient: UserDefaultsClient {
+    var userDefaults: UserDefaultsClient {
         get { self[UserDefaultsClientKey.self] }
         set { self[UserDefaultsClientKey.self] = newValue }
     }
@@ -27,13 +27,13 @@ extension DependencyValues {
 
 private enum UserDefaultsClientKey: DependencyKey {
     static let liveValue: UserDefaultsClient = UserDefaultsClient(
-        getUUID: { UserDefaults.standard.string(forKey: UserDefaultsKey.uuid) ?? Vestella.uuid },
-        setUUID: { UserDefaults.standard.set($0, forKey: UserDefaultsKey.uuid) },
-        getBroadcastInterval: { UserDefaults.standard.integer(forKey: UserDefaultsKey.broadcastInterval) },
-        setBroadcastInterval: { UserDefaults.standard.set($0, forKey: UserDefaultsKey.broadcastInterval) },
-        getTransmissionPower: { UserDefaults.standard.integer(forKey: UserDefaultsKey.transmissionPower) },
-        setTransmissionPower: { UserDefaults.standard.set($0, forKey: UserDefaultsKey.transmissionPower) },
-        getTargetList: { UserDefaults.standard.stringArray(forKey: UserDefaultsKey.targetList) ?? [] },
-        setTargetList: { UserDefaults.standard.set($0, forKey: UserDefaultsKey.targetList) }
+        uuid: { UserDefaultsManager.shared.uuid },
+        setUuid: { UserDefaultsManager.shared.uuid = $0 },
+        broadcastInterval: { UserDefaultsManager.shared.broadcastInterval },
+        setBroadcastInterval: { UserDefaultsManager.shared.broadcastInterval = $0 },
+        transmissionPower: { UserDefaultsManager.shared.transmissionPower },
+        setTransmissionPower: { UserDefaultsManager.shared.transmissionPower = $0 },
+        targetList: { UserDefaultsManager.shared.targetList },
+        setTargetList: { UserDefaultsManager.shared.targetList = $0 }
     )
 }

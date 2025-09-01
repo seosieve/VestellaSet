@@ -9,7 +9,7 @@ import ComposableArchitecture
 
 @Reducer
 struct BeaconEditorFeature {
-    @Dependency(\.userDefaultsClient) var userDefaults
+    @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
@@ -97,9 +97,9 @@ struct BeaconEditorFeature {
                 return .none
             case .startWritting:
                 let target = state.target
-                let uuid = userDefaults.getUUID()
-                let interval = userDefaults.getBroadcastInterval()
-                let power = userDefaults.getTransmissionPower()
+                let uuid = userDefaults.uuid()
+                let interval = userDefaults.broadcastInterval()
+                let power = userDefaults.transmissionPower()
                 
                 state.beaconClient?.startWritting(target, uuid, interval, power)
                 return .none

@@ -29,5 +29,6 @@ struct BeaconSettingView: View {
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
+        .onAppear { store.send(.onAppear) }
     }
 }

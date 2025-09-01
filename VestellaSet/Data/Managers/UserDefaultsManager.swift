@@ -8,23 +8,30 @@
 import Foundation
 
 @propertyWrapper
-struct UserDefault {
+struct UserDefault<T> {
     let key: String
-    let defaultValue: Int
+    let defaultValue: T
     
-    var wrappedValue: Int {
-        get { UserDefaults.standard.object(forKey: key).map { _ in UserDefaults.standard.integer(forKey: key) } ?? defaultValue }
+    var wrappedValue: T {
+        get { UserDefaults.standard.object(forKey: key) as? T ?? defaultValue }
+        set { UserDefaults.standard.set(newValue, forKey: key) }
     }
 }
 
-struct UserDefaultsManager {
+final class UserDefaultsManager {
     static let shared = UserDefaultsManager()
     
     private init() { }
+    
+    @UserDefault(key: UserDefaultsKey.uuid, defaultValue: Vestella.uuid)
+    var uuid: String
     
     @UserDefault(key: UserDefaultsKey.broadcastInterval, defaultValue: 1)
     var broadcastInterval: Int
     
     @UserDefault(key: UserDefaultsKey.transmissionPower, defaultValue: 1)
     var transmissionPower: Int
+    
+    @UserDefault(key: UserDefaultsKey.targetList, defaultValue: [])
+    var targetList: [String]
 }

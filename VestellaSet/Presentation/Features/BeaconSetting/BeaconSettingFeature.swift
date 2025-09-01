@@ -9,18 +9,19 @@ import ComposableArchitecture
 
 @Reducer
 struct BeaconSettingFeature {
-    @Dependency(\.userDefaultsClient) var userDefaults
+    @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
     struct State {
         var isSheetPresented: Bool = false
         var sheetType: SettingSheetType = .interval
-        var interval: Int = UserDefaultsManager.shared.broadcastInterval
-        var power: Int = UserDefaultsManager.shared.transmissionPower
+        var interval: Int = 1
+        var power: Int = 1
     }
     
     enum Action {
+        case onAppear
         case showSheet(SettingSheetType)
         case hideSheet
         case selectSheetItem(Int)
@@ -31,6 +32,10 @@ struct BeaconSettingFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.interval = userDefaults.broadcastInterval()
+                state.power = userDefaults.transmissionPower()
+                return .none
             case .showSheet(let type):
                 state.sheetType = type
                 state.isSheetPresented = true

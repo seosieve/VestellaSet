@@ -11,7 +11,7 @@ import ComposableArchitecture
 struct BeaconImportFeature {
     private enum CancelID { case scannerAnimation }
     
-    @Dependency(\.userDefaultsClient) var userDefaults
+    @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
