@@ -18,6 +18,7 @@ struct ListItemButton: View {
                 Text(target)
                     .foregroundStyle(Color.monoWhite)
                     .font(Manrope.medium(size: 16))
+                    .frame(width: 76, alignment: .leading)
                 
                 Text((store.completeList[target] ?? "").uppercased())
                     .foregroundStyle(Color.monoMedium)

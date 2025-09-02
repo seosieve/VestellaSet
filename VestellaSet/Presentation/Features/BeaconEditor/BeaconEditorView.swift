@@ -19,6 +19,8 @@ internal struct BeaconEditorView: View {
             
             VStack {
                 BackButton { store.send(.navigateToDashBoard) }
+                    .opacity(store.isProcessing ? 0 : 1)
+                    .animation(.easeInOut, value: store.isProcessing)
                 Spacer()
                 ActionButton(type: .write) { store.send(.startConnecting) }
             }

@@ -21,6 +21,7 @@ struct BeaconEditorFeature {
         var beacon: MinewBeacon? = nil
         var timeoutCounter: Int = 0
         var connectionState: ConnectionState = .disconnected
+        var isProcessing: Bool = false
     }
     
     enum Action {
@@ -95,6 +96,7 @@ struct BeaconEditorFeature {
                 
             case .startConnecting:
                 state.beaconClient?.startConnecting(state.beacon)
+                state.isProcessing = true
                 return .none
             case .startWritting:
                 let target = state.target
