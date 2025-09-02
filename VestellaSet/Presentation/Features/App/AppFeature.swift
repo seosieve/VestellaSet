@@ -52,7 +52,8 @@ struct AppFeature {
                 return .none
             case .navigationPath(.element(id: _, action: .beaconEditor(.navigateToDashBoard))):
                 state.navigationPath.removeLast(2)
-                return .none
+                guard let id = state.navigationPath.ids.last else { return .none }
+                return .send(.navigationPath(.element(id: id, action: .beaconDashBoard(.refreshData))))
             default:
                 return .none
             }

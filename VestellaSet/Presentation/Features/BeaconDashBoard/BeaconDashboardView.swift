@@ -17,13 +17,12 @@ struct BeaconDashboardView: View {
             DashBoardTextFieldView(store: store)
             DashBoardPickerContainer(store: store)
             DashBoardSortButton()
-            BeaconListView(store: store)
+            BeaconListContainer(store: store)
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
-        .onAppear {
-            printMyAppUserDefaults()
-        }
+        .onAppear { store.send(.refreshData) }
+        .task { printMyAppUserDefaults() }
     }
 }
 
