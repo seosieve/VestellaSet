@@ -24,10 +24,7 @@ struct DashBoardProgressContainer: View {
                 .foregroundStyle(Color.monoMedium)
                 .font(Manrope.medium(size: 12))
             
-            Capsule()
-                .fill(Color.monoDark)
-                .frame(width: 1)
-                .frame(height: 8)
+            DividerView(length: 8)
             
             Text("\(store.targetList.count)")
                 .foregroundStyle(Color.monoMedium)

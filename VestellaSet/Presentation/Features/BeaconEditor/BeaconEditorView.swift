@@ -16,6 +16,8 @@ internal struct BeaconEditorView: View {
         ZStack {
             RadarAnimationContainer(store: store)
             RadarOverlayContainer(store: store)
+            CurrentBeaconContainer(store: store)
+//            TargetBeaconContainer()
             
             VStack {
                 BackButton { store.send(.navigateToDashBoard) }
