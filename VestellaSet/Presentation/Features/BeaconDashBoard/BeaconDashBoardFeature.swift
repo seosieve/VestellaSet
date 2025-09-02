@@ -16,6 +16,7 @@ struct BeaconDashBoardFeature {
         var option: DashBoardOptionType = .all
         var targetList: [String] = []
         var completeList: [String: String] = [:]
+        var percentage: Int { targetList.isEmpty ? 0 : completeList.count * 100 / targetList.count }
     }
     
     enum Action {
