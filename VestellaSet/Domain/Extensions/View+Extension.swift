@@ -27,4 +27,8 @@ extension View {
     func glassSettingSheetStyle() -> some View {
         self.modifier(GlassSettingSheetModifier())
     }
+    
+    func glassBeaconInfoStyle() -> some View {
+        self.modifier(GlassBeaconInfoModifier())
+    }
 }
