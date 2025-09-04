@@ -15,17 +15,23 @@ struct TargetBeaconContainer: View {
         GeometryReader { geometry in
             let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
             
-            HStack {
-                BeaconInfoView(type: .major(store.beacon))
-                DividerView(length: 32)
-                BeaconInfoView(type: .minor(store.beacon))
+            VStack(spacing: Spacing.s12) {
+                HStack {
+                    BeaconInfoView(type: .targetMajor(store.target))
+                    DividerView(length: 32)
+                    BeaconInfoView(type: .targetMinor(store.target))
+                }
+                .frame(height: 100)
+                .frame(maxWidth: .infinity)
+                .glassBeaconInfoStyle()
+                
+                BeaconTypeLabel(title: "Target Beacon Info")
             }
-            .frame(height: 100)
-            .frame(maxWidth: .infinity)
-            .glassBeaconInfoStyle()
             .padding(.horizontal, Spacing.s20)
             .position(center)
-            .offset(y: 100)
+            .offset(y: 88)
+            .opacity(store.beacon == nil ? 0 : 1)
+            .animation(.bouncy.delay(1.0), value: store.beacon)
         }
         .ignoresSafeArea()
     }

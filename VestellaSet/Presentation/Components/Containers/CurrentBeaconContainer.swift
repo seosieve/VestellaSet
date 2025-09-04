@@ -16,22 +16,22 @@ struct CurrentBeaconContainer: View {
             let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
             
             VStack(spacing: Spacing.s12) {
-                Text("Current Beacon")
-                    .font(Manrope.regular(size: 20))
-                    .foregroundStyle(Color.monoDark)
+                BeaconTypeLabel(title: "Current Beacon Info")
                 
                 HStack {
-                    BeaconInfoView(type: .major(store.beacon))
+                    BeaconInfoView(type: .currentMajor(store.beacon))
                     DividerView(length: 32)
-                    BeaconInfoView(type: .minor(store.beacon))
+                    BeaconInfoView(type: .currentMinor(store.beacon))
                 }
                 .frame(height: 100)
                 .frame(maxWidth: .infinity)
-                .background(Color.monoShadow.cornerRadius(Radius.s8))
-                .padding(.horizontal, Spacing.s20)
+                .glassBeaconInfoStyle()
             }
+            .padding(.horizontal, Spacing.s20)
             .position(center)
-            .offset(y: -100)
+            .offset(y: -88)
+            .opacity(store.beacon == nil ? 0 : 1)
+            .animation(.bouncy.delay(0.5), value: store.beacon)
         }
         .ignoresSafeArea()
     }

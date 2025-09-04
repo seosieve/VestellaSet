@@ -20,7 +20,7 @@ struct GlassBeaconInfoModifier: ViewModifier {
     
     private func glassBackground() -> LinearGradient {
         LinearGradient(
-            gradient: Gradient(colors: [.monoShadow, .monoBlack.opacity(0.6)]),
+            gradient: Gradient(colors: [.monoShadow.opacity(0.9), .monoBlack.opacity(0.6)]),
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
