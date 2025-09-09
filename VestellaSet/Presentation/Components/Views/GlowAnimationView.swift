@@ -30,7 +30,7 @@ struct GlowAnimationView: View {
                 .frame(width: 220, height: 220)
                 .scaleEffect(glow ? 2.0 : 0.3)
                 .opacity(glow ? 0.6 : 0.9)
-                .blur(radius:  Radius.s32)
+                .blur(radius: Radius.s32)
                 .animation(.easeInOut(duration: 2.5).repeatForever(autoreverses: true), value: glow)
             
             Circle()
