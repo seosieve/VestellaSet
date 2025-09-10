@@ -19,4 +19,12 @@ enum DashBoardOptionType: CaseIterable {
         case .incomplete: return "Incomplete"
         }
     }
+    
+    var index: Int {
+        switch self {
+        case .all: return 0
+        case .completed: return 1
+        case .incomplete: return 2
+        }
+    }
 }

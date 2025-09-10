@@ -36,6 +36,7 @@ struct BeaconDashBoardFeature {
                 return .none
             case .changeOption(let option):
                 state.option = option
+                print(state.option)
                 return .none
             case .clickImportButton:
                 return .none
