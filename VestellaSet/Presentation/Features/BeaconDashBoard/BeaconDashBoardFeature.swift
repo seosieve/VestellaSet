@@ -16,12 +16,14 @@ struct BeaconDashBoardFeature {
         var option: DashBoardOptionType = .all
         var targetList: [String] = []
         var completeList: [String: String] = [:]
+        var filteredList: [String] = []
         var percentage: Int { targetList.isEmpty ? 0 : completeList.count * 100 / targetList.count }
     }
     
     enum Action {
         case refreshData
         case changeOption(DashBoardOptionType)
+        case changeFilteredList(DashBoardOptionType)
         case clickImportButton
         case clickSettingButton
         case clickTargetCell(String)
@@ -31,12 +33,26 @@ struct BeaconDashBoardFeature {
         Reduce { state, action in
             switch action {
             case .refreshData:
+                let option = state.option
                 state.targetList = userDefaults.targetList()
                 state.completeList = userDefaults.completeList()
-                return .none
+                return .run { send in
+                    await send(.changeFilteredList(option))
+                }
             case .changeOption(let option):
                 state.option = option
-                print(state.option)
+                return .run { send in
+                    await send(.changeFilteredList(option))
+                }
+            case .changeFilteredList(let option):
+                switch option {
+                case .all:
+                    state.filteredList = state.targetList
+                case .completed:
+                    state.filteredList = state.targetList.filter { state.completeList[$0] != nil }
+                case .incomplete:
+                    state.filteredList = state.targetList.filter { state.completeList[$0] == nil }
+                }
                 return .none
             case .clickImportButton:
                 return .none

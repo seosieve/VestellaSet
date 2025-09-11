@@ -12,25 +12,14 @@ struct BeaconListContainer: View {
     let store: StoreOf<BeaconDashBoardFeature>
     
     var body: some View {
-        let filteredTargets: [String] = {
-              switch store.option {
-              case .all:
-                  return store.targetList
-              case .completed:
-                  return store.targetList.filter { store.completeList[$0] != nil }
-              case .incomplete:
-                  return store.targetList.filter { store.completeList[$0] == nil }
-              }
-          }()
-        
         ScrollView {
-            LazyVStack(spacing: Spacing.zero) {
-                ForEach(filteredTargets, id: \.self) { target in
+            VStack(spacing: Spacing.zero) {
+                ForEach(store.filteredList, id: \.self) { target in
                     ListItemButton(store: store, target: target)
-                    ListDividerView(list: filteredTargets, index: filteredTargets.firstIndex(of: target) ?? 0)
+                    ListDividerView(count: store.filteredList.count, index: store.filteredList.firstIndex(of: target) ?? 0)
                 }
             }
-            .animation(.spring(response: 0.4, dampingFraction: 1.0), value: store.option)
+            .animation(.spring(response: 0.3, dampingFraction: 1.0), value: store.filteredList)
             .cornerRadius(Radius.s8)
             .padding(.horizontal, Spacing.s20)
         }

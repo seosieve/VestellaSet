@@ -9,11 +9,11 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ListDividerView: View {
-    let list: [String]
+    let count: Int
     let index: Int
     
     var body: some View {
         Rectangle().fill(Color.monoBlack).frame(height: 1)
-            .opacity(index == list.count - 1 ? 0 : 1)
+            .opacity(index == count - 1 ? 0 : 1)
     }
 }
