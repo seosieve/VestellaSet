@@ -33,6 +33,11 @@ struct ListItemButton: View {
             .frame(maxWidth: .infinity)
             .padding(.horizontal, Spacing.s16)
             .background(Color.monoShadow)
+            .simultaneousGesture(LongPressGesture(minimumDuration: 0.5)
+                .onEnded { _ in
+                    Haptic.softImpact()
+                }
+            )
         }
     }
 }
