@@ -20,5 +20,11 @@
 
 ## Credits
 
-[Minew Group](https://www.minew.com/product-category/bluetooth-beacon/)  
-[Minew Beacon Admin SDK](https://github.com/minewdevelop/iOS_Pods_Minew_BeaconAdminSDK)
+© Minew Technology Co., Ltd. See [MinewSDK](https://github.com/minewdevelop/iOS_Pods_Minew_BeaconAdminSDK) for details.
+
+<a title="Minew" href="https://www.minew.com/product-category/bluetooth-beacon">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/d4a49133-b251-4a44-ba6b-597b15878445">
+    <img alt="Minew" src="https://github.com/user-attachments/assets/d4a49133-b251-4a44-ba6b-597b15878445" width="200">
+  </picture>
+</a>
