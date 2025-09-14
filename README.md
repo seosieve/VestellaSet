@@ -24,7 +24,18 @@
 
 <a title="Minew" href="https://www.minew.com/product-category/bluetooth-beacon">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/d4a49133-b251-4a44-ba6b-597b15878445">
-    <img alt="Minew" src="https://github.com/user-attachments/assets/d4a49133-b251-4a44-ba6b-597b15878445" width="200">
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/cc26a7f1-d30c-47f5-832a-329768f8180c">
+    <img alt="Minew" src="https://github.com/user-attachments/assets/cc26a7f1-d30c-47f5-832a-329768f8180c" width="160">
+  </picture>
+</a>
+
+## License
+
+Apache 2.0 © VestellaLab, Inc. See [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt) for details.
+
+<a title="VestellaLab" href="https://vestellalab.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/bb4d39e4-01d1-4073-927b-b55fe28be1dd">
+    <img alt="VestellaLab" src="https://github.com/user-attachments/assets/bb4d39e4-01d1-4073-927b-b55fe28be1dd" width="320">
   </picture>
 </a>
