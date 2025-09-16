@@ -21,5 +21,6 @@ enum Vestella {
 }
 
 enum Minew {
+    static let mini = "MiniBeacon_"
     static let password = "minew123"
 }

@@ -16,7 +16,7 @@ struct BeaconEditorFeature {
     struct State {
         var beaconClient: BeaconClient?
         var target: String
-        var macAddress: String
+        var identifier: String
         var textMessage: String = TextMessage.detectingBeacon
         var beacon: MinewBeacon? = nil
         var timeoutCounter: Int = 0
@@ -41,7 +41,7 @@ struct BeaconEditorFeature {
             switch action {
             case .configureBeaconClient:
                 let client = BeaconClient()
-                client.setMacAddress(state.macAddress)
+                client.setIdentifier(state.identifier)
                 state.beaconClient = client
                 return .run { send in
                     async let notFoundTask: Void = {
@@ -109,7 +109,7 @@ struct BeaconEditorFeature {
                     await send(.appendCompleteList)
                 }
             case .appendCompleteList:
-                userDefaults.appendCompleteList(state.target, state.macAddress)
+                userDefaults.appendCompleteList(state.target, state.identifier)
                 return .none
             case .navigateToScanner:
                 return .none

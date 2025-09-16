@@ -15,7 +15,7 @@ internal struct BeaconEditorView: View {
         ZStack {
             RadarAnimationContainer(store: store)
             RadarProcessingLabel(store: store)
-            MacAddressLabel(store: store)
+            IdentifierLabel(store: store)
             GlowAnimationView(store: store)
             CurrentBeaconContainer(store: store)
             TargetBeaconContainer(store: store)

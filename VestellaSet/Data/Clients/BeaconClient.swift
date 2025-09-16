@@ -9,7 +9,7 @@ import ComposableArchitecture
 
 struct BeaconClient {
     private var manager: BeaconManager
-    var setMacAddress: (String) -> Void
+    var setIdentifier: (String) -> Void
     var startScanning: () -> Void
     var startConnecting: (MinewBeacon?) -> Void
     var startWritting: (String, String, Int, Int) -> Void
@@ -20,8 +20,8 @@ struct BeaconClient {
     init() {
         let manager = BeaconManager()
         self.manager = manager
-        self.setMacAddress = { mac in
-            manager.macAddress = mac
+        self.setIdentifier = { identifier in
+            manager.identifier = identifier
         }
         self.startScanning = {
             manager.startScanning()

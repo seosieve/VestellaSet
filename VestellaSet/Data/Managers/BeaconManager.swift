@@ -14,7 +14,7 @@ final public class BeaconManager: NSObject, ObservableObject {
     private var minewBeaconManager: MinewBeaconManager? // MinewBeacon Manager
     private var currentConnection: MinewBeaconConnection? // Connection의 실제 객체
     
-    var macAddress: String?
+    var identifier: String?
     var onBeaconNotFound: (() -> Void)?
     var onBeaconFound: ((MinewBeacon) -> Void)?
     var onBeaconConnect: ((ConnectionState) -> Void)?
@@ -72,18 +72,13 @@ extension BeaconManager {
 
 // MARK: - Beacon Combining
 extension BeaconManager: MinewBeaconManagerDelegate {
-    func setMacAddress(_ macAddress: String) {
-        self.macAddress = macAddress
-    }
-    
     public func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
-        guard macAddress != nil else { return }
+        guard let identifier else { return }
         
-        if let foundBeacon = beacons.first(where: { $0.mac == macAddress }) {
-            onBeaconFound?(foundBeacon)
-        } else {
-            onBeaconNotFound?()
-        }
+        // MBeacon, MiniBeacon 분기 처리
+        let isMini = identifier.contains(Minew.mini)
+        let foundBeacon = beacons.first { isMini ? $0.name == identifier : $0.mac == identifier.lowercased() }
+        foundBeacon.map { onBeaconFound?($0) } ?? onBeaconNotFound?()
     }
 }
 

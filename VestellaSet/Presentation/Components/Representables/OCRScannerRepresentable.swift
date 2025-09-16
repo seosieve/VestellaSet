@@ -110,16 +110,16 @@ extension OCRScannerRepresentable {
             guard parts.first(where: { $0.localizedCaseInsensitiveContains("Major") }) != nil else { return }
             guard parts.first(where: { $0.localizedCaseInsensitiveContains("Minor") }) != nil else { return }
             
-            // 3. 12글자 MAC 주소 (공백 없이 대문자/숫자)
-            let macPattern = "^[A-Z0-9]{12}$"
-            let predicate = NSPredicate(format: "SELF MATCHES %@", macPattern)
-            guard let macAddress = parts.first(where: { predicate.evaluate(with: $0) })?.lowercased() else { return }
+            // 3. MBeacon, MiniBeacon 통합 감지 로직
+            let pattern = "^(\(Minew.mini)\\d{5}|[A-Z0-9]{12})$"
+            let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+            guard let identifier = parts.first(where: { predicate.evaluate(with: $0) }) else { return }
             
             sendFlag = true
             
             DispatchQueue.main.async { [weak self] in
                 self?.parent.store.send(.stopScanning)
-                self?.parent.store.send(.setMacAddress(macAddress))
+                self?.parent.store.send(.setIdentifier(identifier))
             }
             
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in

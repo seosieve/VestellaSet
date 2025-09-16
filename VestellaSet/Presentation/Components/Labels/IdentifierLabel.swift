@@ -1,5 +1,5 @@
 //
-//  MacAddressLabel.swift
+//  IdentifierLabel.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 9/4/25.
@@ -8,7 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct MacAddressLabel: View {
+struct IdentifierLabel: View {
     let store: StoreOf<BeaconEditorFeature>
     
     var body: some View {
@@ -16,7 +16,7 @@ struct MacAddressLabel: View {
             let length = geometry.size.width - Spacing.s44 * 2
             let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
             
-            Text(store.macAddress.uppercased())
+            Text(store.identifier.uppercased())
                 .foregroundStyle(Color.monoWhite)
                 .font(Manrope.extraBold(size: 24))
                 .position(center)
