@@ -5,7 +5,7 @@
 
 <div align="center">
   <a href="https://apps.apple.com/kr/app/boarding/id6473780848">
-    <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-US" alt="Download on the App Store" style="width: 250px">
+    <img src="https://github.com/user-attachments/assets/d0bba3c3-62ff-4a7c-b859-9854f5e0702b" alt="Download on the App Store" style="width: 320px">
   </a>
   <br>
   <br>
