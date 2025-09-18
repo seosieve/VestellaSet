@@ -9,21 +9,21 @@ import SwiftUI
 
 struct GlassInputButton: View {
     let type: SettingInfoType
-    var action: () -> Void
+    
+    @State var uuid: String = ""
     
     var body: some View {
-        Button(action: action) {
+        Button(action: { }) {
             HStack {
                 Text(type.title)
                     .foregroundStyle(Color.monoBase)
                     .font(Manrope.regular(size: 15))
                 Spacer()
-                Text(type.value.uppercased())
+                TextField("", text: $uuid)
                     .font(Manrope.bold(size: 16))
-                    .frame(width: 100, alignment: .trailing)
+                    .frame(alignment: .trailing)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                    
             }
             .padding(.horizontal, 16)
             .frame(maxWidth: .infinity, maxHeight: 52)
@@ -31,5 +31,8 @@ struct GlassInputButton: View {
             .padding(.horizontal, Spacing.s20)
         }
         .buttonStyle(BouncyButtonStyle(scalePercent: 101))
+        .onAppear {
+            uuid = type.value
+        }
     }
 }

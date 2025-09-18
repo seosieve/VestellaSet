@@ -16,7 +16,7 @@ struct BeaconSettingView: View {
             VStack(spacing: Spacing.s12) {
                 BackButton { store.send(.clickBackButton) }
                 SettingTitleLabel()
-                GlassInputButton(type: .uuid(Vestella.uuid), action: {})
+                GlassInputButton(type: .uuid(Vestella.uuid))
                 GlassSelectionButton(type: .interval(store.interval), action: { store.send(.showSheet(.interval)) })
                 GlassSelectionButton(type: .power(store.power), action: { store.send(.showSheet(.power)) })
                 ActionButton(type: .save) { store.send(.clickSaveButton) }
