@@ -19,7 +19,7 @@ struct GlassSelectionButton: View {
                     .font(Manrope.regular(size: 15))
                 Spacer()
                 Text(type.value)
-                    .font(Manrope.bold(size: 17))
+                    .font(Manrope.bold(size: 16))
                 Image.chevronDownIcon
                     .resizable()
                     .frame(width: 16, height: 16)

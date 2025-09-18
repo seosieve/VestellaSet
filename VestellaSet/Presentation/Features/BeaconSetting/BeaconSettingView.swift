@@ -22,7 +22,7 @@ struct BeaconSettingView: View {
                 ActionButton(type: .save) { store.send(.clickSaveButton) }
                 Spacer()
             }
-            .blur(radius: store.isSheetPresented ? Radius.s8 : 0)
+            .blur(radius: store.isSheetPresented ? Radius.s8 : Radius.zero)
             .animation(.easeOut, value: store.isSheetPresented)
             
             SettingSheetContainer(store: store)

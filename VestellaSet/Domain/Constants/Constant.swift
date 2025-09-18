@@ -26,6 +26,7 @@ enum Spacing {
 }
 
 enum Radius {
+    static let zero: CGFloat = 0
     static let s4: CGFloat = 4
     static let s8: CGFloat = 8
     static let s12: CGFloat = 12

@@ -19,7 +19,7 @@ struct GlassInputButton: View {
                     .font(Manrope.regular(size: 15))
                 Spacer()
                 Text(type.value.uppercased())
-                    .font(Manrope.bold(size: 17))
+                    .font(Manrope.bold(size: 16))
                     .frame(width: 100, alignment: .trailing)
                     .lineLimit(1)
                     .truncationMode(.tail)
