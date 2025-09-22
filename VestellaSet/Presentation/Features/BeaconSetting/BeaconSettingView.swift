@@ -11,24 +11,27 @@ import ComposableArchitecture
 struct BeaconSettingView: View {
     let store: StoreOf<BeaconSettingFeature>
     
+    @FocusState private var isFocused: Bool
+    
     var body: some View {
         ZStack {
             VStack(spacing: Spacing.s12) {
                 BackButton { store.send(.clickBackButton) }
                 SettingTitleLabel()
-                GlassTextField(type: .uuid(Vestella.uuid))
-                GlassSelectionButton(type: .interval(store.interval), action: { store.send(.showSheet(.interval)) })
-                GlassSelectionButton(type: .power(store.power), action: { store.send(.showSheet(.power)) })
+                GlassTextField(type: .uuid(Vestella.uuid), isFocused: $isFocused)
+                GlassSelectionButton(type: .interval(store.interval)) { isFocused = false; store.send(.showSheet(.interval))}
+                GlassSelectionButton(type: .power(store.power)) { isFocused = false; store.send(.showSheet(.power))}
                 ActionButton(type: .save) { store.send(.clickSaveButton) }
                 Spacer()
             }
             .blur(radius: store.isSheetPresented ? Radius.s8 : Radius.zero)
             .animation(.easeOut, value: store.isSheetPresented)
-            
             SettingSheetContainer(store: store)
         }
         .monoBackground()
+        .ignoresSafeArea(.keyboard)
         .navigationBarBackButtonHidden()
         .onAppear { store.send(.onAppear) }
+        .onTapGesture { isFocused = false }
     }
 }

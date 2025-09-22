@@ -11,6 +11,7 @@ struct GlassTextField: View {
     let type: SettingInfoType
     
     @State var uuid: String = ""
+    @FocusState.Binding var isFocused: Bool
     
     var body: some View {
         HStack {
@@ -23,6 +24,7 @@ struct GlassTextField: View {
                 .frame(alignment: .trailing)
                 .lineLimit(1)
                 .truncationMode(.tail)
+                .focused($isFocused)
         }
         .padding(.horizontal, 16)
         .frame(maxWidth: .infinity, maxHeight: 52)
