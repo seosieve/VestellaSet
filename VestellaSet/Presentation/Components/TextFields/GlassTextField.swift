@@ -19,7 +19,7 @@ struct GlassTextField: View {
             Text("UUID")
                 .foregroundStyle(Color.monoBase)
                 .font(Manrope.regular(size: 15))
-            TextField("", text: $uuid)
+            TextField("", text: $uuid, prompt: Text.uuidPlaceholder)
                 .tint(.mintBase)
                 .font(Manrope.bold(size: 16))
                 .multilineTextAlignment(.trailing)
