@@ -15,8 +15,8 @@ struct BackButton: View {
             GlassIconButton(image: .xmarkIcon) { action() }
             Spacer()
         }
-        .padding(.top, 12)
-        .padding(.leading, 20)
+        .padding(.top, Spacing.s12)
+        .padding(.leading, Spacing.s20)
     }
 }
 
