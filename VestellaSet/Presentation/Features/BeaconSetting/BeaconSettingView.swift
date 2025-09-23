@@ -18,7 +18,7 @@ struct BeaconSettingView: View {
             VStack(spacing: Spacing.s12) {
                 BackButton { store.send(.clickBackButton) }
                 SettingTitleLabel()
-                GlassTextField(type: .uuid(Vestella.uuid), isFocused: $isFocused)
+                GlassTextField(store: store, isFocused: $isFocused)
                 GlassSelectionButton(type: .interval(store.interval)) { isFocused = false; store.send(.showSheet(.interval))}
                 GlassSelectionButton(type: .power(store.power)) { isFocused = false; store.send(.showSheet(.power))}
                 ActionButton(type: .save) { store.send(.clickSaveButton) }
