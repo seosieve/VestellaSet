@@ -9,17 +9,15 @@ import SwiftUI
 import ComposableArchitecture
 
 struct GlassTextField: View {
-    let store: StoreOf<BeaconSettingFeature>
-    
-    @State var uuid: String = ""
+    @Bindable var store: StoreOf<BeaconSettingFeature>
     @FocusState.Binding var isFocused: Bool
     
     var body: some View {
         HStack(spacing: Spacing.s24) {
-            Text("UUID")
+            Text(SettingInfoType.uuid.title)
                 .foregroundStyle(Color.monoBase)
                 .font(Manrope.regular(size: 15))
-            TextField("", text: $uuid, prompt: Text.uuidPlaceholder)
+            TextField("", text: $store.uuid, prompt: Text.uuidPlaceholder)
                 .tint(.mintBase)
                 .font(Manrope.bold(size: 16))
                 .multilineTextAlignment(.trailing)

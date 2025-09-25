@@ -16,11 +16,13 @@ struct BeaconSettingFeature {
     struct State {
         var isSheetPresented: Bool = false
         var sheetType: SettingSheetType = .interval
+        var uuid: String = ""
         var interval: Int = 1
         var power: Int = 1
     }
     
-    enum Action {
+    enum Action: BindableAction {
+        case binding(BindingAction<State>)
         case onAppear
         case showSheet(SettingSheetType)
         case hideSheet
@@ -30,8 +32,11 @@ struct BeaconSettingFeature {
     }
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
+            case .binding:
+                return .none
             case .onAppear:
                 state.interval = userDefaults.broadcastInterval()
                 state.power = userDefaults.transmissionPower()

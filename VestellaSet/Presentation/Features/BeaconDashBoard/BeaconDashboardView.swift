@@ -34,7 +34,7 @@ extension BeaconDashboardView {
         let dictionary = defaults.dictionaryRepresentation()
         
         for (key, value) in dictionary where key.hasPrefix(prefix) {
-            if key != UserDefaultsKey.targetList {
+            if key == UserDefaultsKey.uuid || key == UserDefaultsKey.transmissionPower || key == UserDefaultsKey.broadcastInterval {
                 print("🕹️ \(key) : \(value)")
             }
         }
