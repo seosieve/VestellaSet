@@ -23,7 +23,7 @@ final class UserDefaultsManager {
     
     private init() { }
     
-    @UserDefault(key: UserDefaultsKey.uuid, defaultValue: Vestella.uuid)
+    @UserDefault(key: UserDefaultsKey.uuid, defaultValue: Vestella.generalUUID)
     var uuid: String
     
     @UserDefault(key: UserDefaultsKey.broadcastInterval, defaultValue: 1)
