@@ -100,7 +100,7 @@ struct BeaconEditorFeature {
                 return .none
             case .startWritting:
                 let target = state.target
-                let uuid = userDefaults.uuid()
+                let uuid = Vestella.internalUUID
                 let interval = userDefaults.broadcastInterval()
                 let power = userDefaults.transmissionPower()
                 

@@ -16,7 +16,7 @@ struct BeaconSettingFeature {
     struct State {
         var isSheetPresented: Bool = false
         var sheetType: SettingSheetType = .interval
-        var uuid: String = ""
+        var uuid: String = Vestella.internalUUID
         var interval: Int = 1
         var power: Int = 1
     }
