@@ -20,6 +20,7 @@ struct GlassTextField: View {
             TextField("", text: $store.uuid, prompt: Text.uuidPlaceholder)
                 .tint(.mintBase)
                 .font(Manrope.bold(size: 16))
+                .autocorrectionDisabled()
                 .multilineTextAlignment(.trailing)
                 .focused($isFocused)
         }
