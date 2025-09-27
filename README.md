@@ -1,4 +1,4 @@
-# Vestella Set – Beacon Configuration Automation <img width="30" height="30" src="https://github.com/user-attachments/assets/266fd179-fd5b-455f-8a9a-702db5d34d1a" />
+# Vestella Set – Beacon Configuration Automation <img width="30" height="30" src="https://github.com/user-attachments/assets/64157d1d-6be1-4197-b6b8-be6b2eab8f54" />
 > Automated Minew iBeacon Configuration via OCR and QR Scanning
 <br>
 <br>
