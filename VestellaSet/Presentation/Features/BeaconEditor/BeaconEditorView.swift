@@ -25,7 +25,7 @@ internal struct BeaconEditorView: View {
                     .opacity(store.isProcessing ? 0 : 1)
                     .animation(.easeInOut, value: store.isProcessing)
                 Spacer()
-                ActionButton(type: .write) { store.send(.startConnecting) }
+                WriteButton { store.send(.startConnecting) }
             }
             .opacity(store.beacon == nil ? 0 : 1)
             .animation(.easeInOut, value: store.beacon)

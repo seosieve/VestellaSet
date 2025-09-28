@@ -20,7 +20,7 @@ struct BeaconImportView: View {
             VStack {
                 BackButton { store.send(.clickBackButton) }
                 Spacer()
-                ActionButton(type: .save) { store.send(.clickSaveButton) }
+                SaveButton { store.send(.clickSaveButton) }
                     .opacity(store.isFinished ? 1 : 0)
                     .animation(.easeInOut, value: store.isFinished)
             }

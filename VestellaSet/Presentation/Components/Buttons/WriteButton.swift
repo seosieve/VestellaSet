@@ -1,5 +1,5 @@
 //
-//  ActionButton.swift
+//  WriteButton.swift
 //  VestellaSet
 //
 //  Created by 서충원 on 8/19/25.
@@ -8,10 +8,9 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct ActionButton: View {
+struct WriteButton: View {
     @State var isClicked: Bool = false
     
-    var type: ActionInfoType
     var action: () -> Void
     
     var body: some View {
@@ -22,10 +21,10 @@ struct ActionButton: View {
             ZStack {
                 LoadingDotsView()
                     .opacity(isClicked ? 1 : 0)
-                Text(type.title)
+                Text(ActionInfoType.write.title)
                     .font(Manrope.bold(size: 17))
                     .foregroundStyle(Color.mintBlack)
-                    .padding(.vertical, 10)
+                    .padding(.vertical, Spacing.s12)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .opacity(isClicked ? 0 : 1)
             }
