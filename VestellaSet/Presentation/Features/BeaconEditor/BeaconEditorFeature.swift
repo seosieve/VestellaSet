@@ -64,6 +64,7 @@ struct BeaconEditorFeature {
                     
                     _ = await (notFoundTask, foundTask, connectTask)
                 }
+                
             case .increaseTimeoutCounter:
                 state.timeoutCounter += 1
                 switch state.timeoutCounter {
@@ -72,9 +73,11 @@ struct BeaconEditorFeature {
                 default:
                     return .none
                 }
+                
             case .updateBeacon(let beacon):
                 state.beacon = beacon
                 return .none
+                
             case .updateConnectionState(let connection):
                 state.connectionState = connection
                 switch state.connectionState {
@@ -98,6 +101,7 @@ struct BeaconEditorFeature {
                 state.beaconClient?.startConnecting(state.beacon)
                 state.isProcessing = true
                 return .none
+                
             case .startWritting:
                 let target = state.target
                 let uuid = userDefaults.uuid()
@@ -108,11 +112,14 @@ struct BeaconEditorFeature {
                 return .run { send in
                     await send(.appendCompleteList)
                 }
+                
             case .appendCompleteList:
                 userDefaults.appendCompleteList(state.target, state.identifier)
                 return .none
+                
             case .navigateToScanner:
                 return .none
+                
             case .navigateToDashBoard:
                 return .none
             }

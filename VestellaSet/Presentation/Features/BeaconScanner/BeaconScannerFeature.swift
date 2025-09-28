@@ -34,6 +34,7 @@ struct BeaconScannerFeature {
                 state.isScanning = false
                 state.isFinished = true
                 return .none
+                
             case .setIdentifier(let identifier):
                 state.identifier = identifier
                 let target = state.target
@@ -42,8 +43,10 @@ struct BeaconScannerFeature {
                     try await Task.sleep(for: .seconds(0.6))
                     await send(.navigateToEditor(target, identifier))
                 }
+                
             case .navigateToEditor:
                 return .none
+                
             case .clickBackButton:
                 return .run { _ in await self.dismiss() }
             }

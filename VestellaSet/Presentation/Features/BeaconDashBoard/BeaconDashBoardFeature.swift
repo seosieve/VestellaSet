@@ -36,14 +36,12 @@ struct BeaconDashBoardFeature {
                 let option = state.option
                 state.targetList = userDefaults.targetList()
                 state.completeList = userDefaults.completeList()
-                return .run { send in
-                    await send(.changeFilteredList(option))
-                }
+                return .run { send in await send(.changeFilteredList(option)) }
+                
             case .changeOption(let option):
                 state.option = option
-                return .run { send in
-                    await send(.changeFilteredList(option))
-                }
+                return .run { send in await send(.changeFilteredList(option)) }
+                
             case .changeFilteredList(let option):
                 switch option {
                 case .all:
@@ -54,10 +52,13 @@ struct BeaconDashBoardFeature {
                     state.filteredList = state.targetList.filter { state.completeList[$0] == nil }
                 }
                 return .none
+                
             case .clickImportButton:
                 return .none
+                
             case .clickSettingButton:
                 return .none
+                
             case .clickTargetCell:
                 return .none
             }

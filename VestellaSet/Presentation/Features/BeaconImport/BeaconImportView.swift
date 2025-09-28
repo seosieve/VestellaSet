@@ -20,9 +20,7 @@ struct BeaconImportView: View {
             VStack {
                 BackButton { store.send(.clickBackButton) }
                 Spacer()
-                SaveButton { store.send(.clickSaveButton) }
-                    .opacity(store.isFinished ? 1 : 0)
-                    .animation(.easeInOut, value: store.isFinished)
+                SaveQRButton(store: store) { store.send(.clickSaveButton) }
             }
         }
         .navigationBarBackButtonHidden()

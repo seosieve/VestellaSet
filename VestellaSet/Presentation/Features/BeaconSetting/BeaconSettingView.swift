@@ -22,7 +22,7 @@ struct BeaconSettingView: View {
                     GlassTextField(store: store, isFocused: $isFocused)
                     GlassSelectionButton(type: .interval(store.interval)) { isFocused = false; store.send(.showSheet(.interval))}
                     GlassSelectionButton(type: .power(store.power)) { isFocused = false; store.send(.showSheet(.power))}
-                    SaveButton { store.send(.clickSaveButton) }
+                    SaveSettingButton(store: store) { store.send(.clickSaveButton) }
                     Spacer()
                 }
                 .blur(radius: store.isSheetPresented ? Radius.s8 : Radius.zero)

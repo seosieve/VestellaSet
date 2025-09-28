@@ -48,24 +48,30 @@ struct BeaconImportFeature {
                     await send(.stopScanning)
                 }
                 .cancellable(id: CancelID.scannerAnimation)
+                
             case .stopScanning:
                 state.isScanning = false
                 state.isFinished = true
                 return .run { _ in Haptic.softImpact() }
+                
             case .setTargetList(let targetList):
                 state.targetList = targetList
                 return .none
+                
             case .setMajor(let major):
                 state.major = major
                 return .none
+                
             case .setCount(let count):
                 state.count = count
                 return .none
+                
             case .clickBackButton:
                 return .merge(
                     .cancel(id: CancelID.scannerAnimation),
                     .run { _ in await self.dismiss() }
                 )
+                
             case .clickSaveButton:
                 userDefaults.setTargetList(state.targetList)
                 userDefaults.resetCompleteList()
