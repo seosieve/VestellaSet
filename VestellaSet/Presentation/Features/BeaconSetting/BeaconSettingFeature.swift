@@ -16,7 +16,7 @@ struct BeaconSettingFeature {
     struct State {
         var isSheetPresented: Bool = false
         var sheetType: SettingSheetType = .interval
-        var uuid: String = Vestella.internalUUID
+        var uuid: String = ""
         var interval: Int = 1
         var power: Int = 1
     }
@@ -38,6 +38,7 @@ struct BeaconSettingFeature {
             case .binding:
                 return .none
             case .onAppear:
+                state.uuid = userDefaults.uuid()
                 state.interval = userDefaults.broadcastInterval()
                 state.power = userDefaults.transmissionPower()
                 return .none
@@ -60,6 +61,7 @@ struct BeaconSettingFeature {
             case .clickBackButton:
                 return .run { _ in await self.dismiss() }
             case .clickSaveButton:
+                userDefaults.setUuid(state.uuid)
                 userDefaults.setBroadcastInterval(state.interval)
                 userDefaults.setTransmissionPower(state.power)
                 return .run { _ in await self.dismiss() }
