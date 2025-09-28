@@ -22,6 +22,7 @@ struct GlassTextField: View {
                 .font(Manrope.bold(size: 16))
                 .autocorrectionDisabled()
                 .multilineTextAlignment(.trailing)
+                .keyboardType(.asciiCapable)
                 .focused($isFocused)
         }
         .padding(.horizontal, Spacing.s16)

@@ -14,7 +14,7 @@ enum SettingSheetType {
     var title: String {
         switch self {
         case .interval: return "BroadcastInterval"
-        case .power: return "TransmissonPower"
+        case .power: return "TransmissionPower"
         }
     }
     

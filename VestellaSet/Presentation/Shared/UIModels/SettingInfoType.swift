@@ -15,8 +15,8 @@ enum SettingInfoType {
     var title: String {
         switch self {
         case .uuid: "UUID"
-        case .interval: "BroadCastInterval"
-        case .power: "TransmissonPower"
+        case .interval: "BroadcastInterval"
+        case .power: "TransmissionPower"
         }
     }
     
