@@ -11,10 +11,12 @@ import ComposableArchitecture
 struct BeaconDashboardView: View {
     let store: StoreOf<BeaconDashBoardFeature>
     
+    @FocusState private var isFocused: Bool
+    
     var body: some View {
         VStack {
             DashBoardHeaderContainer(store: store)
-            DashBoardTextFieldView(store: store)
+            DashBoardTextFieldView(store: store, isFocused: $isFocused)
             DashBoardPickerContainer(store: store)
             DashBoardSortButton()
             BeaconListContainer(store: store)
@@ -22,6 +24,7 @@ struct BeaconDashboardView: View {
         .monoBackground()
         .navigationBarBackButtonHidden()
         .onAppear { store.send(.refreshData) }
+        .onTapGesture { isFocused = false }
         .task { printMyAppUserDefaults() }
     }
 }

@@ -13,4 +13,10 @@ extension Text {
             .font(Manrope.regular(size: 16))
             .foregroundColor(.monoDark)
     }
+    
+    static var keywordPlaceholder: Text {
+        Text(TextMessage.enterKeyword)
+            .font(Manrope.regular(size: 16))
+            .foregroundColor(.monoDark)
+    }
 }

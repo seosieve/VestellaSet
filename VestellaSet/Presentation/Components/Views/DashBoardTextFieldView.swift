@@ -11,6 +11,8 @@ import ComposableArchitecture
 struct DashBoardTextFieldView: View {
     let store: StoreOf<BeaconDashBoardFeature>
     
+    @FocusState.Binding var isFocused: Bool
+    
     @State private var text: String = ""
     
     var body: some View {
@@ -18,13 +20,14 @@ struct DashBoardTextFieldView: View {
             Image.searchIcon
                 .resizable()
                 .frame(width: 20, height: 20)
-                .foregroundColor(Color.monoMedium)
+                .foregroundColor(Color.monoDark)
             
-            TextField(TextMessage.enterKeyword, text: $text)
+            TextField("", text: $text, prompt: Text.keywordPlaceholder)
                 .frame(height: 44)
                 .tint(.mintBase)
-                .autocapitalization(.none)
+                .autocorrectionDisabled()
                 .disableAutocorrection(true)
+                .focused($isFocused)
         }
         .padding(.horizontal, Spacing.s16)
         .background(Color.monoShadow)
