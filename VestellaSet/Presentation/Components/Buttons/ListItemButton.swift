@@ -12,8 +12,10 @@ struct ListItemButton: View {
     let store: StoreOf<BeaconDashBoardFeature>
     let target: String
     
+    @FocusState.Binding var isFocused: Bool
+    
     var body: some View {
-        Button(action: { store.send(.clickTargetCell(target)) }) {
+        Button(action: { isFocused = false; store.send(.clickTargetCell(target)) }) {
             HStack(spacing: Spacing.s16) {
                 Text(target)
                     .foregroundStyle(Color.monoWhite)

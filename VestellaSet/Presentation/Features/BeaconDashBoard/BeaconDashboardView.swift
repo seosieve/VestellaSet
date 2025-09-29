@@ -19,7 +19,7 @@ struct BeaconDashboardView: View {
             DashBoardTextFieldView(store: store, isFocused: $isFocused)
             DashBoardPickerContainer(store: store)
             DashBoardSortButton()
-            BeaconListContainer(store: store)
+            BeaconListContainer(store: store, isFocused: $isFocused)
         }
         .monoBackground()
         .navigationBarBackButtonHidden()

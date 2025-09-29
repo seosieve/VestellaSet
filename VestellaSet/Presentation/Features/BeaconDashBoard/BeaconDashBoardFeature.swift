@@ -37,10 +37,14 @@ struct BeaconDashBoardFeature {
             switch action {
             case .binding:
                 print(state.keyword)
+                if !state.keyword.isEmpty {
+                    state.filteredList = state.targetList.filter { $0.contains(state.keyword) }
+                }
                 return .none
                 
             case .refreshData:
                 let option = state.option
+                state.keyword = ""
                 state.targetList = userDefaults.targetList()
                 state.completeList = userDefaults.completeList()
                 return .run { send in await send(.changeFilteredList(option)) }

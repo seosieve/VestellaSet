@@ -11,12 +11,14 @@ import ComposableArchitecture
 struct BeaconListContainer: View {
     let store: StoreOf<BeaconDashBoardFeature>
     
+    @FocusState.Binding var isFocused: Bool
+    
     var body: some View {
         ZStack {
             ScrollView {
                 VStack(spacing: Spacing.zero) {
                     ForEach(store.filteredList, id: \.self) { target in
-                        ListItemButton(store: store, target: target)
+                        ListItemButton(store: store, target: target, isFocused: $isFocused)
                         ListDividerView(count: store.filteredList.count, index: store.filteredList.firstIndex(of: target) ?? 0)
                     }
                 }
