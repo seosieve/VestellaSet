@@ -12,7 +12,6 @@ struct DashBoardTextFieldView: View {
     let store: StoreOf<BeaconDashBoardFeature>
     
     @State private var text: String = ""
-    var placeholder: String = "Search by UUID, Major, or Minor"
     
     var body: some View {
         HStack(spacing: Spacing.s8) {
@@ -21,7 +20,7 @@ struct DashBoardTextFieldView: View {
                 .frame(width: 20, height: 20)
                 .foregroundColor(Color.monoMedium)
             
-            TextField(placeholder, text: $text)
+            TextField(TextMessage.enterKeyword, text: $text)
                 .frame(height: 44)
                 .tint(.mintBase)
                 .autocapitalization(.none)

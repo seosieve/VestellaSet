@@ -54,4 +54,6 @@ enum TextMessage {
     static let detectingQR: String = "Detecting the QR code"
     static let scanningQR: String = "Scanning the QR code"
     static let enterUUID: String = "Enter your 32-character UUID"
+    static let enterKeyword: String = "Search by UUID, Major, or Minor"
+    static let emptyList: String = "No beacons in your list"
 }

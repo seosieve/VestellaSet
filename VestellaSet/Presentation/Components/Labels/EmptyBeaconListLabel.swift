@@ -18,7 +18,7 @@ struct EmptyBeaconListLabel: View {
                 .frame(width: 36, height: 36)
                 .foregroundStyle(Color.monoDark)
             
-            Text("No beacons in your list")
+            Text(TextMessage.emptyList)
                 .font(Manrope.regular(size: 16))
                 .foregroundStyle(Color.monoDark)
                 .padding(.bottom, Spacing.s100)
