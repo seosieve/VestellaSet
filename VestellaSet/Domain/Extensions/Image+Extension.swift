@@ -12,6 +12,7 @@ extension Image {
     static let bluetoothIcon = Image("Bluetooth")
     static let checkIcon = Image("Check")
     static let chevronDownIcon = Image("ChevronDown")
+    static let emptyList = Image("EmptyList")
     static let importIcon = Image("Import")
     static let searchIcon = Image("Search")
     static let settingIcon = Image("Setting")
