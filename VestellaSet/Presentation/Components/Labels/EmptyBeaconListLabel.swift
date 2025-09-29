@@ -21,8 +21,8 @@ struct EmptyBeaconListLabel: View {
             Text(TextMessage.emptyList)
                 .font(Manrope.regular(size: 16))
                 .foregroundStyle(Color.monoDark)
-                .padding(.bottom, Spacing.s100)
         }
         .opacity(store.filteredList.isEmpty ? 1 : 0)
+        .padding(.bottom, Spacing.s100)
     }
 }

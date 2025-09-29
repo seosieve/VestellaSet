@@ -28,5 +28,6 @@ struct BeaconListContainer: View {
             
             EmptyBeaconListLabel(store: store)
         }
+        .ignoresSafeArea(.keyboard)
     }
 }

@@ -9,11 +9,8 @@ import SwiftUI
 import ComposableArchitecture
 
 struct DashBoardTextFieldView: View {
-    let store: StoreOf<BeaconDashBoardFeature>
-    
+    @Bindable var store: StoreOf<BeaconDashBoardFeature>
     @FocusState.Binding var isFocused: Bool
-    
-    @State private var text: String = ""
     
     var body: some View {
         HStack(spacing: Spacing.s8) {
@@ -22,11 +19,11 @@ struct DashBoardTextFieldView: View {
                 .frame(width: 20, height: 20)
                 .foregroundColor(Color.monoDark)
             
-            TextField("", text: $text, prompt: Text.keywordPlaceholder)
+            TextField("", text: $store.keyword, prompt: Text.keywordPlaceholder)
                 .frame(height: 44)
                 .tint(.mintBase)
                 .autocorrectionDisabled()
-                .disableAutocorrection(true)
+                .keyboardType(.asciiCapable)
                 .focused($isFocused)
         }
         .padding(.horizontal, Spacing.s16)

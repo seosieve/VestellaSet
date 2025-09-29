@@ -14,13 +14,15 @@ struct BeaconDashBoardFeature {
     @ObservableState
     struct State {
         var option: DashBoardOptionType = .all
+        var keyword: String = ""
         var targetList: [String] = []
         var completeList: [String: String] = [:]
         var filteredList: [String] = []
         var percentage: Int { targetList.isEmpty ? 0 : completeList.count * 100 / targetList.count }
     }
     
-    enum Action {
+    enum Action: BindableAction {
+        case binding(BindingAction<State>)
         case refreshData
         case changeOption(DashBoardOptionType)
         case changeFilteredList(DashBoardOptionType)
@@ -30,8 +32,13 @@ struct BeaconDashBoardFeature {
     }
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
+            case .binding:
+                print(state.keyword)
+                return .none
+                
             case .refreshData:
                 let option = state.option
                 state.targetList = userDefaults.targetList()
