@@ -27,6 +27,7 @@ struct BeaconListContainer: View {
                 .padding(.horizontal, Spacing.s20)
             }
             .padding(.top, Spacing.s8)
+            .onScrollPhaseChange { if $1 == .interacting { isFocused = false } }
             
             EmptyBeaconListLabel(store: store)
         }
