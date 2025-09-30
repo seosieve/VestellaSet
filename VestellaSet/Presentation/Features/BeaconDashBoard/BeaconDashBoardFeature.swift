@@ -25,7 +25,7 @@ struct BeaconDashBoardFeature {
         case binding(BindingAction<State>)
         case refreshData
         case changeOption(DashBoardOptionType)
-        case changeFilteredList(DashBoardOptionType)
+        case changeFilteredList
         case clickImportButton
         case clickSettingButton
         case clickTargetCell(String)
@@ -36,32 +36,20 @@ struct BeaconDashBoardFeature {
         Reduce { state, action in
             switch action {
             case .binding:
-                print(state.keyword)
-                if !state.keyword.isEmpty {
-                    state.filteredList = state.targetList.filter { $0.contains(state.keyword) }
-                }
+                state.makeFilteredList()
                 return .none
                 
             case .refreshData:
-                let option = state.option
-                state.keyword = ""
                 state.targetList = userDefaults.targetList()
                 state.completeList = userDefaults.completeList()
-                return .run { send in await send(.changeFilteredList(option)) }
+                return .run { send in await send(.changeFilteredList) }
                 
             case .changeOption(let option):
                 state.option = option
-                return .run { send in await send(.changeFilteredList(option)) }
+                return .run { send in await send(.changeFilteredList) }
                 
-            case .changeFilteredList(let option):
-                switch option {
-                case .all:
-                    state.filteredList = state.targetList
-                case .completed:
-                    state.filteredList = state.targetList.filter { state.completeList[$0] != nil }
-                case .incomplete:
-                    state.filteredList = state.targetList.filter { state.completeList[$0] == nil }
-                }
+            case .changeFilteredList:
+                state.makeFilteredList()
                 return .none
                 
             case .clickImportButton:
@@ -73,6 +61,20 @@ struct BeaconDashBoardFeature {
             case .clickTargetCell:
                 return .none
             }
+        }
+    }
+}
+
+extension BeaconDashBoardFeature.State {
+    mutating func makeFilteredList() {
+        let keywordFilteredList = targetList.filter { keyword.isEmpty || $0.contains(keyword) }
+        switch option {
+        case .all:
+            filteredList = keywordFilteredList
+        case .completed:
+            filteredList = keywordFilteredList.filter { completeList[$0] != nil }
+        case .incomplete:
+            filteredList = keywordFilteredList.filter { completeList[$0] == nil }
         }
     }
 }
