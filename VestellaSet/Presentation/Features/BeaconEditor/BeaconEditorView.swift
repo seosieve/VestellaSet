@@ -20,18 +20,37 @@ internal struct BeaconEditorView: View {
             CurrentBeaconContainer(store: store)
             TargetBeaconContainer(store: store)
             
-            VStack {
-                BackButton { store.send(.navigateToDashBoard) }
-                    .opacity(store.isProcessing ? 0 : 1)
-                    .animation(.easeInOut, value: store.isProcessing)
-                Spacer()
-                WriteButton { store.send(.startConnecting) }
-            }
-            .opacity(store.beacon == nil ? 0 : 1)
-            .animation(.easeInOut, value: store.beacon)
+            BaseContainerView(store: store)
+                .opacity(store.beacon == nil ? 0 : 1)
+                .animation(.easeInOut, value: store.beacon)
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
         .onAppear { store.send(.configureBeaconClient) }
+    }
+}
+
+private struct BaseContainerView: View {
+    let store: StoreOf<BeaconEditorFeature>
+    
+    var body: some View {
+        VStack {
+            HeaderContainerView(store: store)
+            Spacer()
+            WriteButton { store.send(.startConnecting) }
+        }
+    }
+}
+
+private struct HeaderContainerView: View {
+    let store: StoreOf<BeaconEditorFeature>
+    
+    var body: some View {
+        HStack {
+            BackButton { store.send(.navigateToDashBoard) }
+                .opacity(store.isProcessing ? 0 : 1)
+                .animation(.easeInOut, value: store.isProcessing)
+            TargetInfoLabel()
+        }
     }
 }
