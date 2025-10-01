@@ -56,4 +56,6 @@ enum TextMessage {
     static let enterUUID: String = "Enter your 32-character UUID"
     static let enterKeyword: String = "Search with Major & Minor values"
     static let emptyList: String = "No beacons in your list"
+    static let currentBeacon: String = "Current Beacon Info"
+    static let targetBeacon: String = "Target Beacon Info"
 }

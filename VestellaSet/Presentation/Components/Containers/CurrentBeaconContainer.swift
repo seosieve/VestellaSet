@@ -16,7 +16,7 @@ struct CurrentBeaconContainer: View {
             let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
             
             VStack(spacing: Spacing.s12) {
-                BeaconTypeLabel(title: "Current Beacon Info")
+                BeaconTypeLabel(title: TextMessage.currentBeacon)
                 
                 HStack {
                     BeaconInfoView(type: .currentMajor(store.beacon))

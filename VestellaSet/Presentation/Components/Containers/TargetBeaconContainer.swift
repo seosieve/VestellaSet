@@ -25,7 +25,7 @@ struct TargetBeaconContainer: View {
                 .frame(maxWidth: .infinity)
                 .glassBeaconInfoStyle()
                 
-                BeaconTypeLabel(title: "Target Beacon Info")
+                BeaconTypeLabel(title: TextMessage.targetBeacon)
             }
             .padding(.horizontal, Spacing.s20)
             .position(center)
