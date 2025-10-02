@@ -4,7 +4,7 @@
 <br>
 
 <div align="center">
-  <a href="https://apps.apple.com/kr/app/boarding/id6473780848">
+  <a href="">
     <img src="https://github.com/user-attachments/assets/d0bba3c3-62ff-4a7c-b859-9854f5e0702b" alt="Download on the App Store" style="width: 300px">
   </a>
   <br>
