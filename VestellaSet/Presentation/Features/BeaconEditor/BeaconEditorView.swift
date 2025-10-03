@@ -19,10 +19,7 @@ internal struct BeaconEditorView: View {
             GlowAnimationView(store: store)
             CurrentBeaconContainer(store: store)
             TargetBeaconContainer(store: store)
-            
             BaseContainerView(store: store)
-                .opacity(store.beacon == nil ? 0 : 1)
-                .animation(.easeInOut, value: store.beacon)
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
@@ -39,6 +36,8 @@ private struct BaseContainerView: View {
             Spacer()
             WriteButton { store.send(.startConnecting) }
         }
+        .opacity(store.beacon == nil ? 0 : 1)
+        .animation(.easeInOut, value: store.beacon)
     }
 }
 
@@ -50,7 +49,9 @@ private struct HeaderContainerView: View {
             BackButton { store.send(.navigateToDashBoard) }
                 .opacity(store.isProcessing ? 0 : 1)
                 .animation(.easeInOut, value: store.isProcessing)
-            TargetInfoLabel()
+            TargetInfoButton()
         }
     }
 }
+
+

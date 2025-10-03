@@ -14,6 +14,7 @@ extension Image {
     static let chevronDownIcon = Image("ChevronDown")
     static let emptyList = Image("EmptyList")
     static let importIcon = Image("Import")
+    static let infoIcon = Image("Info")
     static let searchIcon = Image("Search")
     static let settingIcon = Image("Setting")
     static let sortIcon = Image("Sort")
