@@ -10,11 +10,13 @@ import Foundation
 enum SettingSheetType {
     case interval
     case power
+    case uuid
     
     var title: String {
         switch self {
         case .interval: return "BroadcastInterval"
         case .power: return "TransmissionPower"
+        case .uuid: return "UUID"
         }
     }
     
@@ -43,12 +45,14 @@ enum SettingSheetType {
                 SheetItem(index: 6, value: "0dBm"),
                 SheetItem(index: 7, value: "4dBm"),
             ]
+        default: return []
         }
     }
     
     var height: CGFloat {
         switch self {
         case .interval, .power: return CGFloat(self.item.count) * Sheet.itemHeight
+        default: return 0
         }
     }
     

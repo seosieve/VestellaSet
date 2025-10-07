@@ -14,6 +14,9 @@ struct BeaconEditorFeature {
     
     @ObservableState
     struct State {
+        var uuid: String = ""
+        var interval: Int = 1
+        var power: Int = 1
         var beaconClient: BeaconClient?
         var target: String
         var identifier: String
@@ -25,6 +28,7 @@ struct BeaconEditorFeature {
     }
     
     enum Action {
+        case onAppear
         case configureBeaconClient
         case updateBeacon(MinewBeacon)
         case updateConnectionState(ConnectionState)
@@ -39,6 +43,14 @@ struct BeaconEditorFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                state.uuid = userDefaults.uuid()
+                state.interval = userDefaults.broadcastInterval()
+                state.power = userDefaults.transmissionPower()
+                return .run { send in
+                    await send(.configureBeaconClient)
+                }
+                
             case .configureBeaconClient:
                 let client = BeaconClient()
                 client.setIdentifier(state.identifier)

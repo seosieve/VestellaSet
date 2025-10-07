@@ -6,13 +6,25 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct TargetInfoButton: View {
+    let store: StoreOf<BeaconEditorFeature>
+    
     var body: some View {
         Menu {
-            Text("Test")
-            Text("Test")
-            Text("Test")
+            Button(action: {}) {
+                Text(SettingSheetType.uuid.title)
+                Text(store.uuid)
+            }
+            Button(action: {}) {
+                Text(SettingSheetType.interval.title)
+                Text("\(store.interval) (\(SettingSheetType.interval.item[store.interval - 1].value))")
+            }
+            Button(action: {}) {
+                Text(SettingSheetType.power.title)
+                Text("\(store.power) (\(SettingSheetType.power.item[store.power - 1].value))")
+            }
         } label: {
             ZStack {
                 Image.infoIcon

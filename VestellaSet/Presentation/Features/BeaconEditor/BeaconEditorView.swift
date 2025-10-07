@@ -23,7 +23,7 @@ internal struct BeaconEditorView: View {
         }
         .monoBackground()
         .navigationBarBackButtonHidden()
-        .onAppear { store.send(.configureBeaconClient) }
+        .onAppear { store.send(.onAppear) }
     }
 }
 
@@ -49,7 +49,7 @@ private struct HeaderContainerView: View {
             BackButton { store.send(.navigateToDashBoard) }
                 .opacity(store.isProcessing ? 0 : 1)
                 .animation(.easeInOut, value: store.isProcessing)
-            TargetInfoButton()
+            TargetInfoButton(store: store)
         }
     }
 }

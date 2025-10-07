@@ -59,6 +59,7 @@ struct BeaconSettingFeature {
                 switch state.sheetType {
                 case .interval: state.interval = index
                 case .power: state.power = index
+                default: break
                 }
                 state.isSheetPresented = false
                 return .none
