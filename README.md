@@ -22,7 +22,7 @@
 `🧩 Simplify and automate multiple beacons to accelerate your workflow.`
 > An iOS app that automates beacon writing using **Vision and CoreBluetooth**
 - **Project Duration**: 2025.08 - 2025.10 (v1.0.0)
-- **Project Tech Stack**: SwiftUI 5.0 + TCA 1.22.3 (The Composable Architecture)
+- **Project Tech Stack**: SwiftUI 5.0 + TCA(The Composable Architecture) 1.22.3
 - **Hardware & Perception APIs**: CoreBluetooth, Vision, AVFoundation
 <br>
 
