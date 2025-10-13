@@ -29,7 +29,7 @@
 
 ## OverView
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/f5fadbde-2e09-4cee-9a80-c564b79a4e0c" width="49.5%">
+  <img src="https://github.com/user-attachments/assets/794b35d1-c08d-4dc5-a915-f55d2c72cd35" width="49.5%">
   <img src="https://github.com/user-attachments/assets/8fb842b1-fd65-419a-a9dc-df45dd499d30" width="49.5%">
 </div>
 <br>
