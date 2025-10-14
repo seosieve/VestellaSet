@@ -316,6 +316,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VestellaSet/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "주변 비콘 읽기 쓰기 기능을 위해 블루투스 권한이 필요해요.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "주변 비콘 읽기 쓰기 기능을 위해 블루투스 권한이 필요해요.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "QR, OCR 스캔 기능을 위해 카메라 권한이 필요해요.";
@@ -367,6 +368,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VestellaSet/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "주변 비콘 읽기 쓰기 기능을 위해 블루투스 권한이 필요해요.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "주변 비콘 읽기 쓰기 기능을 위해 블루투스 권한이 필요해요.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "QR, OCR 스캔 기능을 위해 카메라 권한이 필요해요.";
