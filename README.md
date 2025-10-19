@@ -34,6 +34,11 @@
 </div>
 <br>
 
+> Time Comparison Simulation
+- **Existing Problem**: Setting up 100–200 beacons with the current manufacturer app is time-consuming, labor-intensive.
+- **Approach**: Created an automation app using OCR/QR vision technologies and a customized MinewBeacon SDK.
+- **Business Impact**: Achieved a time reduction from 1m 30s to 15s *(≈83% faster)* ✅
+<br>
 
 ## Credits
 
