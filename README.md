@@ -9,7 +9,7 @@
   </a>
   <br>
   <br>
-  <img src="https://img.shields.io/badge/iOS-17.0+-darkgray?logo=apple"/>
+  <img src="https://img.shields.io/badge/iOS-18.0+-darkgray?logo=apple"/>
   <img src="https://img.shields.io/badge/Swift-v6.1.2-darkgray?logo=swift&logoColor=white"/>
   <img src="https://img.shields.io/badge/SwiftUI-gray?logo=swift&logoColor=white"/>
   <br>
