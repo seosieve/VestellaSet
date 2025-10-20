@@ -19,6 +19,15 @@
 
 
 ## About
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/7713d085-dfe9-465e-a1eb-bc91dddc89db" width="19%">
+  <img src="https://github.com/user-attachments/assets/bee36a3c-5641-412f-80ad-688ad3d23a87" width="19%">
+  <img src="https://github.com/user-attachments/assets/c84f8238-ee16-4053-acc4-61cd899931e5" width="19%">
+  <img src="https://github.com/user-attachments/assets/d4e37bf4-7751-4350-8de2-687846bb0852" width="19%">
+  <img src="https://github.com/user-attachments/assets/d551d1f7-06cf-42df-8ca2-c1492b825cf2" width="19%">
+</div>
+<br>
+
 `🧩 Simplify and automate multiple beacons to accelerate your workflow.`
 > An iOS app that automates beacon writing using **Vision and CoreBluetooth**
 - **Project Duration**: 2025.08 - 2025.10 (v1.0.0)
