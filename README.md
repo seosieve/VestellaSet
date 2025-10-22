@@ -50,8 +50,11 @@
 
 
 ## Architecture
-
-<img width="1920" height="800" alt="Image" src="https://github.com/user-attachments/assets/563cedbc-a2e8-4fdd-96a8-a0c9c7d14875" />
+![Architecture](https://github.com/user-attachments/assets/f0cdd00d-7056-4cbd-981f-12e17897447b)
+> Hardware-Integrated TCA Architecture
+- **Existing Problem**: Managing multiple hardware states (Bluetooth, Camera, Vision) simultaneously leads to race conditions and inconsistent UI updates.
+- **Approach**: Implemented TCA's unidirectional data flow with centralized state management for all hardware interactions.
+- **Technical Impact**: Eliminated state synchronization issues and achieved 100% predictable hardware state transitions ✅
 <br>
 
 
