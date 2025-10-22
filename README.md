@@ -48,6 +48,13 @@
 - **Business Impact**: Achieved a time reduction from 1m 30s to 15s *(≈83% faster)* ✅
 <br>
 
+
+## Architecture
+
+<img width="1920" height="800" alt="Image" src="https://github.com/user-attachments/assets/563cedbc-a2e8-4fdd-96a8-a0c9c7d14875" />
+<br>
+
+
 ## Credits
 
 © Minew Technology Co., Ltd. See [MinewSDK](https://github.com/minewdevelop/iOS_Pods_Minew_BeaconAdminSDK) for details.
