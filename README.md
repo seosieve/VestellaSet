@@ -58,6 +58,15 @@
 <br>
 
 
+## Trouble Shooting
+![Trouble Shooting](https://github.com/user-attachments/assets/61656894-c73b-4ef3-9ff9-ca09c0084733)
+> Obj-C Delegate → AsyncStream → TCA Action Bridging
+- **Existing Problem**: MinewSDK's Obj-C delegate callbacks could not be directly received within TCA's Swift Concurrency-based unidirectional data flow.
+- **Approach**: Bridged hardware events to TCA Actions via a 3-step conversion (Delegate → Closure → AsyncStream), monitoring 3 streams concurrently with `async let`.
+- **Technical Impact**: SDK callbacks operate as first-class citizens within TCA's unidirectional flow, managing beacon discovery, detection, and connection in a single Reducer ✅
+<br>
+
+
 ## Credits
 
 © Minew Technology Co., Ltd. See [MinewSDK](https://github.com/minewdevelop/iOS_Pods_Minew_BeaconAdminSDK) for details.
