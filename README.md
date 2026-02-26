@@ -65,7 +65,7 @@
 - **Approach**: Bridged hardware events to TCA Actions via a 3-step conversion (Delegate → Closure → AsyncStream), monitoring 3 streams concurrently with `async let`.
 - **Technical Impact**: SDK callbacks operate as first-class citizens within TCA's unidirectional flow, managing beacon discovery, detection, and connection in a single Reducer ✅
 
-> Step 1. Delegate → Closure (BeaconManager)
+> **Step 1.** Delegate → Closure (BeaconManager)
 
 `BeaconManager.swift`
 ```swift
@@ -87,7 +87,7 @@
   }
 ```
 
-> Step 2. Closure → AsyncStream (BeaconClient)
+> **Step 2.** Closure → AsyncStream (BeaconClient)
 
 `BeaconClient.swift`
 ```swift
@@ -100,7 +100,7 @@
   }
 ```
 
-> Step 3. AsyncStream → TCA Action (Reducer)
+> **Step 3.** AsyncStream → TCA Action (Reducer)
 
 `BeaconEditorFeature.swift`
 ```swift
