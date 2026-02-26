@@ -64,6 +64,59 @@
 - **Existing Problem**: MinewSDK's Obj-C delegate callbacks could not be directly received within TCA's Swift Concurrency-based unidirectional data flow.
 - **Approach**: Bridged hardware events to TCA Actions via a 3-step conversion (Delegate → Closure → AsyncStream), monitoring 3 streams concurrently with `async let`.
 - **Technical Impact**: SDK callbacks operate as first-class citizens within TCA's unidirectional flow, managing beacon discovery, detection, and connection in a single Reducer ✅
+
+> Step 1. Delegate → Closure (BeaconManager)
+
+`BeaconManager.swift`
+```swift
+  var onBeaconNotFound: (() -> Void)?
+  var onBeaconFound: ((MinewBeacon) -> Void)?
+  var onBeaconConnect: ((ConnectionState) -> Void)?
+
+  // MinewBeaconManagerDelegate
+  func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
+      let foundBeacon = beacons.first { $0.mac == identifier }
+      foundBeacon.map { onBeaconFound?($0) } ?? onBeaconNotFound?()
+  }
+```
+`MinewBeaconManagerDelegate.swift`
+```swift
+  func minewBeaconManager(_ manager: MinewBeaconManager!, didRangeBeacons beacons: [MinewBeacon]!) {
+      let foundBeacon = beacons.first { $0.mac == identifier }
+      foundBeacon.map { onBeaconFound?($0) } ?? onBeaconNotFound?()
+  }
+```
+
+> Step 2. Closure → AsyncStream (BeaconClient)
+
+`BeaconClient.swift`
+```swift
+  var onBeaconNotFound: AsyncStream<Void>
+  var onBeaconFound: AsyncStream<MinewBeacon>
+  var onBeaconConnect: AsyncStream<ConnectionState>
+
+  self.onBeaconFound = AsyncStream { continuation in
+      manager.onBeaconFound = { continuation.yield($0) }
+  }
+```
+
+> Step 3. AsyncStream → TCA Action (Reducer)
+
+`BeaconEditorFeature.swift`
+```swift
+  return .run { send in
+      async let notFound: Void = {
+          for await _ in client.onBeaconNotFound { await send(.increaseTimeoutCounter) }
+      }()
+      async let found: Void = {
+          for await beacon in client.onBeaconFound { await send(.updateBeacon(beacon)) }
+      }()
+      async let connect: Void = {
+          for await state in client.onBeaconConnect { await send(.updateConnectionState(state)) }
+      }()
+      _ = await (notFound, found, connect)
+  }
+```
 <br>
 
 
